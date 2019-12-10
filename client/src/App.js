@@ -38,10 +38,10 @@ showSkirts = () =>{
   })
 }
 
-showWomenShirts = () =>{
-  return allWomenShorts.map((eachShirt,i)=>{
+showWomenShorts = () =>{
+  return allWomenShorts.map((eachShort,i)=>{
       return(
-      <Bottom key={i} image={eachShirt.image}/>
+      <Bottom key={i} image={eachShort.image}/>
       )
   })
 }
@@ -60,7 +60,7 @@ showWomenShirts = () =>{
       <>
         <h1>Test</h1>
         {this.showSkirts()}
-        {this.showWomenShirts()}
+        {this.showWomenShorts()}
       </>
     )
   }
