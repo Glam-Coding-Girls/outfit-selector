@@ -10,7 +10,7 @@ export class App extends Component {
     skirts:{}
   }
   componentDidMount() {
-    axios.get(`http://localhost:5000/api/test`)
+    axios.get('http://localhost:5000/api/skirts')
     .then(response => {
       this.setState({ skirts:response.data });
     })

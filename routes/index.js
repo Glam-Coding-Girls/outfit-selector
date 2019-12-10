@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
 });
 
 
-router.get("/test", (req, res, next) => {
+router.get("/skirts", (req, res, next) => {
   axios.get("https://api.zinc.io/v1/search?query=skirt&page=1&retailer=amazon",
   {withCredentials: true,
     auth: {
