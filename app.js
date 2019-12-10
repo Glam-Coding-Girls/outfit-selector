@@ -9,6 +9,8 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
+const passport     = require('./config/passport');
+const session      = require('express-session');
 
 
 mongoose
@@ -20,6 +22,7 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
@@ -30,6 +33,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 // Express View engine setup
 
@@ -55,9 +64,12 @@ app.use(cors({
   origin: ['http://localhost:3000']
 }));
 
+// load our routes and pass in our app and fully configured passport
 
 const index = require('./routes/index');
 app.use('/api', index);
+const userRoute = require('./routes/user-route');
+app.use('/api', userRoute);
 
 
 module.exports = app;
