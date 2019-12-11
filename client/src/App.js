@@ -49,26 +49,26 @@ export class App extends Component {
       <header className="navheader">
       <div className="container">
       <div className="navbar">
-      <Link className="homelogo" to="/">GLAM CLOSET</Link>
-        <nav>
+          <div className="leftnav">
+          <div className="homelogo">
+            <Link to="/">GLAM CLOSET</Link>
+          </div>
           <Link to="/about">About</Link>
-          <Link to="/signup" style={{textDecoration:"none"}}><button>Sign up</button></Link>
-          <Link to="/login" style={{textDecoration:"none"}}><button>Log in</button></Link>
-          <Link to="/home">Home</Link>
-        </nav>
+          </div>
+          <div className="rightnav">
+            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
+          </div>
       </div>
       </div>
       </header>
-      <div className="container">
+      <div className="container page">
       <Switch>
             <Route exact path='/' component={HomePage} />
             <Route path='/about' component={About} />
             <Route exact path="/signup" component={Signup}/> 
             <Route exact path="/login" component={Login}/>
-            <Route exact path="/profile" component={Profile}/>  
-            <Route exact path="/home" render = { (props) => <Home {...props} clothes = {this.state.clothes}
-                                                                                  
-                                                                                  /> } />
+            <Route exact path="/profile" component={Profile}/> 
       </Switch>
       </div>
    </div>

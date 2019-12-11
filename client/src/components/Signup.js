@@ -34,8 +34,9 @@ saveUser = (e)=>{
     .catch((err)=>{
         console.log(err);
     })
-
 }
+
+
 renderRedirect = () => {
   if (this.state.redirect) {
     return <Redirect to='/login'/>
@@ -45,17 +46,21 @@ renderRedirect = () => {
         return (
             <>
             <h1>Sign up</h1>  
-            <form onSubmit={this.saveUser}>
-            <h3>Email:</h3>
-                <input type="text" name="emailInput" 
+            <form className="formstyles" onSubmit={this.saveUser}>
+            <div className="form-group">
+                <label>Email</label>
+                <input type="text" className="form-control" name="emailInput" 
                 value={this.state.emailInput} 
                 onChange={this.updateInput}/>
-            <h3>Password:</h3>  
-                <input type="text" name="passwordInput"
+            </div>
+            <div className="form-group">
+                <label>Password</label>  
+                <input type="text" className="form-control" name="passwordInput"
                 value={this.state.passwordInput} 
                 onChange={this.updateInput}/>
+            </div>
              {this.renderRedirect()}
-            <button>Create the Account</button>
+            <button type="submit" className="btn btn-primary">Create the Account</button>
             </form>         
             </>
         )

@@ -28,33 +28,66 @@ h1, h2, h3, h4, h5, h6, a {
 .App-link {
   color: #61dafb;
 }
-.container {
+/* .container {
   width: 85%;
   margin: 0 auto;
-}
+} */
 .navheader {
   background-color: #faf6f1;
   padding: 20px 0;
 }
 .navbar {
-  justify-content: flex-start;
-  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: baseline; */
   padding: 0;
 }
 .navbar a:hover {
   text-decoration: none;
   color: mediumseagreen;
 }
-nav a {
+.leftnav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+.leftnav a {
   padding-right: 20px;
   color: black;
   font-size: 1.4em;
   transition: 0.8s all;
 }
-.homelogo {
+/* .homelogo {
+  margin-right: 20px;
+} */
+.homelogo a {
   font-family: 'Alatsi', sans-serif;
   color: mediumseagreen;
   font-size: 2em;
-  margin-right: 20px;
   transition: 0.5s all;
+}
+.rightnav {
+  display: flex;
+  justify-content: flex-end;
+}
+.rightnav a {
+  padding-left: 20px;
+  color: black;
+  font-size: 1.4em;
+  transition: 0.8s all;
+}
+.page {
+  text-align: center;
+  padding: 30px 0;
+}
+.aboutcontent {
+  text-align: left;
+}
+.formstyles {
+  padding: 30px 0;
+  width: 60%;
+  margin: 0 auto;
+}
+.formstyles .form-group {
+  text-align: left;
 }
