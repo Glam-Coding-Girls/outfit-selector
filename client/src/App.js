@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import {Switch,Route, Link} from 'react-router-dom';
-import Bottom from './components/Bottom';
 import Home from './components/home-component/Home';
-import Amazon from './components/Amazon';
+import HomePage from './components/HomePage';
+import About from './components/About';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Profile from './components/Profile';
 
-let allSkirts =[];
-let allWomenShorts = [];
 
 export class App extends Component {
   state={
@@ -39,30 +40,38 @@ export class App extends Component {
          })
   } 
 
-
-
-
-
   render() {
    
       
     return (
-      <>
-        <h1>Test</h1>
-        <Link to="/home">Home</Link>
-        <Link to="/amazon">Amazon</Link>
-        
-        <Switch>
-        <Route exact path="/home" render = { (props) => <Home {...props} clothes = {this.state.clothes}
+  
+      <div className="App">
+      <header className="navheader">
+      <div className="container">
+      <div className="navbar">
+      <Link className="homelogo" to="/">GLAM CLOSET</Link>
+        <nav>
+          <Link to="/about">About</Link>
+          <Link to="/signup" style={{textDecoration:"none"}}><button>Sign up</button></Link>
+          <Link to="/login" style={{textDecoration:"none"}}><button>Log in</button></Link>
+          <Link to="/home">Home</Link>
+        </nav>
+      </div>
+      </div>
+      </header>
+      <div className="container">
+      <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/about' component={About} />
+            <Route exact path="/signup" component={Signup}/> 
+            <Route exact path="/login" component={Login}/>
+            <Route exact path="/profile" component={Profile}/>  
+            <Route exact path="/home" render = { (props) => <Home {...props} clothes = {this.state.clothes}
                                                                                   
                                                                                   /> } />
-        <Route exact path="/amazon" render = { (props) => <Amazon {...props} skirts = {this.state.skirts}
-                                                                            shorts = {this.state.womenShorts}
-                                                                                  
-                                                                                  /> } />
-        </Switch>
-        
-      </>
+      </Switch>
+      </div>
+   </div>
     )
   }
 }
