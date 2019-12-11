@@ -1,67 +1,42 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
-import Bottom from './components/Bottom';
-
-let allSkirts =[];
-let allWomenShorts = [];
+// import axios from 'axios';
+import {Switch, Link, Route} from 'react-router-dom';
+import HomePage from './components/HomePage';
+import About from './components/About';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Profile from './components/Profile';
 
 export class App extends Component {
-  state={
-    skirts:{},
-    womenShorts:{}
-  }
-  componentDidMount() {
-    axios.get('http://localhost:5000/api/skirts')
-    .then(response => {
-      this.setState({ skirts:response.data });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    axios.get('http://localhost:5000/api/women-shorts')
-    .then(response => {
-      this.setState({ womenShorts:response.data });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  } 
-
-
-
-showSkirts = () =>{
-  return allSkirts.map((eachSkirt,i)=>{
-      return(
-      <Bottom key={i} image={eachSkirt.image}/>
-      )
-  })
-}
-
-showWomenShorts = () =>{
-  return allWomenShorts.map((eachShort,i)=>{
-      return(
-      <Bottom key={i} image={eachShort.image}/>
-      )
-  })
-}
 
   render() {
-    if(this.state.skirts.results){
-      allSkirts = this.state.skirts.results;
-      console.log(allSkirts)
-    } 
-    if(this.state.womenShorts.results){
-      allWomenShorts = this.state.womenShorts.results;
-      console.log(allWomenShorts)
-    }
+
       
     return (
-      <>
-        <h1>Test</h1>
-        {this.showSkirts()}
-        {this.showWomenShorts()}
-      </>
+      <div className="App">
+      <header className="navheader">
+      <div className="container">
+      <div className="navbar">
+      <Link className="homelogo" to="/">GLAM CLOSET</Link>
+        <nav>
+          <Link to="/about">About</Link>
+          <Link to="/signup" style={{textDecoration:"none"}}><button>Sign up</button></Link>
+          <Link to="/login" style={{textDecoration:"none"}}><button>Log in</button></Link>
+        </nav>
+      </div>
+      </div>
+      </header>
+      <div className="container">
+      <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/about' component={About} />
+            <Route exact path="/signup" component={Signup}/> 
+            <Route exact path="/login" component={Login}/>
+            <Route exact path="/profile" component={Profile}/>  
+      </Switch>
+      </div>
+      </div>
     )
   }
 }
