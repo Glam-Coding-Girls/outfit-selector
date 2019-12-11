@@ -6,13 +6,14 @@ import Bottom from './Bottom/Bottom';
 export class HomePage extends Component {
   state={
     skirts:[],
-    womenShorts:{},
-    skirtImages: []
+    womenShorts:[],
+    skirtImages: [],
+    shortsImages: []
   }
   componentDidMount() {
     axios.get('http://localhost:5000/api/skirts')
     .then(response => {
-      console.log("this is skirt ",response.data.results);
+      // console.log("this is skirt ",response.data.results);
       let s = response.data.results;
       let copySkirts = [];
       for(let i = 0; i < s.length; i++) {
@@ -30,7 +31,17 @@ export class HomePage extends Component {
     });
     axios.get('http://localhost:5000/api/women-shorts')
     .then(response => {
-      this.setState({ womenShorts:response.data });
+      console.log("this is shorts ",response.data.results);
+      let ws = response.data.results;
+      let copyShorts = [];
+      for(let i = 0; i < ws.length; i++) {
+        copyShorts.push(ws[i].image);
+      }
+
+      this.setState({
+        womenShorts: ws,
+        shortsImages: copyShorts
+    });
     })
     .catch(error => {
       console.log(error);
@@ -39,9 +50,15 @@ export class HomePage extends Component {
 
 showSkirts = () =>{
   let bottomSkirtImages = [...this.state.skirtImages];
-  console.log("this is bottomSkirtImages arr", bottomSkirtImages);
+  // console.log("this is bottomSkirtImages arr", bottomSkirtImages);
   return (
   <Bottom imgs={bottomSkirtImages} />
+  )
+}
+showShorts = () =>{
+  let bottomShortstImages = [...this.state.shortsImages];
+  return (
+  <Bottom imgs={bottomShortstImages} />
   )
 }
 
@@ -52,8 +69,8 @@ showSkirts = () =>{
       <div>
       <h1>Create an Outfit!</h1>
       </div>
-
       {this.showSkirts()}
+      {this.showShorts()}
     </div>
     )
   }

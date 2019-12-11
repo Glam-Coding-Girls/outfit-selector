@@ -1,7 +1,7 @@
 .card-wrapper {
   width: 400px;
   position: relative;
-  margin-bottom: 30px;
+  margin: 0 auto 30px;
 }
 .carousel {
   position: relative;
@@ -47,3 +47,4 @@ button:hover {
   transform: rotate(-45deg);
   cursor: pointer;
 }
+button:focus {outline:0;}
