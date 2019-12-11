@@ -34,8 +34,9 @@ saveUser = (e)=>{
     .catch((err)=>{
         console.log(err);
     })
-
 }
+
+
 renderRedirect = () => {
   if (this.state.redirect) {
     return <Redirect to='/login'/>
