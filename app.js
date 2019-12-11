@@ -9,10 +9,18 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
+const session      = require('express-session')
+const passport     = require('passport');
+const Strategy     = require('passport-facebook').Strategy;
+
+const app = express();
+
+//Passport config
+require('./config/passport')(passport);
 
 
-mongoose
-  .connect('mongodb://localhost/server2', {useNewUrlParser: true})
+//mongoose config
+mongoose.connect('mongodb://localhost/server2', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -23,7 +31,6 @@ mongoose
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
-const app = express();
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -31,14 +38,34 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Express session middleware
+app.use(session({
+  secret: "basic-auth-secret",
+  save: true,
+  saveUninitialized: true
+  }));
+//Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//facebook authentication middleware
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
   src:  path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
-}));
-      
+}));     
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -55,9 +82,12 @@ app.use(cors({
   origin: ['http://localhost:3000']
 }));
 
-
+//Routes
 const index = require('./routes/index');
 app.use('/api', index);
+
+const userRoute = require('./routes/user-route');
+app.use('/api', userRoute);
 
 
 module.exports = app;

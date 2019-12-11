@@ -3,7 +3,7 @@ import axios from 'axios';
 // import {Link} from 'react-router-dom';
 import Bottom from './Bottom/Bottom';
 
-export default class Home extends Component {
+export class HomePage extends Component {
   state={
     skirts:[],
     womenShorts:{},
@@ -57,3 +57,4 @@ showSkirts = () =>{
     )
   }
 }
+export default HomePage
