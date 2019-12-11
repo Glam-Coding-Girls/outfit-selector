@@ -14,11 +14,14 @@ export class App extends Component {
   state={
     skirts:{},
     womenShorts:{},
-    clothes:[]
+    clothes:[],
+    topImages: [],
+    bottomImages: [],
   }
   componentDidMount() {
     axios.get('http://localhost:5000/api/skirts')
     .then(response => {
+   
       this.setState({ skirts:response.data });
     })
     .catch(error => {
@@ -31,15 +34,60 @@ export class App extends Component {
     .catch(error => {
       console.log(error);
     });
-    axios.get('http://localhost:5000/api/get-clothes')
-         .then(response => {
-           console.log(response)
-           this.setState({clothes: response.data.allClothes})
-         },()=>{
-           console.log(this.state.clothes)
-         })
+    this.getClothes();
+   
   } 
-
+  getClothes = async() =>{
+    await axios.get('http://localhost:5000/api/get-clothes')
+    .then(response => {
+      
+      this.setState({clothes: response.data.allClothes})
+    
+      this.createImageArrays();  
+    })
+  }
+  
+  createImageArrays =  () =>{
+    if(this.state.clothes.length > 0){
+      let tempTopArray = [];
+      let tempBottomArray = [];
+      this.state.clothes.forEach(element => {
+        if(element.name.includes('Tops')||element.name.includes('Shirts')){
+          element.data.image.forEach((img,ind)=>{
+            if(img['data-herosrc']){
+              tempTopArray.push(img['data-herosrc'])
+            } else if(img['src']){
+              tempTopArray.push(img['src']);
+            } 
+          })
+        } else if(element.name.includes('Bottoms')||element.name.includes('Pants')){
+          element.data.image.forEach((img,ind)=>{
+            if(img['data-herosrc']){
+              tempBottomArray.push(img['data-herosrc'])
+            } else if(img['src']){
+              tempBottomArray.push(img['src']);
+            } 
+          })
+        }
+      });
+      if(this.state.skirts.results){
+        
+          let tempBottom = [...tempBottomArray];
+          this.state.skirts.results.forEach((skirt,ind)=>{
+            tempBottom.push(skirt.image)
+          })
+          tempBottomArray = tempBottom;
+      
+        }
+        
+      this.setState({
+        topImages:tempTopArray,
+        bottomImages:tempBottomArray,
+      })
+    }
+   
+   
+  }
   render() {
    
       
@@ -64,7 +112,13 @@ export class App extends Component {
       </header>
       <div className="container page">
       <Switch>
-            <Route exact path='/' component={HomePage} />
+            <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
+                                                                             skirts = {this.state.skirts}
+                                                                             shorts = {this.state.womenShorts}
+                                                                             topImages = {this.state.topImages}
+                                                                             bottomImages = {this.state.bottomImages}
+                                                                               
+            /> } />
             <Route path='/about' component={About} />
             <Route exact path="/signup" component={Signup}/> 
             <Route exact path="/login" component={Login}/>
