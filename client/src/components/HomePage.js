@@ -39,13 +39,14 @@ export class HomePage extends Component {
 
 showSkirts = () =>{
   let bottomSkirtImages = [...this.state.skirtImages];
+  console.log("this is bottomSkirtImages arr", bottomSkirtImages);
   return (
-  <Bottom images={bottomSkirtImages} />
+  <Bottom imgs={bottomSkirtImages} />
   )
 }
 
   render() {
-    
+    // console.log("this is copy arr", this.state.skirtImages);
     return (
       <div>
       <div>
