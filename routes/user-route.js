@@ -1,46 +1,33 @@
 const express = require('express');
 const router  = express.Router();
-const User = require('../models/User');
-const passport = require('../config/passport')
+const bcrypt  = require('bcryptjs');
+const User    = require('../models/User')
+const passport = require('passport')
 
-router.post('/signup', (req, res, next) => {
-  User.register(req.body, req.body.password)
-    .then((user) => { 
-        req.login(user, function(err,result){
-          res.status(201).json(user)
-        })
-    })
-    .catch((err) => { 
-      res.status(500).json({ err })
-    });
-});
 
-//return await service.get('/is-logged-in');
-router.get('/is-logged-in', (req, res, next) => {  
-  res.json(req.user)
+router.post('/signup', (req,res, next) =>{
+  const salt  = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
+  const email = req.body.email;
+ 
+  User.create({email: email, password: hash})
+  .then((result)=>{
+    res.json({message: 'success', user: result})
+  })
+  .catch((err)=>{
+      next(err)
+  })
 })
-
 
 router.post('/login', passport.authenticate('local'), (req, res, next) => {
   const { user } = req;
   res.status(200).json(user);
 });
 
-router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.status(200).json({ msg: 'Logged out' });
-});
 
-router.get('/profile', isAuth, (req, res, next) => {
-  User.findById(req.user._id)
-    .then((user) => res.status(200).json({ user }))
-    .catch((err) => res.status(500).json({ err }));
-});
-
-function isAuth(req, res, next) {
-  req.isAuthenticated() ? next() : res.status(401).json({ msg: 'Log in first' });
-}
-
-
+router.post('/logout', (req, res, next)=>{
+  req.session.destroy()
+  res.json({message: 'You are logged out'})
+})
 
 module.exports = router;
