@@ -12,7 +12,8 @@ const cors         = require('cors');
 
 
 mongoose
-  .connect('mongodb://localhost/server2', {useNewUrlParser: true})
+  // .connect('mongodb://localhost/server2', {useNewUrlParser: true})
+  .connect('mongodb+srv://pradeepa:pradeepa@cluster0-t4s9i.mongodb.net/outfits?retryWrites=true&w=majority', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
