@@ -30,7 +30,7 @@ export default class Home extends Component {
         
        return imgArr.map((img,ind)=>{
            return (
-               <img key={ind} src={img['data-herosrc']} alt={img.title} />
+               <img key={ind} src={img['data-herosrc'] || img['src']} alt={img.title} />
            )
        })
     }

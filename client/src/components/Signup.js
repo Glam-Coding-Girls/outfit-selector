@@ -75,22 +75,28 @@ console.log(this.state)
     render() {
         return (
             <>        
-            <h1>Sign up</h1>  
-            <form onSubmit={this.saveUser}>
-            <h3>Email:</h3>
-                <input type="text" name="emailInput" 
+    <h1>Sign up</h1>  
+    <form className="formstyles" onSubmit={this.saveUser}>
+        <div className="form-group">
+                <label>Email</label>
+                <input type="text" className="form-control" name="emailInput" 
                 value={this.state.emailInput} 
                 onChange={this.updateInput}/>
-            <h3>Password:</h3>  
-                <input type="password" name="passwordInput"
+        </div>
+        <div className="form-group">
+                <label>Password:</label>  
+                <input type="password" className="form-control" name="passwordInput"
                 value={this.state.passwordInput} 
                 onChange={this.updateInput}/>
-            <h3>Type your password again:</h3>  
-                <input type="password" name="passwordInput2"
+        </div>
+        <div className="form-group">
+                <label>Type your password again:</label>  
+                <input type="password" className="form-control" name="passwordInput2"
                 value={this.state.passwordInput2} 
                 onChange={this.updateInput}/>
-            <button>Create the Account</button>
-            </form> 
+        </div>
+        <button type="submit" className="btn btn-primary">Create the Account</button>
+    </form> 
             {this.signupValidation()}    
             </>
         )

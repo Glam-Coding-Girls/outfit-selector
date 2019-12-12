@@ -68,22 +68,23 @@ if (errorMsg) {
         return (
             <>
             <h1>Log in</h1>  
-            <form onSubmit={this.logTheUser}>
-            <h3>Email:</h3>
-                <input type="text" name="emailInput"
+            <form className="formstyles" onSubmit={this.logTheUser}>
+            <div className="form-group">
+            <label>Email:</label>
+                <input type="text" className="form-control"  name="emailInput"
                   value={this.state.emailInput}
-                  onChange={this.updateInput}  
-                />
-            <h3>Password:</h3>  
-                <input type="password" name="passwordInput"
+                  onChange={this.updateInput}/>
+                  </div>
+            <div className="form-group">
+            <label>Password:</label>  
+            <input type="password" className="form-control" name="passwordInput"
                 value={this.state.passwordInput}
-                onChange={this.updateInput}
-
-                />
+                onChange={this.updateInput}/>
+            </div>
             <p>If you don't have an account yet, you can create one
             <Link to="/signup" style={{textDecoration:"none"}}> here</Link></p>
             {this.renderRedirect()}
-            <button>Log in</button>
+            <button type="submit" className="btn btn-primary">Log in</button>
             </form>
             {this.loginValidation()} 
                 
