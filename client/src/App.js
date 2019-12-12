@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import {Switch,Route, Link} from 'react-router-dom';
-// import Home from './components/home-component/Home';
 import HomePage from './components/Homepage/HomePage';
 import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import TopOutfits from './components/TopOutfits';
-
 
 
 export class App extends Component {
@@ -19,103 +17,33 @@ export class App extends Component {
     clothes:[],
     topImages: [],
     bottomImages: [],
-    menArr: [],
-    womenArr: [],
-    defaultTopWomenImages: [],
-    defaultBottomWomenImages: []
+    defaultSelection:'Women'
   }
   componentDidMount() {
-    axios.get('http://localhost:5000/api/skirts')
-    .then(response => {
-   
-      this.setState({ skirts:response.data });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    axios.get('http://localhost:5000/api/women-shorts')
-    .then(response => {
-      this.setState({ womenShorts:response.data });
-    })
-    .catch(error => {
-      console.log(error);
-    });
     this.getClothes();
-   
   } 
   getClothes = async() =>{
     await axios.get('http://localhost:5000/api/get-clothes')
     .then(response => {
       console.log(response.data)
       this.setState({clothes: response.data.allClothes})
-    
       this.createImageArrays();  
-      this.createMenArrays();
-      this.createWomenArrays();
-      this.createDefaultArray();
     })
   }
-
-  createMenArrays = () => {
-    if(this.state.clothes.length > 0){
-      let tempManArr = [];
-      this.state.clothes.forEach(pickmen => {
-        if(pickmen.type.includes('Men')) {
-          tempManArr.push(pickmen);
-        }
-      })
-      this.setState({
-        menArr:tempManArr
-      })
-    }
-  }
-  createWomenArrays = () => {
-    if(this.state.clothes.length > 0){
-      let tempWomanArr = [];
-      this.state.clothes.forEach(pickwomen => {
-        if(pickwomen.type.includes('Women')) {
-          tempWomanArr.push(pickwomen);
-        }
-      })
-      this.setState({
-        womenArr:tempWomanArr
-      })
-    }
-  }
-  createDefaultArray = () => {
-    let temporaryDefaultWomenTop = [];
-    let temporaryDefaultWomenBottom = [];
-    let newDefaultWomenArr = [...this.state.womenArr];
-    newDefaultWomenArr.forEach(defaultwomenitem => {
-      if(defaultwomenitem.name.includes('Tops')||defaultwomenitem.name.includes('Shirts')) {
-        defaultwomenitem.data.image.forEach((img)=>{
-          if(img['data-herosrc']){
-            temporaryDefaultWomenTop.push(img['data-herosrc'])
-          } else if(img['src']){
-            temporaryDefaultWomenTop.push(img['src'])
-          }
-        })
-      } else if (defaultwomenitem.name.includes('Pants')){
-        defaultwomenitem.data.image.forEach((img)=>{
-          if(img['data-herosrc']){
-            temporaryDefaultWomenBottom.push(img['data-herosrc'])
-          } else if(img['src']){
-            temporaryDefaultWomenBottom.push(img['src'])
-          }
-        })
-      }
-    })
+ setDefaultSelection = (selection) =>{
     this.setState({
-      defaultTopWomenImages: temporaryDefaultWomenTop,
-      defaultBottomWomenImages: temporaryDefaultWomenBottom
-    })
-  }
+       defaultSelection:selection
+      },()=>{
+    this.createImageArrays(); 
+  })
+ }
   
   createImageArrays =  () =>{
     if(this.state.clothes.length > 0){
       let tempTopArray = [];
       let tempBottomArray = [];
       this.state.clothes.forEach(element => {
+        if(element.type === this.state.defaultSelection){
         if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
           element.data.image.forEach((img,ind)=>{
             if(img['data-herosrc']){
@@ -133,17 +61,8 @@ export class App extends Component {
             } 
           })
         }
-      });
-      if(this.state.skirts.results){
-        
-          let tempBottom = [...tempBottomArray];
-          this.state.skirts.results.forEach((skirt,ind)=>{
-            tempBottom.push(skirt.image)
-          })
-          tempBottomArray = tempBottom;
-      
-        }
-        
+      }
+      });  
       this.setState({
         topImages:tempTopArray,
         bottomImages:tempBottomArray,
@@ -153,7 +72,6 @@ export class App extends Component {
    
   }
   render() {
-    // console.log("men arrays", this.state.menArr);
     return (
   
       <div className="App">
@@ -189,14 +107,10 @@ export class App extends Component {
       <div className="container-fluid page">
       <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
-                                                                             skirts = {this.state.skirts}
-                                                                             shorts = {this.state.womenShorts}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
-                                                                             selectMen = {this.state.menArr}
-                                                                             selectWomen = {this.state.womenArr}
-                                                                             topDefault = {this.state.defaultTopWomenImages}
-                                                                             bottomDefault = {this.state.defaultBottomWomenImages}
+                                                                            defaultSelection = {this.state.defaultSelection}
+                                                                            setDefaultSelection = {this.setDefaultSelection}
                                                                                
             /> } />
             <Route path='/about' component={About} />
