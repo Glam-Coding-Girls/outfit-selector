@@ -46,7 +46,7 @@ export class App extends Component {
   getClothes = async() =>{
     await axios.get('http://localhost:5000/api/get-clothes')
     .then(response => {
-      
+      console.log(response.data)
       this.setState({clothes: response.data.allClothes})
     
       this.createImageArrays();  
@@ -117,7 +117,7 @@ export class App extends Component {
       let tempTopArray = [];
       let tempBottomArray = [];
       this.state.clothes.forEach(element => {
-        if(element.name.includes('Tops')||element.name.includes('Shirts')){
+        if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
           element.data.image.forEach((img,ind)=>{
             if(img['data-herosrc']){
               tempTopArray.push(img['data-herosrc'])
@@ -125,7 +125,7 @@ export class App extends Component {
               tempTopArray.push(img['src']);
             } 
           })
-        } else if(element.name.includes('Bottoms')||element.name.includes('Pants')){
+        } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
           element.data.image.forEach((img,ind)=>{
             if(img['data-herosrc']){
               tempBottomArray.push(img['data-herosrc'])
