@@ -3,13 +3,16 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 
+let errorMsg = ""
+let theError = ""
+let redirect = false
+let user = ""
 export class Login extends Component {
 
 state = {
         emailInput: "",
         passwordInput: "",
-        currentlyLoggedInUser: null,
-        redirect: false
+        currentlyLoggedInUser: null,   
     }
 
 
@@ -17,26 +20,62 @@ updateInput = (e) =>{
 this.setState({[e.target.name]: e.target.value});
 }
 
-   
+logTheUser= (e) =>{
+    e.preventDefault();
+    axios.post('http://localhost:5000/api/login', {
+        email: this.state.emailInput,
+        password: this.state.passwordInput,
+    }, {
+        withCredentials: true
+    })
+    .then((response)=>{
+        if(response.data.error){         
+            errorMsg= response.data.error
+        }
+      user = response.data.user.email;
+      this.setState({currentlyLoggedInUser: response.data})
+      if(user){
+          redirect=true
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+      this.setState({currentlyLoggedInUser: null})
+    })
+  }
 
 renderRedirect = () => {
-if (this.state.redirect) {
-return <Redirect to='/profile' />
-}
- }
+    if (redirect) {
+    return <Redirect to='/profile' />
+    }
+     }
 
+loginValidation = () => {
+
+if (errorMsg) {
+    console.log(this.state)
+    console.log(redirect)
+    theError = errorMsg
+    //reset errorMsg variable:
+    errorMsg=""
+    return (
+    <div className="alert alert-danger" role="alert"><p>{theError}</p></div>)
+            } 
+        }
+       
     render() {
+
         return (
             <>
             <h1>Log in</h1>  
-            <form onSubmit={this.saveInput}>
+            <form onSubmit={this.logTheUser}>
             <h3>Email:</h3>
                 <input type="text" name="emailInput"
                   value={this.state.emailInput}
                   onChange={this.updateInput}  
                 />
             <h3>Password:</h3>  
-                <input type="text" name="passwordInput"
+                <input type="password" name="passwordInput"
                 value={this.state.passwordInput}
                 onChange={this.updateInput}
 
@@ -46,6 +85,7 @@ return <Redirect to='/profile' />
             {this.renderRedirect()}
             <button>Log in</button>
             </form>
+            {this.loginValidation()} 
                 
             </>
         )

@@ -10,35 +10,14 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 
 
+
 export class App extends Component {
   state={
     skirts:{},
     womenShorts:{},
-    clothes:[]
+    clothes:[],
   }
-  componentDidMount() {
-    axios.get('http://localhost:5000/api/skirts')
-    .then(response => {
-      this.setState({ skirts:response.data });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    axios.get('http://localhost:5000/api/women-shorts')
-    .then(response => {
-      this.setState({ womenShorts:response.data });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-    axios.get('http://localhost:5000/api/get-clothes')
-         .then(response => {
-           console.log(response)
-           this.setState({clothes: response.data.allClothes})
-         },()=>{
-           console.log(this.state.clothes)
-         })
-  } 
+
 
   render() {
    

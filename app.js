@@ -10,13 +10,11 @@ const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
 const session      = require('express-session')
-const passport     = require('passport');
-const Strategy     = require('passport-facebook').Strategy;
+
 
 const app = express();
 
-//Passport config
-require('./config/passport')(passport);
+
 
 
 mongoose
@@ -47,21 +45,6 @@ app.use(session({
   save: true,
   saveUninitialized: true
   }));
-//Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-//facebook authentication middleware
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
-
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
