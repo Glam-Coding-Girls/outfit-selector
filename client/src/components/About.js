@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class About extends Component {
   render() {
     return (
-      <div className="container">
+      <div className="container innerpage">
         <h1>About</h1>
         <div className="aboutcontent">
         <p>Glam Closet is a virtual dressing room that helps you select your favorite outfit and save to your personal portfolio. We want you to get the most out of what you already have in your closet and to choose new pieces that will integrate well into your wardrobe as a whole.</p>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import {Switch,Route, Link} from 'react-router-dom';
-import Home from './components/home-component/Home';
-import HomePage from './components/HomePage';
+// import Home from './components/home-component/Home';
+import HomePage from './components/Homepage/HomePage';
 import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -19,6 +19,10 @@ export class App extends Component {
     clothes:[],
     topImages: [],
     bottomImages: [],
+    menArr: [],
+    womenArr: [],
+    defaultTopWomenImages: [],
+    defaultBottomWomenImages: []
   }
   componentDidMount() {
     axios.get('http://localhost:5000/api/skirts')
@@ -46,6 +50,64 @@ export class App extends Component {
       this.setState({clothes: response.data.allClothes})
     
       this.createImageArrays();  
+      this.createMenArrays();
+      this.createWomenArrays();
+      this.createDefaultArray();
+    })
+  }
+
+  createMenArrays = () => {
+    if(this.state.clothes.length > 0){
+      let tempManArr = [];
+      this.state.clothes.forEach(pickmen => {
+        if(pickmen.type.includes('Men')) {
+          tempManArr.push(pickmen);
+        }
+      })
+      this.setState({
+        menArr:tempManArr
+      })
+    }
+  }
+  createWomenArrays = () => {
+    if(this.state.clothes.length > 0){
+      let tempWomanArr = [];
+      this.state.clothes.forEach(pickwomen => {
+        if(pickwomen.type.includes('Women')) {
+          tempWomanArr.push(pickwomen);
+        }
+      })
+      this.setState({
+        womenArr:tempWomanArr
+      })
+    }
+  }
+  createDefaultArray = () => {
+    let temporaryDefaultWomenTop = [];
+    let temporaryDefaultWomenBottom = [];
+    let newDefaultWomenArr = [...this.state.womenArr];
+    newDefaultWomenArr.forEach(defaultwomenitem => {
+      if(defaultwomenitem.name.includes('Tops')||defaultwomenitem.name.includes('Shirts')) {
+        defaultwomenitem.data.image.forEach((img)=>{
+          if(img['data-herosrc']){
+            temporaryDefaultWomenTop.push(img['data-herosrc'])
+          } else if(img['src']){
+            temporaryDefaultWomenTop.push(img['src'])
+          }
+        })
+      } else if (defaultwomenitem.name.includes('Pants')){
+        defaultwomenitem.data.image.forEach((img)=>{
+          if(img['data-herosrc']){
+            temporaryDefaultWomenBottom.push(img['data-herosrc'])
+          } else if(img['src']){
+            temporaryDefaultWomenBottom.push(img['src'])
+          }
+        })
+      }
+    })
+    this.setState({
+      defaultTopWomenImages: temporaryDefaultWomenTop,
+      defaultBottomWomenImages: temporaryDefaultWomenBottom
     })
   }
   
@@ -91,8 +153,7 @@ export class App extends Component {
    
   }
   render() {
-   
-      
+    // console.log("men arrays", this.state.menArr);
     return (
   
       <div className="App">
@@ -114,7 +175,7 @@ export class App extends Component {
           </div>
           <div className="mobile-menu">
             <input type="checkbox" id="menuToggle" />
-            <label for="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
+            <label htmlFor="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
             <ul>
             <Link to="/about">About</Link>
             <Link to="/top-outfits">Top Outfits</Link>
@@ -132,6 +193,10 @@ export class App extends Component {
                                                                              shorts = {this.state.womenShorts}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
+                                                                             selectMen = {this.state.menArr}
+                                                                             selectWomen = {this.state.womenArr}
+                                                                             topDefault = {this.state.defaultTopWomenImages}
+                                                                             bottomDefault = {this.state.defaultBottomWomenImages}
                                                                                
             /> } />
             <Route path='/about' component={About} />

@@ -66,7 +66,7 @@ if (errorMsg) {
     render() {
 
         return (
-            <>
+            <div className="container innerpage">
             <h1>Log in</h1>  
             <form className="formstyles" onSubmit={this.logTheUser}>
             <div className="form-group">
@@ -88,7 +88,7 @@ if (errorMsg) {
             </form>
             {this.loginValidation()} 
                 
-            </>
+            </div>
         )
     }
 }
