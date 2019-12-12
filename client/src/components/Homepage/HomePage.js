@@ -102,9 +102,9 @@ getDefault = () => {
 }
 
 showDefault = () =>{
-  let defaultTopImages = this.state.defaultTop.length == 0 ? 
+  let defaultTopImages = this.state.defaultTop.length === 0 ? 
   this.props.topDefault : [...this.state.defaultTop]
-  let defaultBottomImages = this.state.defaultBottom.length == 0 ? 
+  let defaultBottomImages = this.state.defaultBottom.length === 0 ? 
   this.props.bottomDefault : [...this.state.defaultBottom]
    return (
      <div>
@@ -117,8 +117,8 @@ showDefault = () =>{
 
 
   render() {
-    console.log("this.props.topDefault", this.props.topDefault);
-    console.log("this is default in home page", this.state.defaultTop);
+    // console.log("this.props.topDefault", this.props.topDefault);
+    // console.log("this is default in home page", this.state.defaultTop);
     return (
 
       <div className="outfitpanel">
