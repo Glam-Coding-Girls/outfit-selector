@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6, a {
   margin: 0 auto;
 } */
 .navheader {
-  background-color: #faf6f1;
+  background-color: white;
   padding: 20px 0;
 }
 .navbar {
@@ -78,7 +78,8 @@ h1, h2, h3, h4, h5, h6, a {
 }
 .page {
   text-align: center;
-  padding: 30px 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 .aboutcontent {
   text-align: left;
@@ -90,4 +91,65 @@ h1, h2, h3, h4, h5, h6, a {
 }
 .formstyles .form-group {
   text-align: left;
+}
+.mobile-menu {
+  display: none;
+}
+.mobile-menu a {
+  display: block;
+  color: black;
+  font-size: 1.2em;
+  padding: 10px 20px;
+}
+.mobile-menu a:hover {
+  color: white;
+  background-color: mediumseagreen;
+}
+#menuToggle {
+  display: none;
+}
+@media all and (max-width: 700px) {
+  header .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .leftnavmenu, .rightnav {
+    display: none;
+  }
+  .leftnav a {
+    padding-right: 0;
+  }
+  .mobile-menu {
+    display: block;
+    width: 100%;
+  }
+  .menu-icon {
+    width: 40px;
+    height: inherit;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 60px;
+}
+  .mobile-menu ul {
+    display: block;
+    max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 0.3s;
+  -moz-transition: max-height 0.3s;
+    -ms-transition: max-height 0.3s;
+    -o-transition: max-height 0.3s;
+  transition: max-height 0.3s;
+}
+  #menuToggle:checked ~ ul {
+    max-height: 350px;
+}
+.menu-icon i {
+  font-size: 1.7em;
+}
 }

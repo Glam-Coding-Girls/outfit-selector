@@ -8,6 +8,7 @@ import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import TopOutfits from './components/TopOutfits';
 
 
 export class App extends Component {
@@ -47,28 +48,42 @@ export class App extends Component {
   
       <div className="App">
       <header className="navheader">
-      <div className="container">
+      <div className="container-fluid">
       <div className="navbar">
           <div className="leftnav">
           <div className="homelogo">
             <Link to="/">GLAM CLOSET</Link>
           </div>
-          <Link to="/about">About</Link>
+          <div className="leftnavmenu">
+            <Link to="/about">About</Link>
+            <Link to="/top-outfits">Top Outfits</Link>
+          </div>
           </div>
           <div className="rightnav">
             <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
           </div>
+          <div className="mobile-menu">
+            <input type="checkbox" id="menuToggle" />
+            <label for="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
+            <ul>
+            <Link to="/about">About</Link>
+            <Link to="/top-outfits">Top Outfits</Link>
+            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
+            </ul>
+          </div>
       </div>
       </div>
       </header>
-      <div className="container page">
+      <div className="container-fluid page">
       <Switch>
             <Route exact path='/' component={HomePage} />
             <Route path='/about' component={About} />
             <Route exact path="/signup" component={Signup}/> 
             <Route exact path="/login" component={Login}/>
             <Route exact path="/profile" component={Profile}/> 
+            <Route exact path="/top-outfits" component={TopOutfits}/> 
       </Switch>
       </div>
    </div>

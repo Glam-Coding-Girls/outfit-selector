@@ -9,6 +9,7 @@
   height: 250px;
   border: 1px solid black;
   text-align: center;
+  background-color: white;
   /* overflow: hidden; */
 }
 .carousel button {
@@ -48,3 +49,9 @@ button:hover {
   cursor: pointer;
 }
 button:focus {outline:0;}
+
+@media all and (max-width: 700px) {
+  .card-wrapper {
+    width: 70%;
+  }
+}
