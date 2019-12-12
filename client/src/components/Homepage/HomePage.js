@@ -28,6 +28,7 @@ showDefault = () =>{
    )
  }
 
+
   render() {
     return (
       <div className="outfitpanel">
