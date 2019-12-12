@@ -27,8 +27,8 @@ showShorts = () =>{
     // console.log("this is copy arr", this.state.skirtImages);
     return (
       <div>
-      <div>
-      {/* <h1>Create an Outfit!</h1> */}
+      <div className="outfit-title">
+      <h1>Create your favorite Outfit!</h1>
       </div>
       {this.showSkirts()}
       {this.showShorts()}
