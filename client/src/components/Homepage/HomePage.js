@@ -7,8 +7,8 @@ export class HomePage extends Component {
   constructor(props){
     super(props);
     this.state = {
-        defaultTop: this.props.topDefault,
-        defaultBottom: this.props.bottomDefault
+        defaultTop: [],
+        defaultBottom: []
     }
 }
 
@@ -92,9 +92,20 @@ clickWomen = () => {
   }
 }
 
+getDefault = () => {
+  let defaultTopArrImg = [...this.props.topDefault];
+  let defaultBottomArrImg = [...this.props.bottomDefault]; 
+  this.setState({
+    defaultTop: defaultTopArrImg,
+    defaultBottom: defaultBottomArrImg
+  })
+}
+
 showDefault = () =>{
-  let defaultTopImages = [...this.state.defaultTop]
-  let defaultBottomImages = [...this.state.defaultBottom]
+  let defaultTopImages = this.state.defaultTop.length == 0 ? 
+  this.props.topDefault : [...this.state.defaultTop]
+  let defaultBottomImages = this.state.defaultBottom.length == 0 ? 
+  this.props.bottomDefault : [...this.state.defaultBottom]
    return (
      <div>
       <Bottom imgs={defaultTopImages} />
@@ -104,8 +115,10 @@ showDefault = () =>{
  
  }
 
+
   render() {
-    // console.log("this is men arrays in home page", this.props.selectMen);
+    console.log("this.props.topDefault", this.props.topDefault);
+    console.log("this is default in home page", this.state.defaultTop);
     return (
 
       <div className="outfitpanel">
@@ -121,6 +134,8 @@ showDefault = () =>{
         <h1>Create your favorite Outfit!</h1>
         </div>
         {this.showDefault()}
+        <button>Share</button>
+        <button>Save</button>
       </div>
       </div>
 

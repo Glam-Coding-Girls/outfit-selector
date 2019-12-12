@@ -82,6 +82,7 @@ export class App extends Component {
       })
     }
   }
+  
   createDefaultArray = () => {
     let temporaryDefaultWomenTop = [];
     let temporaryDefaultWomenBottom = [];
