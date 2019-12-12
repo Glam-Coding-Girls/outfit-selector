@@ -6,7 +6,8 @@ body {
     font-family: Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:rgba(145, 221, 161, 0.384);
+  /* background-color: #f9f5f0; */
+  /* background-color:rgba(145, 221, 161, 0.384); */
 }
 
 code {
