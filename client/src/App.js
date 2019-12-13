@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import {Switch,Route, Link, Redirect} from 'react-router-dom';
-import HomePage from './components/HomePage';
+import HomePage from './components/Homepage/HomePage';
 import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';

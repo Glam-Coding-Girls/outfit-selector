@@ -40,15 +40,8 @@ passLoginInfoToAppComponent = (e) =>{
             <p>If you don't have an account yet, you can create one
             <Link to="/signup" style={{textDecoration:"none"}}> here</Link></p>
             <button type="submit" className="btn btn-primary">Log in</button>
-<<<<<<< HEAD
             </form>             
-            </>
-=======
-            </form>
-            {this.loginValidation()} 
-                
             </div>
->>>>>>> 2c52fe993b48cbadc454aca9b3045d9430be9cc0
         )
     }
 }
