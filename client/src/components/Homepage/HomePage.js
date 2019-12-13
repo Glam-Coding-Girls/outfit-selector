@@ -32,23 +32,36 @@ showDefault = () =>{
   render() {
     return (
       <div className="outfitpanel">
-        <div className="outfitsright">
-         <div className="outfit-title">
-            <h4>CREATE YOUR FAVORITE OUTFIT!</h4>
-          </div>
+        <div className="outfitsleft">
+        {/* <div className="inner-outfit-menu">
           <div className="outfit-title">
-             <label>Select a category</label>
-             <div>
-             <select onChange={this.props.setDefaultSelection}>
+             <h1>Select a category</h1>
+          </div>
+          <div className="button-group">
+          <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
+          <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
+          </div>
+          <div>
+            { <select onChange={this.props.setDefaultSelection}>
                <option value='Women'>Women</option>
                <option value='Men'>Men</option>
-             </select>
-             </div>
+             </select> }
+          </div>
+        </div> */}
+        </div>
+        <div className="outfitsright">
+         <div className="outfit-title">
+            <h1>Create your favorite Outfit!</h1>
+          </div>
+          <div className="button-group">
+          <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
+          <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
           </div>
          {this.showDefault()}
         </div>
       </div>
     )
+
   }
 }
 export default HomePage

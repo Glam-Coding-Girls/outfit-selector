@@ -21,6 +21,7 @@ export class App extends Component {
     passwordInput2:"",
     redirect:false,
     theError:null,
+    isActive: 'Women',
     ready: false,
     registered: false,
   }
@@ -43,39 +44,47 @@ export class App extends Component {
       this.createImageArrays();  
     })
   }
- setDefaultSelection = (e) =>{
-    this.setState({
-       defaultSelection: e.target.value
-      },()=>{
-    this.createImageArrays(); 
-  })
- }
-  createImageArrays =  () =>{
-    if(this.state.clothes.length > 0){
-      let tempTopArray = [];
-      let tempBottomArray = [];
-      this.state.clothes.forEach(element => {
-        if(element.type === this.state.defaultSelection){
-          if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
+//  setDefaultSelection = (e) =>{
+//     this.setState({
+//        defaultSelection: e.target.value
+//       },()=>{
+//     this.createImageArrays(); 
+//   })
+//  }
+setDefaultSelection = (selection) =>{
+  this.setState({
+     defaultSelection:selection,
+     isActive: selection
+    },()=>{
+  this.createImageArrays(); 
+})
+}
+  
+ createImageArrays =  () =>{
+  if(this.state.clothes.length > 0){
+    let tempTopArray = [];
+    let tempBottomArray = [];
+    this.state.clothes.forEach(element => {
+      if(element.type === this.state.defaultSelection){
+         if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
             element.data.image.forEach((img,ind)=>{
               if(img['data-herosrc']){
-                tempTopArray.push(img['data-herosrc'])
+                 tempTopArray.push(img['data-herosrc'])
               } else if(img['src']){
-                tempTopArray.push(img['src']);
+                 tempTopArray.push(img['src']);
               } 
             })
-          } 
-          else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
-            element.data.image.forEach((img,ind)=>{
-              if(img['data-herosrc']){
-                tempBottomArray.push(img['data-herosrc'])
-              } else if(img['src']){
-                tempBottomArray.push(img['src']);
-              } 
-            })
+          } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
+              element.data.image.forEach((img,ind)=>{
+                if(img['data-herosrc']){
+                    tempBottomArray.push(img['data-herosrc'])
+                } else if(img['src']){
+                    tempBottomArray.push(img['src']);
+                } 
+              });
           }
         }
-      });  
+    });  
       this.setState({
         topImages:tempTopArray,
         bottomImages:tempBottomArray,
@@ -190,7 +199,7 @@ LogoutAction = () =>{
     return (
       <div className="App">
         <header className="navheader">
-          <div className="container-fluid">
+          <div className="container">
             <div className="navbar">
               <div className="leftnav">
                 <div className="homelogo">
@@ -224,13 +233,14 @@ LogoutAction = () =>{
            </div>
           </div>
         </header>
-        <div className="container-fluid page">
+        <div className="container page">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
                                                                             defaultSelection = {this.state.defaultSelection}
                                                                             setDefaultSelection = {this.setDefaultSelection}
+                                                                            isActive = {this.state.isActive}
                                                                                
             /> } />
             <Route path='/about' component={About} />
