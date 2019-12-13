@@ -12,7 +12,7 @@ import TopOutfits from './components/TopOutfits';
 
 let errorMsg = ""
 let theError = ""
-let user = ""
+let user = ""  
 export class App extends Component {
   state={
     clothes:[],
@@ -170,7 +170,7 @@ LogoutAction = () =>{
           </div>
           : 
           <div className="rightnav">
-            <Link to="/profile" style={{textDecoration:"none"}}>Profile</Link>
+            <Link to="/profile" style={{textDecoration:"none"}}><i class="fas fa-user-circle"></i></Link>
             <a onClick={this.LogoutAction}>Logout</a>
           </div>
           }

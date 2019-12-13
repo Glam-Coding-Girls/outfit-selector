@@ -15,7 +15,27 @@ render() {
 else{
   return ( 
     <>
-      <p>Welcome {this.props.user.user.email}</p>
+      <p>Hey {this.props.user.user.email}!</p>
+
+  <div>  
+      <h1>Profile</h1>      
+    <form>
+            <div>
+            <label>PHOTO</label>
+            </div>
+            <div>
+                <label>Account Email</label>
+                <span>{this.props.user.user.email}</span>
+
+                {/* <input type="text" name="emailInput"/> */}
+            </div>
+      <div>
+                <label>Password</label>  
+                <span></span>
+                {/* <input type="password" name="passwordInput"/> */}
+      </div>
+    </form>  
+    </div>
     </>
   )
 }

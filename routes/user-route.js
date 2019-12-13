@@ -17,7 +17,7 @@ if(req.body.password !=req.body.password2){
     res.json({error: 'Enter a valid email, and a valid password - passwords must be at least 6 characters long.'})
     return;
   }
-//if only password validation fails
+//if only password validation fails 
   else if(req.body.password.length < 6){
     res.json({error: 'Passwords must be at least 6 characters long.'})
     return;
