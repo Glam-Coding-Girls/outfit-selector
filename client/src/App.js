@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import {Switch,Route, Link, Redirect} from 'react-router-dom';
+import {Switch,Route} from 'react-router-dom';
 import HomePage from './components/Homepage/HomePage';
 import About from './components/About';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Profile from './components/Profile';
-import TopOutfits from './components/TopOutfits';
+import SharedOutfits from './components/SharedOutfits';
+import MyOutfits from './components/MyOutfits';
+import Navigation from './components/Navigation';
 
 export class App extends Component {
   state={
@@ -213,43 +215,9 @@ LogoutAction = () =>{
   render() {
     // console.log("top clothes array",this.state.topImages[0].image);
     return (
-      <div className="App">
-        <header className="navheader">
-          <div className="container">
-            <div className="navbar">
-              <div className="leftnav">
-                <div className="homelogo">
-                   <Link to="/">GLAM CLOSET</Link>
-                </div>
-                <div className="leftnavmenu">
-                   <Link to="/about">About</Link>
-                   <Link to="/top-outfits">Top Outfits</Link>
-                </div>
-              </div>
-              {/* If there is no user logged in, we show Login and Signup links, otherwise we show Profile and Logout */}
-              {!this.state.currentlyLoggedInUser ? 
-                 <div className="rightnav">
-                     <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
-                 </div>
-                 : 
-                 <div className="rightnav">
-                   <Link to="/profile" style={{textDecoration:"none"}}><i className="fas fa-user-circle"></i></Link>
-                   <a onClick={this.LogoutAction}>Logout</a>
-                </div>
-               }
-             <div className="mobile-menu">
-                <input type="checkbox" id="menuToggle" />
-                <label htmlFor="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
-                <ul>
-                  <Link to="/about">About</Link>
-                  <Link to="/top-outfits">Top Outfits</Link>
-                  <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
-                </ul>
-             </div>
-           </div>
-          </div>
-        </header>
-        <div className="container page">
+      <div >
+      <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser} LogoutAction = {this.LogoutAction}/>
+      <div className="container">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
@@ -277,15 +245,15 @@ LogoutAction = () =>{
                                                                                   /> } />
             <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                 fetchUserData = {this.fetchUserData}
+                                                                                updateInput = {this.updateInput}
                                                                       
 
             />}/>
-            <Route exact path="/top-outfits" component={TopOutfits}/> 
+            <Route exact path="/shared-outfits" component={SharedOutfits}/> 
+            <Route exact path="/my-outfits" component={MyOutfits}/>
           </Switch>
-        </div>
-        {/* {this.loginValidation()} */}
-      </div>
-   
+          </div>
+        </div> 
     )
   }
 }

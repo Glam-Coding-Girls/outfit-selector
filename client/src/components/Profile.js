@@ -35,7 +35,6 @@ export class Profile extends Component {
           </div>  
           <div className="profile-main-content">  
           <h3>ACCOUNT SETTINGS</h3>      
-             <form>
                 <div className="field">
                   <label>PHOTO</label>
                   <span>
@@ -59,7 +58,12 @@ export class Profile extends Component {
                       <i className="fas fa-pen-square" onClick={this.handleEditEmailClick}/></>
                       :
                       <>
-                      <input type="text" name="email" value={this.props.currentlyLoggedInUser.email}/>
+                      <form>
+                      <input type="text" name="email" 
+                      value={this.props.currentlyLoggedInUser.email}
+                      onChange={this.props.updateInput}
+                      />
+                      </form>
                       <i class="far fa-save"></i>
                       </>
                     }
@@ -72,11 +76,15 @@ export class Profile extends Component {
                     <i className="fas fa-pen-square" onClick={this.handleEditPassClick}/></>
                     :
                     <>
-                    <input type="password" name="password" value={this.props.currentlyLoggedInUser.password}/>
+                    <form>
+                    <input type="password" name="password" 
+                    value={this.props.currentlyLoggedInUser.password}
+                    onChange={this.props.updateInput}
+                    />
+                    </form>
                     <i class="far fa-save"></i>
                     </>}
                 </div>
-             </form>
             </div>
           </div>
         </div>
