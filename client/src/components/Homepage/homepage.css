@@ -1,6 +1,6 @@
 .outfitpanel {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .outfitsleft, .outfitsright {
   width: 49%;
@@ -9,8 +9,30 @@
 .outfitsleft {
   background-color: white;
 }
-.outfit-title h1 {
+.outfit-title {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+padding:10px;
+}
+.outfit-title label{
+  font-size:14px;
+  font-weight: bold;
+}
+.outfit-title div{
+  width: 13vw;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.outfit-title select{
+  border-radius: 5px;
+  width: 10vw;
+}
+/* .outfit-title h1 {
   font-size: 1.6em;
   font-weight: 400;
   margin-bottom: 20px;
-}
+} */

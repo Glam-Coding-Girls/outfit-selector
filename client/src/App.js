@@ -40,9 +40,9 @@ componentDidMount() {
       this.createImageArrays();  
     })
   }
- setDefaultSelection = (selection) =>{
+ setDefaultSelection = (e) =>{
     this.setState({
-       defaultSelection:selection
+       defaultSelection: e.target.value
       },()=>{
     this.createImageArrays(); 
   })
@@ -165,7 +165,7 @@ LogoutAction = () =>{
 {/* If there is no user logged in, we show Login and Signup links, otherwise we show Profile and Logout */}
           {!this.state.currentlyLoggedInUser ? 
           <div className="rightnav">
-            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
           </div>
           : 
@@ -180,7 +180,7 @@ LogoutAction = () =>{
             <ul>
             <Link to="/about">About</Link>
             <Link to="/top-outfits">Top Outfits</Link>
-            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
             </ul>
           </div>

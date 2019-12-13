@@ -32,17 +32,25 @@ showDefault = () =>{
   render() {
     return (
       <div className="outfitpanel">
-        <div className="outfitsleft">
-          <div className="outfit-title">
-             <h1>Select a category</h1>
-          </div>
-          <button onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
-          <button onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
-        </div>
+        {/* <div className="outfitsleft">
+         
+        </div> */}
         <div className="outfitsright">
          <div className="outfit-title">
-            <h1>Create your favorite Outfit!</h1>
+            <h4>CREATE YOUR FAVORITE OUTFIT!</h4>
           </div>
+          <div className="outfit-title">
+             <label>Select a category</label>
+             <div>
+             <select onChange={this.props.setDefaultSelection}>
+               <option value='Women'>Women</option>
+               <option value='Men'>Men</option>
+             </select>
+             {/* <button onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
+             <button onClick={()=>this.props.setDefaultSelection('Men')}>Men</button> */}
+             </div>
+          </div>
+          
          {this.showDefault()}
         </div>
       </div>

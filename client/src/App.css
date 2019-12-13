@@ -4,6 +4,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Helvetica;
 }
 #root {
   background-color: #f9f5f0;
@@ -27,10 +28,13 @@ ul {
 
 header{
   display: flex;
-  position: relative;
+  position: fixed;
+  top:0;
   width: 100%;
   font-weight:bold;
   background-color: #a2dfc4;
+  z-index:5;
+  height:10vh;
 }
 /* .container-fluid {
   width: 100%;
@@ -41,10 +45,13 @@ header{
 } */
 .navheader {
   padding: 20px 0;
+  
 }
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+ height:5vh;
 }
 .navbar a{
   color:black;
@@ -53,22 +60,27 @@ header{
   text-decoration: none;
   color: #d93010;
 }
-.leftnav {
+.navbar .leftnav {
   display: flex;
   justify-content: flex-start;
-  align-items: baseline;
+  /* align-items: baseline; */
 }
-.leftnav a {
+.navbar .leftnav a {
   padding-right: 20px;
-  font-size: 1.4em;
-  font-weight: 400;
+  font-size: 1em;
+  font-weight: 500;
   transition: 0.5s all;
 }
-.homelogo a {
+.navbar .leftnav .homelogo{
+  padding-bottom: 15px;
+}
+
+.navbar .leftnav .homelogo a {
   font-family: 'Alatsi', sans-serif;
   color: #d93010;
-  font-size: 2em;
+  font-size: 1.6em;
   transition: 0.5s all;
+  
 }
 .rightnav {
   display: flex;
@@ -76,8 +88,8 @@ header{
 }
 .rightnav a {
   padding-left: 20px;
-  font-weight: 400;
-  font-size: 1.4em;
+  font-weight: 500;
+  font-size: 1em;
   transition: 0.8s all;
 }
 .fa-user-circle{
@@ -91,6 +103,7 @@ header{
   padding-bottom: 30px; */
   min-height: 100%;
   background-color: #f9f5f0;
+  margin-top:5%;
 } 
 .innerpage {
   padding-top: 40px;
@@ -168,5 +181,8 @@ header{
 }
 .menu-icon i {
   font-size: 1.7em;
+}
+.page {
+  margin-top: 10%;
 }
 }
