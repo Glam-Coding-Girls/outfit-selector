@@ -10,6 +10,7 @@ password:{
   required: true
 }
 
+
 })
 
 const User = mongoose.model('User', UserSchema);
