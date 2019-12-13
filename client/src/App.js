@@ -12,12 +12,11 @@ import TopOutfits from './components/TopOutfits';
 
 export class App extends Component {
   state={
-    skirts:{},
-    womenShorts:{},
     clothes:[],
     topImages: [],
     bottomImages: [],
-    defaultSelection:'Women'
+    defaultSelection:'Women',
+    isActive: 'Women'
   }
   componentDidMount() {
     this.getClothes();
@@ -30,13 +29,21 @@ export class App extends Component {
       this.createImageArrays();  
     })
   }
- setDefaultSelection = (selection) =>{
-    this.setState({
-       defaultSelection:selection
-      },()=>{
-    this.createImageArrays(); 
-  })
- }
+//  setDefaultSelection = (e) =>{
+//     this.setState({
+//        defaultSelection: e.target.value
+//       },()=>{
+//     this.createImageArrays(); 
+//   })
+//  }
+setDefaultSelection = (selection) =>{
+  this.setState({
+     defaultSelection:selection,
+     isActive: selection
+    },()=>{
+  this.createImageArrays(); 
+})
+}
   
   createImageArrays =  () =>{
     if(this.state.clothes.length > 0){
@@ -76,7 +83,7 @@ export class App extends Component {
   
       <div className="App">
       <header className="navheader">
-      <div className="container-fluid">
+      <div className="container">
       <div className="navbar">
           <div className="leftnav">
           <div className="homelogo">
@@ -88,7 +95,7 @@ export class App extends Component {
           </div>
           </div>
           <div className="rightnav">
-            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
           </div>
           <div className="mobile-menu">
@@ -97,20 +104,21 @@ export class App extends Component {
             <ul>
             <Link to="/about">About</Link>
             <Link to="/top-outfits">Top Outfits</Link>
-            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
             </ul>
           </div>
       </div>
       </div>
       </header>
-      <div className="container-fluid page">
+      <div className="container page">
       <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
                                                                             defaultSelection = {this.state.defaultSelection}
                                                                             setDefaultSelection = {this.setDefaultSelection}
+                                                                            isActive = {this.state.isActive}
                                                                                
             /> } />
             <Route path='/about' component={About} />

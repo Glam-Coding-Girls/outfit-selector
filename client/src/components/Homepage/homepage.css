@@ -1,16 +1,81 @@
 .outfitpanel {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .outfitsleft, .outfitsright {
-  width: 49%;
   padding: 30px 0;
 }
-.outfitsleft {
+/* .outfitsleft {
+  width: 29%;
+  padding: 50px 20px;
+} */
+.outfitsright {
+  width: 100%;
+}
+.inner-outfit-menu {
   background-color: white;
+  padding: 30px 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+.outfit-title {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.outfit-title label{
+  font-size:14px;
+  font-weight: bold;
+}
+.outfit-title div{
+  width: 13vw;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.outfit-title select{
+  border-radius: 5px;
+  width: 10vw;
 }
 .outfit-title h1 {
   font-size: 1.6em;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  width: 400px;
+  margin: 0 auto 20px;
+}
+.button-group button {
+  width: 100px;
+}
+.btn-primary {
+  color: black;
+  border: 1px solid gray;
+  background-color: white;
+}
+.button-group button:hover {
+  border: none;
+  background-color: #a2dfc4;
+}
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+  border: none;
+  background-color: #a2dfc4;
+}
+.btn-primary:focus, .btn-primary.focus {
+  border: none;
+  background-color: white;
+  box-shadow: 0 0 0 0.2rem rgba(107, 247, 205, 0.274);
+}
+.active {
+  color: #a2dfc4;
+}
+@media all and (max-width: 700px) {
+  .button-group  {
+    width: 70%;
+  }
 }
