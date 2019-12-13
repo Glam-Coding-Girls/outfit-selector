@@ -15,11 +15,18 @@ export class App extends Component {
     clothes:[],
     topImages: [],
     bottomImages: [],
-    defaultSelection:'Women'
+    defaultSelection:'Women',
+    user:{},
+    emailInput: "",
+    passwordInput: "",
+    redirect:false,
+    theError:null,
   }
   componentDidMount() {
     this.getClothes();
   } 
+
+  //homePage method calls
   getClothes = async() =>{
     await axios.get('http://localhost:5000/api/get-clothes')
     .then(response => {
@@ -35,7 +42,6 @@ export class App extends Component {
     this.createImageArrays(); 
   })
  }
-  
   createImageArrays =  () =>{
     if(this.state.clothes.length > 0){
       let tempTopArray = [];
@@ -66,9 +72,44 @@ export class App extends Component {
         bottomImages:tempBottomArray,
       })
     }
-   
-   
   }
+
+  //Login and signup method calls
+  updateInput = (e) =>{
+    this.setState({[e.target.name]: e.target.value});
+    }
+
+  login = () => {
+  axios.post('http://localhost:5000/api/login', {
+        email: this.state.emailInput,
+        password: this.state.passwordInput,
+    }, {
+        withCredentials: true
+    })
+    .then((response)=>{
+        if(response.data.error){ 
+          this.setState({
+            theError:response.data.error,
+          })        
+        }
+      // user = response.data.user.email;
+      if(response.data.user){
+      this.setState({
+        currentlyLoggedInUser: response.data,
+        redirect:true,
+        theError:null
+      })
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+      this.setState({
+        currentlyLoggedInUser: null
+      })
+    })
+}
+
+
   render() {
     return (
   
@@ -113,7 +154,13 @@ export class App extends Component {
             /> } />
             <Route path='/about' component={About} />
             <Route exact path="/signup" component={Signup}/> 
-            <Route exact path="/login" component={Login}/>
+            <Route exact path="/login" render = { (props) => <Login {...props}    login = {this.login}
+                                                                                  updateInput = {this.updateInput}
+                                                                                  emailInput = {this.state.emailInput}
+                                                                                  passwordInput = {this.state.passwordInput}
+                                                                                  redirect = {this.state.redirect} 
+                                                                                  theError = {this.state.theError}
+                                                                                  /> } />
             <Route exact path="/profile" component={Profile}/> 
             <Route exact path="/top-outfits" component={TopOutfits}/> 
       </Switch>

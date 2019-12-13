@@ -46,8 +46,6 @@ showDefault = () =>{
                <option value='Women'>Women</option>
                <option value='Men'>Men</option>
              </select>
-             {/* <button onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
-             <button onClick={()=>this.props.setDefaultSelection('Men')}>Men</button> */}
              </div>
           </div>
           
