@@ -1,13 +1,29 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom';
 
 export class Profile extends Component {
-  render() {
-    return (
+
+render() {
+  if(!this.props.user){
+    return ( 
       <>
-        <h1>Profile Page</h1>
+        <Redirect to='/login'/>
       </>
     )
+
+    }
+else{
+  return ( 
+    <>
+      <p>Welcome {this.props.user.user.email}</p>
+    </>
+  )
+}
   }
 }
 
 export default Profile
+
+
+
+  

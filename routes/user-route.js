@@ -68,6 +68,7 @@ router.post('/login', (req, res, next)=>{
         req.session.currentUser = user;// this is the line of code that actually logs us in
         res.json({message: 'success', user: user});
       } else {
+        console.log('incorrect password')
         res.json({error: "Incorrect password"});
       }
   })
@@ -86,9 +87,17 @@ router.get('/get-user-info', (req, res, next)=>{
 })
 
 
-router.post('/logout', (req, res, next)=>{
-  req.session.destroy()
-  res.json({message: 'You are logged out'})
-})
+    router.get('/logout', function(req, res, next) {
+      if (req.session) {
+        req.session.destroy(function(err) {
+          if(err) {
+            return next(err);
+          } else {
+            console.log(req.session);
+            return res.json({message: 'success'})
+          }
+        });
+      }
+    });
 
 module.exports = router;

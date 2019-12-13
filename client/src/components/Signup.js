@@ -21,7 +21,6 @@ updateInput = (e) =>{
 
 saveUser = (e)=>{
     e.preventDefault();
-
     axios.post('http://localhost:5000/api/signup', {
         email: this.state.emailInput,
         password: this.state.passwordInput,
@@ -55,7 +54,7 @@ console.log(this.state)
 //reset user variable
         user="" 
         return(
-            <div class="alert alert-success" role="alert">
+            <div className="alert alert-success" role="alert">
             <strong>You're registered!<Link to="/login" style={{textDecoration:"none"}}> Login </Link> to start</strong>  
             </div>
         )      
@@ -66,7 +65,7 @@ console.log(this.state)
 //reset errorMsg variable:
         errorMsg=""
         return (
-            <div class="alert alert-danger" role="alert">
+            <div className="alert alert-danger" role="alert">
                 <p>{theError}</p>
             </div>
         )
@@ -98,7 +97,7 @@ console.log(this.state)
         <button type="submit" className="btn btn-primary">Create the Account</button>
     </form> 
             {this.signupValidation()}    
-            </>
+    </>
         )
     }
 }
