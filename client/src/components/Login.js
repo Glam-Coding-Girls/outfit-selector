@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
-import axios from 'axios';
-import {Redirect} from 'react-router-dom';
 
 // let errorMsg = ""
 // let theError = ""
@@ -20,14 +18,14 @@ export class Login extends Component {
 // this.setState({[e.target.name]: e.target.value});
 // }
 
-logTheUser= (e) =>{
+passLoginInfoToAppComponent = (e) =>{
     e.preventDefault();
     this.props.login();
     setTimeout(() => {
        if(this.props.redirect){
         this.props.history.push('/profile');
       }
-     },250);
+     },270);
   }
 
 // renderRedirect = () => {
@@ -53,27 +51,25 @@ if(this.props.theError) {
 
         return (
             <div className="container innerpage">
-            <h1>Log in</h1>  
-            <form className="formstyles" onSubmit={this.logTheUser}>
-            <div className="form-group">
-            <label>Email:</label>
-                <input type="text" className="form-control"  name="emailInput"
-                  value={this.props.emailInput}
-                  onChange={this.props.updateInput}/>
-                  </div>
-            <div className="form-group">
-            <label>Password:</label>  
-            <input type="password" className="form-control" name="passwordInput"
-                value={this.props.passwordInput}
-                onChange={this.props.updateInput}/>
-            </div>
-            <p>If you don't have an account yet, you can create one
-            <Link to="/signup" style={{textDecoration:"none"}}> here</Link></p>
-            {/* {this.renderRedirect()} */}
-            <button type="submit" className="btn btn-primary">Log in</button>
-            </form>
-            {this.displayValidation()} 
-                
+               <h1>Log in</h1>  
+               <form className="formstyles" onSubmit={this.passLoginInfoToAppComponent}>
+                 <div className="form-group">
+                   <label>Email:</label>
+                   <input type="text" className="form-control"  name="emailInput"
+                          value={this.props.emailInput}
+                          onChange={this.props.updateInput}/>
+                 </div>
+                 <div className="form-group">
+                   <label>Password:</label>  
+                   <input type="password" className="form-control" name="passwordInput"
+                          value={this.props.passwordInput}
+                          onChange={this.props.updateInput}/>
+                 </div>
+                 <p>If you don't have an account yet, you can create one
+                 <Link to="/signup" style={{textDecoration:"none"}}> here</Link></p>
+                 <button type="submit" className="btn btn-primary">Log in</button>
+               </form>
+                {this.displayValidation()}   
             </div>
         )
     }

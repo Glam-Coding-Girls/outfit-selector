@@ -6,7 +6,6 @@ export class Bottom extends Component {
         super(props);
         this.state = {
           currentPic: 0,
-          // list: Cardjson
         }
     }
     clickLeft = () => {
@@ -33,14 +32,12 @@ export class Bottom extends Component {
       });
     }
     render() {
-      // console.log("this is images arr", [...this.props.imgs]);
-        // console.log(this.props.imgs[0], this.props)
         return (
             <div className="card-wrapper">
                 <div className="carousel">
-                <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
-                <img src={this.props.imgs[this.state.currentPic]}  alt="carousel" />
-                <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
+                   <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
+                   <img src={this.props.imgs[this.state.currentPic]}  alt="carousel" />
+                   <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
                 </div>
             </div>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import {Switch,Route, Link} from 'react-router-dom';
+import {Switch,Route, Link, Redirect} from 'react-router-dom';
 import HomePage from './components/Homepage/HomePage';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -9,24 +9,32 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import TopOutfits from './components/TopOutfits';
 
-
 export class App extends Component {
   state={
     clothes:[],
     topImages: [],
     bottomImages: [],
     defaultSelection:'Women',
-    user:{},
+    currentlyLoggedInUser:null,
     emailInput: "",
     passwordInput: "",
+    passwordInput2:"",
     redirect:false,
     theError:null,
+    ready: false,
+    registered: false,
   }
+
   componentDidMount() {
+    //Call fetchUserData in Component did mount:
+    this.fetchUserData()
+   //------------------------------------------
+   //Call getClothes in Component did mount:
     this.getClothes();
   } 
 
-  //homePage method calls
+
+//homePage method calls
   getClothes = async() =>{
     await axios.get('http://localhost:5000/api/get-clothes')
     .then(response => {
@@ -48,29 +56,44 @@ export class App extends Component {
       let tempBottomArray = [];
       this.state.clothes.forEach(element => {
         if(element.type === this.state.defaultSelection){
-        if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
-          element.data.image.forEach((img,ind)=>{
-            if(img['data-herosrc']){
-              tempTopArray.push(img['data-herosrc'])
-            } else if(img['src']){
-              tempTopArray.push(img['src']);
-            } 
-          })
-        } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
-          element.data.image.forEach((img,ind)=>{
-            if(img['data-herosrc']){
-              tempBottomArray.push(img['data-herosrc'])
-            } else if(img['src']){
-              tempBottomArray.push(img['src']);
-            } 
-          })
+          if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
+            element.data.image.forEach((img,ind)=>{
+              if(img['data-herosrc']){
+                tempTopArray.push(img['data-herosrc'])
+              } else if(img['src']){
+                tempTopArray.push(img['src']);
+              } 
+            })
+          } 
+          else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
+            element.data.image.forEach((img,ind)=>{
+              if(img['data-herosrc']){
+                tempBottomArray.push(img['data-herosrc'])
+              } else if(img['src']){
+                tempBottomArray.push(img['src']);
+              } 
+            })
+          }
         }
-      }
       });  
       this.setState({
         topImages:tempTopArray,
         bottomImages:tempBottomArray,
       })
+    } 
+  }
+// <-------------------End HomePage method calls ----------------->
+  //check session
+  fetchUserData =  async () =>{
+    try{ 
+      let currentUser = await axios.get('http://localhost:5000/api/get-user-info', {withCredentials: true} )
+      this.setState({
+        currentlyLoggedInUser: currentUser.data,
+        ready: true,
+      })
+    }
+    catch(err){
+      console.log(err);
     }
   }
 
@@ -79,72 +102,130 @@ export class App extends Component {
     this.setState({[e.target.name]: e.target.value});
     }
 
+  signup = () => {
+    axios.post('http://localhost:5000/api/signup', {
+      email: this.state.emailInput,
+      password: this.state.passwordInput,
+      password2: this.state.passwordInput2
+  }, {
+      withCredentials: true
+  })
+  .then((response)=>{
+      if(response.data.error){         
+          this.setState({
+            theError: response.data.error,
+          })
+      }
+      if(response.data.user){
+        this.setState({
+          theError:null,
+          registered: true
+        })
+      }
+      this.setState({
+          // emailInput: "",
+          passwordInput: "",
+          passwordInput2: ""
+      })
+  })
+  .catch((err)=>{
+      console.log(err);
+  }
+)
+  }
   login = () => {
-  axios.post('http://localhost:5000/api/login', {
+      axios.post('http://localhost:5000/api/login', {
         email: this.state.emailInput,
         password: this.state.passwordInput,
-    }, {
+        }, {
         withCredentials: true
-    })
-    .then((response)=>{
-        if(response.data.error){ 
-          this.setState({
-            theError:response.data.error,
-          })        
-        }
-      // user = response.data.user.email;
-      if(response.data.user){
-      this.setState({
-        currentlyLoggedInUser: response.data,
-        redirect:true,
-        theError:null
-      })
+        })
+          .then((response)=>{
+              if(response.data.error){ 
+                 this.setState({
+                    theError:response.data.error,
+                 })        
+                }
+              if(response.data.user){
+                 this.setState({
+                    currentlyLoggedInUser: response.data.user,
+                    ready: true,
+                    redirect:true,
+                    theError:null
+                  })
+                }
+              this.setState({
+                  emailInput: "",
+                  passwordInput: "",
+               })
+          })
+            .catch((err)=>{
+                console.log(err);
+                this.setState({
+                   currentlyLoggedInUser: null,
+                   ready: false,
+                })
+          })
       }
-    })
-    .catch((err)=>{
-      console.log(err);
+// <-------------------------End Login and Signup method calls ----------------------------->
+
+//Logout function, redirects to homepage and set currentlyLoggedInUser to null
+LogoutAction = () =>{
+    axios.get('http://localhost:5000/api/logout').then((res)=>{
+      console.log(res)
       this.setState({
-        currentlyLoggedInUser: null
+        currentlyLoggedInUser: null,
+        ready: false,
+      }, () => {
+           this.props.history.push('/');
       })
     })
+      .catch((err)=>{
+      console.log(err);
+})
 }
-
+//Logout ends here
 
   render() {
     return (
-  
       <div className="App">
-      <header className="navheader">
-      <div className="container-fluid">
-      <div className="navbar">
-          <div className="leftnav">
-          <div className="homelogo">
-            <Link to="/">GLAM CLOSET</Link>
+        <header className="navheader">
+          <div className="container-fluid">
+            <div className="navbar">
+              <div className="leftnav">
+                <div className="homelogo">
+                   <Link to="/">GLAM CLOSET</Link>
+                </div>
+                <div className="leftnavmenu">
+                   <Link to="/about">About</Link>
+                   <Link to="/top-outfits">Top Outfits</Link>
+                </div>
+              </div>
+              {/* If there is no user logged in, we show Login and Signup links, otherwise we show Profile and Logout */}
+              {!this.state.currentlyLoggedInUser ? 
+                 <div className="rightnav">
+                     <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
+                 </div>
+                 : 
+                 <div className="rightnav">
+                   <Link to="/profile" style={{textDecoration:"none"}}><i className="fas fa-user-circle"></i></Link>
+                   <a onClick={this.LogoutAction}>Logout</a>
+                </div>
+               }
+             <div className="mobile-menu">
+                <input type="checkbox" id="menuToggle" />
+                <label htmlFor="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
+                <ul>
+                  <Link to="/about">About</Link>
+                  <Link to="/top-outfits">Top Outfits</Link>
+                  <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
+                </ul>
+             </div>
+           </div>
           </div>
-          <div className="leftnavmenu">
-            <Link to="/about">About</Link>
-            <Link to="/top-outfits">Top Outfits</Link>
-          </div>
-          </div>
-          <div className="rightnav">
-            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
-            <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
-          </div>
-          <div className="mobile-menu">
-            <input type="checkbox" id="menuToggle" />
-            <label htmlFor="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
-            <ul>
-            <Link to="/about">About</Link>
-            <Link to="/top-outfits">Top Outfits</Link>
-            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
-            <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
-            </ul>
-          </div>
-      </div>
-      </div>
-      </header>
-      <div className="container-fluid page">
-      <Switch>
+        </header>
+        <div className="container-fluid page">
+          <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
@@ -153,7 +234,14 @@ export class App extends Component {
                                                                                
             /> } />
             <Route path='/about' component={About} />
-            <Route exact path="/signup" component={Signup}/> 
+            <Route exact path="/signup" render = { (props) => <Signup {...props}  signup = {this.signup}
+                                                                                  updateInput = {this.updateInput}
+                                                                                  emailInput = {this.state.emailInput}
+                                                                                  passwordInput = {this.state.passwordInput}
+                                                                                  passwordInput2 = {this.state.passwordInput2} 
+                                                                                  theError = {this.state.theError}
+                                                                                  registered = {this.state.registered}
+                                                                                  /> } />
             <Route exact path="/login" render = { (props) => <Login {...props}    login = {this.login}
                                                                                   updateInput = {this.updateInput}
                                                                                   emailInput = {this.state.emailInput}
@@ -161,11 +249,16 @@ export class App extends Component {
                                                                                   redirect = {this.state.redirect} 
                                                                                   theError = {this.state.theError}
                                                                                   /> } />
-            <Route exact path="/profile" component={Profile}/> 
+            <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
+                                                                                fetchUserData = {this.fetchUserData}
+
+            />}/>
             <Route exact path="/top-outfits" component={TopOutfits}/> 
-      </Switch>
+          </Switch>
+        </div>
+        {/* {this.loginValidation()} */}
       </div>
-   </div>
+   
     )
   }
 }

@@ -4,14 +4,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {HashRouter} from 'react-router-dom';
+import {HashRouter, Route} from 'react-router-dom';
 // import 'fontawesome';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
+import { createBrowserHistory } from 'history';
+
+export default createBrowserHistory;
 
 
 ReactDOM.render(
     <HashRouter>
-        <App /> 
+        <Route component={App}/>
     </HashRouter>,
 
 document.getElementById('root'));

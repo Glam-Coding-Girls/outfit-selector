@@ -32,9 +32,6 @@ showDefault = () =>{
   render() {
     return (
       <div className="outfitpanel">
-        {/* <div className="outfitsleft">
-         
-        </div> */}
         <div className="outfitsright">
          <div className="outfit-title">
             <h4>CREATE YOUR FAVORITE OUTFIT!</h4>
@@ -48,7 +45,6 @@ showDefault = () =>{
              </select>
              </div>
           </div>
-          
          {this.showDefault()}
         </div>
       </div>
