@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class TopOutfits extends Component {
+export default class SharedOutfits extends Component {
   render() {
     return (
       <div className="container innerpage">

@@ -34,8 +34,10 @@ export class Profile extends Component {
           <p>Hey {this.props.currentlyLoggedInUser.email}!</p>
           </div>  
           <div className="profile-main-content">  
-          <h3>ACCOUNT SETTINGS</h3>      
-             <form>
+          <h3>ACCOUNT SETTINGS</h3>     
+            <form>
+
+           
                 <div className="field">
                   <label>PHOTO</label>
                   <span>
@@ -54,12 +56,24 @@ export class Profile extends Component {
                 </div>
                 <div className="field">
                     <label>ACCOUNT EMAIL</label>
-                    {!this.state.showEditEmail?<>
+                    {!this.state.showEditEmail?
+                    <> 
                       <span> {this.props.currentlyLoggedInUser.email}</span>
-                      <i className="fas fa-pen-square" onClick={this.handleEditEmailClick}/></>
+                      </>
                       :
                       <>
-                      <input type="text" name="email" value={this.props.currentlyLoggedInUser.email}/>
+                      <input type="text" name="email" 
+                      value={this.props.currentlyLoggedInUser.email}
+                      onChange={this.props.updateInput}
+                      />
+                      </>
+                    }
+                      {!this.state.showEditEmail?
+                        <> 
+                      <i className="fas fa-pen-square" onClick={this.handleEditEmailClick}/>
+                      </> 
+                      :
+                      <>
                       <i class="far fa-save"></i>
                       </>
                     }
@@ -69,14 +83,28 @@ export class Profile extends Component {
                     {!this.state.showEditPass?
                     <>
                     <span> ••••••••</span>
+                    
+                    {/* <i className="fas fa-pen-square" onClick={this.handleEditPassClick}/></> */}
+                    </>
+                    :
+                    <>
+                    {/* <form> */}
+                    <input type="password" name="password" 
+                    value={this.props.currentlyLoggedInUser.password}
+                    onChange={this.props.updateInput}
+                    />
+                    {/* </form> */}
+                    </>
+                    }
+                    {!this.state.showEditPass?
+                    <>
                     <i className="fas fa-pen-square" onClick={this.handleEditPassClick}/></>
                     :
                     <>
-                    <input type="password" name="password" value={this.props.currentlyLoggedInUser.password}/>
                     <i class="far fa-save"></i>
                     </>}
                 </div>
-             </form>
+                </form>
             </div>
           </div>
         </div>

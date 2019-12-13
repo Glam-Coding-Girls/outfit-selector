@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Bottom from '../Bottom/Bottom';
-
 import './homepage.css';
 // import './social.scss';
 
