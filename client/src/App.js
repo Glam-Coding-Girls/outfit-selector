@@ -12,8 +12,6 @@ import TopOutfits from './components/TopOutfits';
 
 export class App extends Component {
   state={
-    skirts:{},
-    womenShorts:{},
     clothes:[],
     topImages: [],
     bottomImages: [],
@@ -30,9 +28,9 @@ export class App extends Component {
       this.createImageArrays();  
     })
   }
- setDefaultSelection = (selection) =>{
+ setDefaultSelection = (e) =>{
     this.setState({
-       defaultSelection:selection
+       defaultSelection: e.target.value
       },()=>{
     this.createImageArrays(); 
   })
@@ -88,7 +86,7 @@ export class App extends Component {
           </div>
           </div>
           <div className="rightnav">
-            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
           </div>
           <div className="mobile-menu">
@@ -97,7 +95,7 @@ export class App extends Component {
             <ul>
             <Link to="/about">About</Link>
             <Link to="/top-outfits">Top Outfits</Link>
-            <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link>
+            {/* <Link to="/signup" style={{textDecoration:"none"}}>Sign up</Link> */}
             <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
             </ul>
           </div>
