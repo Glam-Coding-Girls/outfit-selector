@@ -18,6 +18,8 @@ export class App extends Component {
     clothes:[],
     topImages: [],
     bottomImages: [],
+    defaultSelection:'Women',
+    isActive: 'Women',
     currentlyLoggedInUser: null,
     ready: false,
     defaultSelection: "Women"
@@ -40,13 +42,21 @@ componentDidMount() {
       this.createImageArrays();  
     })
   }
- setDefaultSelection = (e) =>{
-    this.setState({
-       defaultSelection: e.target.value
-      },()=>{
-    this.createImageArrays(); 
-  })
- }
+//  setDefaultSelection = (e) =>{
+//     this.setState({
+//        defaultSelection: e.target.value
+//       },()=>{
+//     this.createImageArrays(); 
+//   })
+//  }
+setDefaultSelection = (selection) =>{
+  this.setState({
+     defaultSelection:selection,
+     isActive: selection
+    },()=>{
+  this.createImageArrays(); 
+})
+}
   
  createImageArrays =  () =>{
   if(this.state.clothes.length > 0){
@@ -152,7 +162,7 @@ LogoutAction = () =>{
   
       <div className="App">
       <header className="navheader">
-      <div className="container-fluid">
+      <div className="container">
       <div className="navbar">
           <div className="leftnav">
           <div className="homelogo">
@@ -188,13 +198,14 @@ LogoutAction = () =>{
       </div>
       </div>
       </header>
-      <div className="container-fluid page">
+      <div className="container page">
       <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
                                                                             defaultSelection = {this.state.defaultSelection}
                                                                             setDefaultSelection = {this.setDefaultSelection}
+                                                                            isActive = {this.state.isActive}
                                                                                
             /> } />
             <Route path='/about' component={About} />
