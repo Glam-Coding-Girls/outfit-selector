@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Bottom from '../Bottom/Bottom';
-import Social from '../Social/Social';
+
 import './homepage.css';
 // import './social.scss';
 
