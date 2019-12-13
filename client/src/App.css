@@ -32,16 +32,9 @@ header{
   font-weight:bold;
   background-color: #a2dfc4;
 }
-/* .container-fluid {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-} */
-.navheader {
+/* .navheader {
   padding: 20px 0;
-}
+} */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -60,8 +53,8 @@ header{
 }
 .leftnav a {
   padding-right: 20px;
-  font-size: 1.4em;
-  font-weight: 400;
+  font-size: 1em;
+  /* font-weight: 400; */
   transition: 0.5s all;
 }
 .homelogo a {
@@ -76,8 +69,8 @@ header{
 }
 .rightnav a {
   padding-left: 20px;
-  font-weight: 400;
-  font-size: 1.4em;
+  /* font-weight: 400;  */
+  font-size: 1em;
   transition: 0.8s all;
 }
 .page {
