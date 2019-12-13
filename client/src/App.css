@@ -74,6 +74,10 @@ header{
   font-size: 1em;
   transition: 0.8s all;
 }
+.fa-user-circle{
+  color:#d93010;
+  font-size: 1.4em;
+}
 .page {
   text-align: center;
   padding: 0;
