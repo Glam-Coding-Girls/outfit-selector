@@ -19,7 +19,7 @@ export class App extends Component {
     topImages: [],
     bottomImages: [],
     defaultSelection:'Women',
-    isActive: 'Women'
+    isActive: 'Women',
     currentlyLoggedInUser: null,
     ready: false,
     defaultSelection: "Women"
