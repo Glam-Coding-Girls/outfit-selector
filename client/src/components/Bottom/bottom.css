@@ -6,10 +6,20 @@
 .carousel {
   position: relative;
   width: 100%;
-  height: 250px;
-  border: 1px solid black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* height: 250px; */
+  /* border: 1px solid black; */
   text-align: center;
+  /* background-color: white; */
+}
+.carousel a {
+  display: inline-block;
   background-color: white;
+  border: 1px solid black;
+  width: 95%;
+  height: 250px;
 }
 .carousel button {
   background-color: transparent;
@@ -34,16 +44,16 @@ button:hover {
   height: auto; */
 }
 .leftbutton {
-  position: absolute;
+  /* position: absolute;
   left: -30px;
-  top: 45%;
+  top: 45%; */
   transform: rotate(135deg);
   cursor: pointer;
 }
 .rightbutton {
-  position: absolute;
+  /* position: absolute;
   right: -30px;
-  top: 45%;
+  top: 45%; */
   transform: rotate(-45deg);
   cursor: pointer;
 }
@@ -51,6 +61,6 @@ button:focus {outline:0;}
 
 @media all and (max-width: 700px) {
   .card-wrapper {
-    width: 70%;
+    width: 75%;
   }
 }
