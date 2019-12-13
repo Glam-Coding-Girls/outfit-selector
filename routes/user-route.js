@@ -100,4 +100,23 @@ router.get('/get-user-info', (req, res, next)=>{
       }
     });
 
+router.post('/profile/update', (req, res, next)=>{
+let id = req.body.theID;
+  User.findById(id)
+  .then(()=>{
+    let update = {...req.body};
+    User.findByIdAndUpdate(id, update, {new: true})
+    .then((response)=>{
+      console.log(response)
+      res.json({message: 'user updated successfully'})
+    })
+    .catch((err)=>{
+      next(err)
+    })
+  })
+  .catch((err)=>{
+    next(err);
+  }) 
+  })
+
 module.exports = router;
