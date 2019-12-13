@@ -112,12 +112,12 @@ header{
   filter: opacity(80%);
 }
 
-.fa-pen-square{
+.fa-pen-square, .fa-save{
   color:#a2dfc4;
   font-size: 1.8em;
   cursor:pointer;
 }
-.fa-pen-square:hover{
+.fa-pen-square:hover, .fa-save:hover{
   color:#d93010;
 }
 .mobile-menu {
