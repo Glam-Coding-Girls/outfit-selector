@@ -215,8 +215,9 @@ LogoutAction = () =>{
   render() {
     // console.log("top clothes array",this.state.topImages[0].image);
     return (
-      <>
+      <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser} LogoutAction = {this.LogoutAction}/>
+      <div className="container">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
@@ -251,7 +252,8 @@ LogoutAction = () =>{
             <Route exact path="/shared-outfits" component={SharedOutfits}/> 
             <Route exact path="/my-outfits" component={MyOutfits}/>
           </Switch>
-        </> 
+          </div>
+        </div> 
     )
   }
 }

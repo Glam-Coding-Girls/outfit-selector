@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 export class Navigation extends Component {
   render() {
     return (
-    <div className="App">
+
         <header className="navheader">
           <div className="container">
             <div className="navbar">
@@ -42,7 +42,6 @@ export class Navigation extends Component {
            </div>
           </div>
         </header>
-      </div>
 
     )
   }
