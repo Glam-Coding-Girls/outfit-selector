@@ -53,17 +53,25 @@
 .button-group button {
   width: 100px;
 }
-.btn-primary {
+.btn {
+  border: none;
+}
+.button-group .btn-primary {
   color: black;
   border: 1px solid gray;
   background-color: white;
 }
-.button-group button:hover {
+.btn-primary:hover {
   border: none;
+}
+.button-group button:hover {
+  color: black;
+  border: 1px solid #a2dfc4;
   background-color: #a2dfc4;
 }
-.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
-  border: none;
+.button-group .btn-primary:not(:disabled):not(.disabled):active, .button-group  .btn-primary:not(:disabled):not(.disabled).active, .button-group .show > .btn-primary.dropdown-toggle {
+  border: 1px solid #a2dfc4;
+  color: black;
   background-color: #a2dfc4;
 }
 .btn-primary:focus, .btn-primary.focus {
@@ -74,6 +82,31 @@
 .active {
   color: #a2dfc4;
 }
+
+  .socialShareButton {
+      height: 50px;
+      line-height: 50px;
+      padding: 0px 25px;
+      background: #666;
+      color: #fff;
+      cursor: pointer;
+  }
+  .closeShare {
+      display: none;
+      opacity: 0;
+  }
+  .openShare {
+      display: block;
+      opacity: 1;
+      animation: socialShareAnimation 1s;
+  }
+  i {
+      font-size: 50px;
+      color: #666;
+      margin: 0px 10px;
+  }
+
+
 @media all and (max-width: 700px) {
   .button-group  {
     width: 70%;
