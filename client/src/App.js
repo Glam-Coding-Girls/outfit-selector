@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import {Switch,Route, Link, Redirect} from 'react-router-dom';
-import Home from './components/home-component/Home';
 import HomePage from './components/HomePage';
 import About from './components/About';
 import Signup from './components/Signup';
@@ -16,13 +15,12 @@ let theError = ""
 let user = ""
 export class App extends Component {
   state={
-    skirts:{},
-    womenShorts:{},
     clothes:[],
     topImages: [],
     bottomImages: [],
     currentlyLoggedInUser: null,
-    ready: false
+    ready: false,
+    defaultSelection: "Women"
   }
 
 componentDidMount() {
@@ -34,54 +32,53 @@ componentDidMount() {
 } 
 
 
-getClothes = async() =>{
+  getClothes = async() =>{
     await axios.get('http://localhost:5000/api/get-clothes')
     .then(response => {
-      
+      console.log(response.data)
       this.setState({clothes: response.data.allClothes})
-    
       this.createImageArrays();  
     })
   }
+ setDefaultSelection = (selection) =>{
+    this.setState({
+       defaultSelection:selection
+      },()=>{
+    this.createImageArrays(); 
+  })
+ }
   
-createImageArrays =  () =>{
-    if(this.state.clothes.length > 0){
-      let tempTopArray = [];
-      let tempBottomArray = [];
-      this.state.clothes.forEach(element => {
-        if(element.name.includes('Tops')||element.name.includes('Shirts')){
-          element.data.image.forEach((img,ind)=>{
-            if(img['data-herosrc']){
-              tempTopArray.push(img['data-herosrc'])
-            } else if(img['src']){
-              tempTopArray.push(img['src']);
-            } 
-          })
-        } else if(element.name.includes('Bottoms')||element.name.includes('Pants')){
-          element.data.image.forEach((img,ind)=>{
-            if(img['data-herosrc']){
-              tempBottomArray.push(img['data-herosrc'])
-            } else if(img['src']){
-              tempBottomArray.push(img['src']);
-            } 
-          })
-        }
-      });
-      if(this.state.skirts.results){
-        
-          let tempBottom = [...tempBottomArray];
-          this.state.skirts.results.forEach((skirt,ind)=>{
-            tempBottom.push(skirt.image)
-          })
-          tempBottomArray = tempBottom;
-      
-        }       
-      this.setState({
-        topImages:tempTopArray,
-        bottomImages:tempBottomArray,
-      })
-    }  
-  }
+ createImageArrays =  () =>{
+  if(this.state.clothes.length > 0){
+    let tempTopArray = [];
+    let tempBottomArray = [];
+    this.state.clothes.forEach(element => {
+      if(element.type === this.state.defaultSelection){
+      if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
+        element.data.image.forEach((img,ind)=>{
+          if(img['data-herosrc']){
+            tempTopArray.push(img['data-herosrc'])
+          } else if(img['src']){
+            tempTopArray.push(img['src']);
+          } 
+        })
+      } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
+        element.data.image.forEach((img,ind)=>{
+          if(img['data-herosrc']){
+            tempBottomArray.push(img['data-herosrc'])
+          } else if(img['src']){
+            tempBottomArray.push(img['src']);
+          } 
+        })
+      }
+    }
+    });  
+    this.setState({
+      topImages:tempTopArray,
+      bottomImages:tempBottomArray,
+    })
+  } 
+}
 
   fetchUserData =  async () =>{
     try{ 
@@ -149,8 +146,7 @@ LogoutAction = () =>{
 }
 //Logout ends here
 
-render() {
-    console.log("the user", this.state.currentlyLoggedInUser)
+  render() {
     return (
   
       <div className="App">
@@ -180,7 +176,7 @@ render() {
           }
           <div className="mobile-menu">
             <input type="checkbox" id="menuToggle" />
-            <label for="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
+            <label htmlFor="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
             <ul>
             <Link to="/about">About</Link>
             <Link to="/top-outfits">Top Outfits</Link>
@@ -194,10 +190,10 @@ render() {
       <div className="container-fluid page">
       <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
-                                                                             skirts = {this.state.skirts}
-                                                                             shorts = {this.state.womenShorts}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
+                                                                            defaultSelection = {this.state.defaultSelection}
+                                                                            setDefaultSelection = {this.setDefaultSelection}
                                                                                
             /> } />
             <Route path='/about' component={About} />

@@ -73,7 +73,7 @@ console.log(this.state)
 }
     render() {
         return (
-            <>        
+            <div className="container innerpage">        
     <h1>Sign up</h1>  
     <form className="formstyles" onSubmit={this.saveUser}>
         <div className="form-group">
@@ -97,7 +97,11 @@ console.log(this.state)
         <button type="submit" className="btn btn-primary">Create the Account</button>
     </form> 
             {this.signupValidation()}    
+<<<<<<< HEAD
     </>
+=======
+            </div>
+>>>>>>> 2c52fe993b48cbadc454aca9b3045d9430be9cc0
         )
     }
 }
