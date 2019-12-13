@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Bottom from '../Bottom/Bottom';
+import Social from '../Social/Social';
 import './homepage.css';
+// import './social.scss';
 
 export class HomePage extends Component {
+
 showTops = () =>{
   if(this.props.topImages){
     let tops = [...this.props.topImages];
@@ -58,6 +61,10 @@ showDefault = () =>{
           <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
           </div>
          {this.showDefault()}
+         <div className="button-group">
+         <button className="btn btn-primary">Share</button>
+          <button className="btn btn-primary">Save</button>
+          </div>
         </div>
       </div>
     )

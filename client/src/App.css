@@ -72,6 +72,7 @@ header{
   padding-left: 20px;
   font-weight: 500; 
   font-size: 1em;
+  cursor: pointer;
   transition: 0.8s all;
 }
 .fa-user-circle{

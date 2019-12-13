@@ -33,8 +33,6 @@ export class Bottom extends Component {
       });
     }
     render() {
-      // console.log("this is images arr", [...this.props.imgs]);
-        // console.log(this.props.imgs[0], this.props)
         return (
             <div className="card-wrapper">
                 <div className="carousel">
