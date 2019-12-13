@@ -196,6 +196,7 @@ LogoutAction = () =>{
 //Logout ends here
 
   render() {
+    // console.log("my user",this.state.currentlyLoggedInUser)
     return (
       <div className="App">
         <header className="navheader">
@@ -261,6 +262,7 @@ LogoutAction = () =>{
                                                                                   /> } />
             <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                 fetchUserData = {this.fetchUserData}
+                                                                      
 
             />}/>
             <Route exact path="/top-outfits" component={TopOutfits}/> 
