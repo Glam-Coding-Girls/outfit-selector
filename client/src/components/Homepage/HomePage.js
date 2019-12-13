@@ -6,17 +6,25 @@ export class HomePage extends Component {
 showTops = () =>{
   if(this.props.topImages){
     let tops = [...this.props.topImages];
-    return (
-    <Bottom imgs={tops} />
-    )
+    console.log(tops)
+    if(tops.length > 0){
+      return (
+        <Bottom imgs={tops} />
+        )
+    }
+    
   } 
 }
 showBottoms = () =>{
  if(this.props.bottomImages){
   let bottoms = [...this.props.bottomImages]
-  return (
-  <Bottom imgs={bottoms} />
-  )
+  console.log(bottoms)
+  if(bottoms.length > 0 ){
+    return (
+      <Bottom imgs={bottoms} />
+      )
+  }
+ 
  }
 }
 showDefault = () =>{

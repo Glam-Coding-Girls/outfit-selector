@@ -18,14 +18,18 @@ export class Profile extends Component {
     },250);
     } else{
       return ( 
-        <>
-          <p>Hey {this.props.currentlyLoggedInUser.email}!</p>
-          <div>  
-             <h1>Profile</h1>      
+        <div className="profile">
+         <div className="profile-content">
+          <div className="welcome-msg">
+            <p>Hey {this.props.currentlyLoggedInUser.email}!</p>
+          </div>
+          <div className="profile-main-content">  
+             <h3>ACCOUNT SETTINGS</h3>      
              <form>
-                <div>
+                <div className="field">
                   <label>PHOTO</label>
-                  <img id="profile-image" src={this.state.img}
+                  <span>
+                    <img id="profile-image" src={this.state.img}
                        onMouseEnter={() => {
                         this.setState({
                               img:"./profile_icon_cam.png"
@@ -36,15 +40,16 @@ export class Profile extends Component {
                            img: "./profile_icon.png"
                          })
                       }}
-                  />
+                    />
+                  </span>
                 </div>
-                <div>
+                <div className="field">
                     <label>ACCOUNT EMAIL</label>
                     <span>{this.props.currentlyLoggedInUser.email}</span>
                     <i className="fas fa-pen-square"></i>
                     {/* <input type="text" name="emailInput"/> */}
                 </div>
-                <div>
+                <div className="field">
                     <label>PASSWORD</label>  
                     <span>••••••••</span>
                     <i className="fas fa-pen-square"></i>
@@ -52,7 +57,8 @@ export class Profile extends Component {
                 </div>
              </form>  
            </div>
-        </>
+          </div> 
+        </div>
       )
     } 
  }

@@ -24,6 +24,7 @@ export class App extends Component {
     isActive: 'Women',
     ready: false,
     registered: false,
+    currentPic: 0,
   }
 
   componentDidMount() {
@@ -64,23 +65,37 @@ setDefaultSelection = (selection) =>{
   if(this.state.clothes.length > 0){
     let tempTopArray = [];
     let tempBottomArray = [];
+    let im;
+    let link;
     this.state.clothes.forEach(element => {
       if(element.type === this.state.defaultSelection){
          if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
             element.data.image.forEach((img,ind)=>{
               if(img['data-herosrc']){
-                 tempTopArray.push(img['data-herosrc'])
-              } else if(img['src']){
-                 tempTopArray.push(img['src']);
-              } 
+                im = img['data-herosrc']
+             } else if(img['src']){
+                im = img['src']
+             } 
+              element.data.priceData.forEach((redirectLink,topsInd)=>{
+                if(ind === topsInd){
+                  link = redirectLink['href']
+                }
+            })
+             tempTopArray.push({'image':im, 'href':link})
             })
           } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
               element.data.image.forEach((img,ind)=>{
                 if(img['data-herosrc']){
-                    tempBottomArray.push(img['data-herosrc'])
+                  im = img['data-herosrc'];
                 } else if(img['src']){
-                    tempBottomArray.push(img['src']);
+                  im = img['src'];
                 } 
+                element.data.priceData.forEach((redirectLink,bottomsInd)=>{
+                  if(ind === bottomsInd){
+                    link = redirectLink['href']
+                  }
+                });
+                tempBottomArray.push({'image':im, 'href':link})
               });
           }
         }
@@ -196,7 +211,7 @@ LogoutAction = () =>{
 //Logout ends here
 
   render() {
-    // console.log("my user",this.state.currentlyLoggedInUser)
+    // console.log("top clothes array",this.state.topImages[0].image);
     return (
       <div className="App">
         <header className="navheader">
