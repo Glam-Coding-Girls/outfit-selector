@@ -147,6 +147,7 @@ LogoutAction = () =>{
 //Logout ends here
 
   render() {
+    console.log("my user",this.state.currentlyLoggedInUser)
     return (
   
       <div className="App">

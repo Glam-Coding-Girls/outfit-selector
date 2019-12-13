@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom';
 
 export class Profile extends Component {
+  state = {
+    img: "./profile_icon.png"
+  }
 
 render() {
   if(!this.props.user){
@@ -22,16 +25,32 @@ else{
     <form>
             <div>
             <label>PHOTO</label>
+            <img id="profile-image" src={this.state.img}
+              onMouseEnter={() => {
+              this.setState({
+              img:"./profile_icon_cam.png"
+            })
+          }}
+
+          onMouseOut={() => {
+            this.setState({
+              img: "./profile_icon.png"
+            })
+          }}
+            />
             </div>
             <div>
-                <label>Account Email</label>
+                <label>ACCOUNT EMAIL </label>
                 <span>{this.props.user.user.email}</span>
+                <i class="fas fa-pen-square"></i>
+
 
                 {/* <input type="text" name="emailInput"/> */}
             </div>
       <div>
-                <label>Password</label>  
-                <span></span>
+                <label>PASSWORD </label>  
+                <span>••••••••</span>
+                <i class="fas fa-pen-square"></i>
                 {/* <input type="password" name="passwordInput"/> */}
       </div>
     </form>  
