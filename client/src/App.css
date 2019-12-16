@@ -111,8 +111,10 @@ header{
   height:auto;
   cursor:pointer;
 }
-#save-image{
-  width:5vh;
+#save-image, #edit-icon{
+  width:3vh;
+  margin-left: 0.5rem;
+  cursor:pointer;
 }
 .save-button{
 padding: 0;

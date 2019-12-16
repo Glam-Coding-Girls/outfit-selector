@@ -4,7 +4,7 @@ const UserSchema = new mongoose.Schema({
 
 email:{
   type: String,
-  required: true
+  required: true, unique:true
 },
 password:{
   type: String,
@@ -16,6 +16,7 @@ username:{
   profilePic: {type: String, default: './profile_icon.png'},
   outfit: [{type:Schema.Types.ObjectId, ref: 'Outfit'}]
 })
+
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
