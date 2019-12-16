@@ -12,6 +12,10 @@ import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
 
 export class App extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
   state={
     clothes:[],
     topImages: [],
@@ -26,7 +30,13 @@ export class App extends Component {
     isActive: 'Women',
     ready: false,
     registered: false,
-    currentPic: 0,
+    currentTopPicture: "",
+    currentBottomPicture: ""
+  }
+
+  handleChange(e) {
+    // this.props.getCurrentClothesID(e.target.value);
+    this.setState({currentPic: e.target.value});
   }
 
   componentDidMount() {
@@ -213,18 +223,19 @@ LogoutAction = () =>{
 //Logout ends here
 
   render() {
-    // console.log("top clothes array",this.state.topImages[0].image);
+    // console.log("current array index",this.state.currentPic);
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser} LogoutAction = {this.LogoutAction}/>
       <div className="container">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
-                                                                             topImages = {this.state.topImages}
-                                                                             bottomImages = {this.state.bottomImages}
+                                                                             topImages = {this.state.topImages} //top image array
+                                                                             bottomImages = {this.state.bottomImages} //bottom image array
                                                                             defaultSelection = {this.state.defaultSelection}
                                                                             setDefaultSelection = {this.setDefaultSelection}
                                                                             isActive = {this.state.isActive}
+                                                                            
                                                                                
             /> } />
             <Route path='/about' component={About} />

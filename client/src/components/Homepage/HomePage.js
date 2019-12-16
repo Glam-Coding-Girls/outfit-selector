@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import Bottom from '../Bottom/Bottom';
 import './homepage.css';
-// import './social.scss';
 
 export class HomePage extends Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    currentTopIndex: 0,
+    currentBottomIndex: 0,
+  }
+
+  setTopIndex = (x)=>{
+    this.setState({currentTopIndex: x})
+  }
+
+  setBottomIndex = (x)=>{
+    this.setState({currentBottomIndex: x})
+  }
 
 showTops = () =>{
   if(this.props.topImages){
     let tops = [...this.props.topImages];
-    console.log(tops)
+    // console.log(tops)
     if(tops.length > 0){
       return (
-        <Bottom imgs={tops} />
+        <Bottom updateIndex={this.setTopIndex} imgs={tops} />
         )
     }
     
@@ -20,10 +34,10 @@ showTops = () =>{
 showBottoms = () =>{
  if(this.props.bottomImages){
   let bottoms = [...this.props.bottomImages]
-  console.log(bottoms)
+  // console.log(bottoms)
   if(bottoms.length > 0 ){
     return (
-      <Bottom imgs={bottoms} />
+      <Bottom updateIndex={this.setBottomIndex} imgs={bottoms} />
       )
   }
  
@@ -38,8 +52,20 @@ showDefault = () =>{
    )
  }
 
+ savePics = () => {
+   let currentTopPic = this.props.topImages[this.state.currentTopIndex].image;
+   let currentBottomPic = this.props.bottomImages[this.state.currentBottomIndex].image;
+
+   console.log("******", currentTopPic, currentBottomPic);
+  //  so now just make an axios call here and send these 2 things
+
+ }
+
+
+
 
   render() {
+    console.log("-=-=-=-=-=-",this.state);
     return (
       <div className="outfitpanel">
         <div className="outfitsleft">
@@ -70,7 +96,7 @@ showDefault = () =>{
          {this.showDefault()}
          <div className="button-group">
          <button className="btn btn-primary">Share</button>
-          <button className="btn btn-primary">Save</button>
+          <button onClick={this.savePics} className="btn btn-primary">Save</button>
           </div>
         </div>
       </div>
