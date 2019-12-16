@@ -25,7 +25,7 @@ export class Navigation extends Component {
                  </div>
                  : 
                  <div className="rightnav">
-                   <Link to="/profile" style={{textDecoration:"none"}}><i className="fas fa-user-circle"></i></Link>
+                   <Link to="/profile" style={{textDecoration:"none"}}><img className="profile-nav-icon" src={this.props.profilePic}/></Link>
                    <a onClick={this.props.LogoutAction}>Logout</a>
                 </div>
                }

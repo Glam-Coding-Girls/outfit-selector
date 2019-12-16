@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom';
 
+
 export class Profile extends Component {
   state = {
-    img: "./profile_icon.png",
     showEditEmail:false,
-    showEditPass:false
+    showEditPass:false,
+    saveIcon1: "./save-icon.png",
+    saveIcon2: "./save-icon.png",
   }
 
   handleEditEmailClick = () =>{
@@ -14,6 +16,33 @@ export class Profile extends Component {
   handleEditPassClick = () =>{
     this.setState({showEditPass: !this.state.showEditPass})
   }
+
+  editValidation = () => {
+    //if user passed the server validation check, a user exists, 
+    //therefore registration was successful
+        if(!this.props.theError && this.props.updated){
+            return(
+                <div className="alert alert-success" role="alert">
+                <strong>Updated Successfully!</strong>  
+                </div>
+            )      
+        }
+    //if the user didn't pass server validation check, a error message exists, so we show the error msg
+        else if(this.props.theError && !this.props.updated){
+            return (
+            
+                <div className="alert alert-danger" role="alert">
+                    <p>{this.props.theError}</p>
+                </div>
+            )
+        } else if(!this.props.theError && !this.props.updated) {
+            return (
+                <div>
+                </div>
+            )
+        }
+    }
+
 
  checkUserSession = () =>{
   if(!this.props.currentlyLoggedInUser){
@@ -31,40 +60,42 @@ export class Profile extends Component {
          <div className="profile">
          <div className="profile-content">
           <div className="welcome-msg">
-          <p>Hey {this.props.currentlyLoggedInUser.email}!</p>
+          <p>Hey {this.props.currentlyLoggedInUser.username}!</p>
           </div>  
           <div className="profile-main-content">  
-          <h3>ACCOUNT SETTINGS</h3>      
+          <h3>ACCOUNT SETTINGS</h3>     
+          <form onSubmit= {this.props.editTheUser}>         
                 <div className="field">
                   <label>PHOTO</label>
-                  <span>
-                  <img id="profile-image" src={this.state.img}
+                  <div className ="profile-pic-upload">
+                  <label htmlFor="file-input">
+                  <img id="profile-image" alt="profile-img" src={this.props.profilePic}/></label>
+                     <input id="file-input" type="file" onChange={(e) => this.props.handleFileUpload(e)} />
+                    </div>
+                </div>
+                <div className="field">
+                    <label>ACCOUNT EMAIL</label>
+                    {!this.state.showEditEmail?
+                    <> 
+                      <span> {this.props.currentlyLoggedInUser.email}</span>
+                      <i className="fas fa-pen-square" onClick={this.handleEditEmailClick}/>
+                      </>
+                      :
+                      <>
+                      <input type="text" className="form-control" name="currentEmail" 
+                           value={this.props.currentEmail} 
+                           onChange={this.props.updateInput}/>
+                      <button className="save-button"><img id="save-image" alt="save-icon" src={this.state.saveIcon1}
                        onMouseEnter={() => {
                         this.setState({
-                              img:"./profile_icon_cam.png"
+                          saveIcon1:"./save-icon1.png"
                            })
                          }}
                        onMouseOut={() => {
                          this.setState({
-                           img: "./profile_icon.png"
+                          saveIcon1: "./save-icon.png"
                          })
-                      }}/>
-                    </span>
-                </div>
-                <div className="field">
-                    <label>ACCOUNT EMAIL</label>
-                    {!this.state.showEditEmail?<>
-                      <span> {this.props.currentlyLoggedInUser.email}</span>
-                      <i className="fas fa-pen-square" onClick={this.handleEditEmailClick}/></>
-                      :
-                      <>
-                      <form>
-                      <input type="text" name="email" 
-                      value={this.props.currentlyLoggedInUser.email}
-                      onChange={this.props.updateInput}
-                      />
-                      </form>
-                      <i class="far fa-save"></i>
+                      }}/></button>
                       </>
                     }
                 </div>
@@ -73,26 +104,37 @@ export class Profile extends Component {
                     {!this.state.showEditPass?
                     <>
                     <span> ••••••••</span>
-                    <i className="fas fa-pen-square" onClick={this.handleEditPassClick}/></>
+                    <i className="fas fa-pen-square" onClick={this.handleEditPassClick}/>
+                    </>
                     :
                     <>
-                    <form>
-                    <input type="password" name="password" 
-                    value={this.props.currentlyLoggedInUser.password}
-                    onChange={this.props.updateInput}
-                    />
-                    </form>
-                    <i class="far fa-save"></i>
-                    </>}
+                    <input type="password" className="form-control" name="currentPass"
+                           value={this.props.currentPass} 
+                           onChange={this.props.updateInput}/>
+                    <button className="save-button"><img id="save-image" alt="save icon" src={this.state.saveIcon2}
+                       onMouseEnter={() => {
+                        this.setState({
+                          saveIcon2:"./save-icon1.png"
+                           })
+                         }}
+                       onMouseOut={() => {
+                         this.setState({
+                          saveIcon2: "./save-icon.png"
+                         })
+                      }}/></button>
+                    </>
+                    }
+                </div>
+                {this.editValidation()}
+                </form>
                 </div>
             </div>
           </div>
-        </div>
       )
     } 
  }
 render() {
-  // console.log(this.props.currentlyLoggedInUser)
+  //console.log(this.props.currentlyLoggedInUser)
   return(
      <>
       {this.checkUserSession()}

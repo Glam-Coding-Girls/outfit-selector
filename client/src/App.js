@@ -30,13 +30,11 @@ export class App extends Component {
     isActive: 'Women',
     ready: false,
     registered: false,
-    currentTopPicture: "",
-    currentBottomPicture: ""
-  }
-
-  handleChange(e) {
-    // this.props.getCurrentClothesID(e.target.value);
-    this.setState({currentPic: e.target.value});
+    currentPic: 0,
+    profilePic: "",
+    currentEmail: "",
+    currentPass: "",
+    updated: false
   }
 
   componentDidMount() {
@@ -125,6 +123,9 @@ setDefaultSelection = (selection) =>{
       let currentUser = await axios.get('http://localhost:5000/api/get-user-info', {withCredentials: true} )
       this.setState({
         currentlyLoggedInUser: currentUser.data,
+        profilePic: currentUser.data.profilePic,
+        currentEmail: currentUser.data.email,
+        currentPass: currentUser.data.password,
         ready: true,
       })
     }
@@ -138,11 +139,14 @@ setDefaultSelection = (selection) =>{
     this.setState({[e.target.name]: e.target.value});
     }
 
-  signup = () => {
+signup = () => {
+let randomUserNumber = Math.floor((Math.random() * 20) + 10);  
+let usernamePart1 = this.state.emailInput.slice(0,4)
     axios.post('http://localhost:5000/api/signup', {
       email: this.state.emailInput,
       password: this.state.passwordInput,
-      password2: this.state.passwordInput2
+      password2: this.state.passwordInput2,
+      username: usernamePart1+randomUserNumber
   }, {
       withCredentials: true
   })
@@ -187,7 +191,10 @@ setDefaultSelection = (selection) =>{
                     currentlyLoggedInUser: response.data.user,
                     ready: true,
                     redirect:true,
-                    theError:null
+                    theError:null,
+                    profilePic: response.data.user.profilePic,
+                    currentEmail: response.data.user.email,
+                    currentPass: response.data.user.password
                   })
                 }
               this.setState({
@@ -205,28 +212,82 @@ setDefaultSelection = (selection) =>{
       }
 // <-------------------------End Login and Signup method calls ----------------------------->
 
+// <-------------------------Edit User Details---------------------------------------------->
+editTheUser = (e) =>{
+  e.preventDefault();
+  const user = {
+    email: this.state.currentEmail,
+    password: this.state.currentPass
+  }
+  axios.put('http://localhost:5000/api/profile/'+this.state.currentlyLoggedInUser._id, user, {
+      withCredentials: true
+  })
+  .then((res)=>{
+      if(res.data.error){         
+          this.setState({
+            theError: res.data.error,
+          })
+      }
+      else{
+      console.log("user updated")
+      this.fetchUserData()
+        this.setState({
+          theError:null,
+          updated:true,
+        })
+      }
+  })
+  .catch((err)=>{
+      console.log(err);
+  }
+)
+}
+
 //Logout function, redirects to homepage and set currentlyLoggedInUser to null
 LogoutAction = () =>{
-    axios.get('http://localhost:5000/api/logout').then((res)=>{
-      console.log(res)
-      this.setState({
-        currentlyLoggedInUser: null,
-        ready: false,
-      }, () => {
-           this.props.history.push('/');
-      })
-    })
+    axios.get('http://localhost:5000/api/logout')
+         .then((res)=>{
+           console.log(res)
+            this.setState({
+              currentlyLoggedInUser: null,
+              ready: false,
+             }, () => {
+               this.props.history.push('/');
+            })
+         })
       .catch((err)=>{
       console.log(err);
 })
 }
 //Logout ends here
 
+//------------------>Profile pic upload<----------------------------------
+handleFileUpload = e => {
+  console.log("The file to be uploaded is: ", e.target.files[0]);
+
+  const uploadData = new FormData();
+  uploadData.append("profilePic", e.target.files[0]);
+  
+  return axios.put('http://localhost:5000/api//profile-pic/'+this.state.currentlyLoggedInUser._id, uploadData)
+  .then(response => {
+      this.setState({ profilePic: response.data.secure_url });
+    })
+    .catch(err => {
+      console.log("Error while uploading the file: ", err);
+    });
+}
+
+
   render() {
     // console.log("current array index",this.state.currentPic);
+    // console.log(this.state.currentlyLoggedInUser)
     return (
       <div >
-      <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser} LogoutAction = {this.LogoutAction}/>
+      <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
+                  LogoutAction = {this.LogoutAction} 
+                  fetchUserData = {this.fetchUserData}
+                  profilePic = {this.state.profilePic}
+                  />
       <div className="container">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
@@ -257,8 +318,13 @@ LogoutAction = () =>{
             <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                 fetchUserData = {this.fetchUserData}
                                                                                 updateInput = {this.updateInput}
-                                                                      
-
+                                                                                editTheUser = {this.editTheUser}
+                                                                                profilePic = {this.state.profilePic}
+                                                                                handleFileUpload = {this.handleFileUpload}
+                                                                                currentEmail = {this.state.currentEmail}
+                                                                                currentPass = {this.state.currentPass}
+                                                                                theError = {this.state.theError}
+                                                                                updated = {this.state.updated}
             />}/>
             <Route exact path="/shared-outfits" component={SharedOutfits}/> 
             <Route exact path="/my-outfits" component={MyOutfits}/>
