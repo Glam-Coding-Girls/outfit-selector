@@ -8,6 +8,8 @@ export class Profile extends Component {
     showEditPass:false,
     saveIcon1: "./save-icon.png",
     saveIcon2: "./save-icon.png",
+    editIcon1: "./edit-icon.png",
+    editIcon2: "./edit-icon.png"
   }
 
   handleEditEmailClick = () =>{
@@ -29,8 +31,7 @@ export class Profile extends Component {
         }
     //if the user didn't pass server validation check, a error message exists, so we show the error msg
         else if(this.props.theError && !this.props.updated){
-            return (
-            
+            return (   
                 <div className="alert alert-danger" role="alert">
                     <p>{this.props.theError}</p>
                 </div>
@@ -78,7 +79,17 @@ export class Profile extends Component {
                     {!this.state.showEditEmail?
                     <> 
                       <span> {this.props.currentlyLoggedInUser.email}</span>
-                      <i className="fas fa-pen-square" onClick={this.handleEditEmailClick}/>
+                      <img src={this.state.editIcon1} id="edit-icon" onClick={this.handleEditEmailClick}
+                        onMouseEnter={() => {
+                        this.setState({
+                          editIcon1:"./edit-icon-hover.png"
+                           })
+                         }}
+                       onMouseOut={() => {
+                         this.setState({
+                          editIcon1: "./edit-icon.png"
+                         })}}
+                      />
                       </>
                       :
                       <>
@@ -104,7 +115,16 @@ export class Profile extends Component {
                     {!this.state.showEditPass?
                     <>
                     <span> ••••••••</span>
-                    <i className="fas fa-pen-square" onClick={this.handleEditPassClick}/>
+                    <img src={this.state.editIcon2} id="edit-icon" onClick={this.handleEditPassClick}
+                        onMouseEnter={() => {
+                        this.setState({
+                          editIcon2:"./edit-icon-hover.png"
+                           })
+                         }}
+                       onMouseOut={() => {
+                         this.setState({
+                          editIcon2: "./edit-icon.png"
+                         })}}/>
                     </>
                     :
                     <>
@@ -134,7 +154,7 @@ export class Profile extends Component {
     } 
  }
 render() {
-  //console.log(this.props.currentlyLoggedInUser)
+  console.log(this.props.currentlyLoggedInUser)
   return(
      <>
       {this.checkUserSession()}

@@ -157,7 +157,7 @@ router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) =
       }
       User.findByIdAndUpdate(req.params.id,{
         profilePic:req.file.secure_url},
-        {new: true})
+        )
       .then(newPic => {
       // get secure_url from the file object and save it in the 
       // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend

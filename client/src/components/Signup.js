@@ -10,6 +10,7 @@ signupValidation = () => {
 //if user passed the server validation check, a user exists, 
 //therefore registration was successful
     if(!this.props.theError && this.props.registered){
+       
         return(
             <div className="alert alert-success" role="alert">
             <strong>You're registered!<Link to="/login" style={{textDecoration:"none"}}> Login </Link> to start</strong>  
@@ -18,9 +19,11 @@ signupValidation = () => {
     }
 //if the user didn't pass server validation check, a error message exists, so we show the error msg
     else if(this.props.theError && !this.props.registered){
+        let error = this.props.theError
+       
         return (
             <div className="alert alert-danger" role="alert">
-                <p>{this.props.theError}</p>
+                <p>{error}</p>
             </div>
         )
     } else if(!this.props.theError && !this.props.registered) {

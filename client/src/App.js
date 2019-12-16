@@ -30,7 +30,6 @@ export class App extends Component {
     profilePic: "",
     currentEmail: "",
     currentPass: "",
-    updated: false
   }
 
   componentDidMount() {
@@ -130,9 +129,9 @@ setDefaultSelection = (selection) =>{
     }
   }
 
-  //Login and signup method calls
+//-------------------->Login and signup method calls<------------------------------------
   updateInput = (e) =>{
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({[e.target.name]: e.target.value, theError:null})
     }
 
 signup = () => {
@@ -229,7 +228,7 @@ editTheUser = (e) =>{
       this.fetchUserData()
         this.setState({
           theError:null,
-          updated:true,
+          registered:true,
         })
       }
   })
@@ -318,7 +317,7 @@ handleFileUpload = e => {
                                                                                 currentEmail = {this.state.currentEmail}
                                                                                 currentPass = {this.state.currentPass}
                                                                                 theError = {this.state.theError}
-                                                                                updated = {this.state.updated}
+                                                                                registered = {this.state.registered}
             />}/>
             <Route exact path="/shared-outfits" component={SharedOutfits}/> 
             <Route exact path="/my-outfits" component={MyOutfits}/>
