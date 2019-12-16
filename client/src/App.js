@@ -264,6 +264,9 @@ editTheUser = (e) =>{
     email: this.state.currentEmail,
     password: this.state.currentPass
   }
+
+  console.log('=-=-=-', this.state.currentEmail, this.state.currentPass);
+  
   axios.put('http://localhost:5000/api/profile/'+this.state.currentlyLoggedInUser._id, user, {
       withCredentials: true
   })

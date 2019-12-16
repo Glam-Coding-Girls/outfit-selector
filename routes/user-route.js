@@ -105,6 +105,8 @@ router.get('/get-user-info', (req, res, next)=>{
 
 router.put('/profile/:id', (req, res, next)=>{
 
+console.log(req.body, '90909090909',req.session)
+
 if(req.body.password.length < 6){
     res.json({error: 'Passwords must be at least 6 characters long.'})
     return;
@@ -123,7 +125,12 @@ else{
 User.findOne({email:req.body.email})
 .then(user =>{
 
-  if(user){
+  console.log(user)
+  let edititingPass = null;
+  if(user) {
+    edititingPass = req.body.password != user.password;
+  }
+  if(user &!edititingPass){
     res.json({error: 'Email is already registered, please enter a different email.'})
     return; 
   }
@@ -133,10 +140,16 @@ User.findOne({email:req.body.email})
     const hash = bcrypt.hashSync(req.body.password, salt);
     const email = req.body.email; 
 
-    User.findByIdAndUpdate(req.params.id, {
-      email: email,
-      password: hash
-    }, {new: true})
+    User.findById(req.params.id).then((theActualUser)=>{
+
+    const theUpdate = {};
+    theUpdate.email = email;
+
+    if(req.body.password !== theActualUser.password){
+      theUpdate.password = hash;
+    }
+
+    User.findByIdAndUpdate(req.params.id, theUpdate, {new: true})
     .then((response) => {
       console.log(response)
       res.json({message:'Update complete'});
@@ -144,6 +157,11 @@ User.findOne({email:req.body.email})
     .catch((err)=>{
       res.json(err)
     })
+
+  }).catch((err)=>{
+    next(err)
+  })
+
   }})
     }})
 

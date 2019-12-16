@@ -129,7 +129,7 @@ export class Profile extends Component {
                     :
                     <>
                     <input type="password" className="form-control" name="currentPass"
-                           value={this.props.currentPass} 
+                           defaultValue={''} 
                            onChange={this.props.updateInput}/>
                     <button className="save-button"><img id="save-image" alt="save icon" src={this.state.saveIcon2}
                        onMouseEnter={() => {
