@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './bottom.css';
 
+
 export class Bottom extends Component {
     constructor(props) {
         super(props);
@@ -26,20 +27,33 @@ export class Bottom extends Component {
       const { currentPic } = this.state;
       const shouldResetIndex = currentPic === lastIndex;
       const index =  shouldResetIndex ? 0 : currentPic + 1;
-    
       this.setState({
         currentPic: index
       });
     }
+   
+
 
     displayCarousal = () => {
       if(this.props.imgs){
         return (
-          <div className="card-wrapper">
+<div className="card-wrapper">
+<div className="card-prev">
+              <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
+            </div>
               <div className="carousel">
                  <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
-                 <a href={this.props.imgs[this.state.currentPic].href} target="_blank"><img src={this.props.imgs[this.state.currentPic].image}  alt="carousel" /></a>
+                 <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
+                  <div className="content-overlay"></div>
+                  <img src={this.props.imgs[this.state.currentPic].image} alt="carousel" />
+                  <div className="content-details fadeIn-bottom">
+                    <h3 className="content-title">Click to see details</h3>
+                  </div>
+                  </a>
                  <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
+              </div>
+              <div className="card-next">
+                <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
               </div>
           </div>
         )
@@ -52,16 +66,20 @@ export class Bottom extends Component {
       }
     }
     render() {
-      // console.log("in bottomjs clothes",this.props.imgs)
-      
+  
+   
+      // setInterval(() => {
+      //   let st = this.state.currentPic;
+      //   setTimeout(()=>{
+      //     st++;
+      //     this.setState({
+      //       currentPic:st
+      //     })
+      //   }, 1000)
+        
+        
+      // },2000);
         return (
-          // <div className="card-wrapper">
-          //     <div className="carousel">
-          //        <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
-          //        <img src={this.props.imgs[this.state.currentPic]}  alt="carousel" />
-          //        <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
-          //     </div>
-          // </div>
           <>
            {this.displayCarousal()}
           </>

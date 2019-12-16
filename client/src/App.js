@@ -17,6 +17,7 @@ export class App extends Component {
     topImages: [],
     bottomImages: [],
     defaultSelection:'Women',
+    catSelection:'twoPiece',
     currentlyLoggedInUser:null,
     emailInput: "",
     passwordInput: "",
@@ -31,7 +32,10 @@ export class App extends Component {
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-    this.fetchUserData()
+    if(this.state.ready){
+
+      this.fetchUserData()
+    }
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
@@ -57,50 +61,70 @@ export class App extends Component {
 setDefaultSelection = (selection) =>{
   this.setState({
      defaultSelection:selection,
-     isActive: selection
+     isActive: selection,
+    //  catSelection:'twoPiece',
+    topImages: [],
+    bottomImages: [],
     },()=>{
   this.createImageArrays(); 
 })
 }
-  
+ setCatSelection = (e) =>{
+  this.setState({
+    catSelection:e.target.value,
+    topImages: [],
+    bottomImages: [],
+   },()=>{
+ this.createImageArrays(); 
+})
+ } 
+
  createImageArrays =  () =>{
   if(this.state.clothes.length > 0){
     let tempTopArray = [];
     let tempBottomArray = [];
-    let im;
-    let link;
+    
     this.state.clothes.forEach(element => {
       if(element.type === this.state.defaultSelection){
-         if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
-            element.data.image.forEach((img,ind)=>{
-              if(img['data-herosrc']){
-                im = img['data-herosrc']
-             } else if(img['src']){
-                im = img['src']
-             } 
-              element.data.priceData.forEach((redirectLink,topsInd)=>{
-                if(ind === topsInd){
-                  link = redirectLink['href']
-                }
-            })
-             tempTopArray.push({'image':im, 'href':link})
+        if(element.type === "Women"){
+          if(this.state.catSelection === "Dress"){
+            if(element.name.toUpperCase().includes('Dress'.toUpperCase())){
+              this.createObjCall(element).forEach(obj => {
+                tempTopArray.push(obj);
+              })
+              // tempBottomArray = [];
+            }
+            //tempBottomArray = null;
+          } else{
+            if(element.name.toUpperCase().includes('Tops'.toUpperCase())||
+            element.name.toUpperCase().includes('Shirts'.toUpperCase())||
+            element.name.toUpperCase().includes('Blouses'.toUpperCase())||
+            element.name.toUpperCase().includes('Sweater'.toUpperCase())||
+            element.name.toUpperCase().includes('Tees'.toUpperCase())){
+              this.createObjCall(element).forEach(obj => {
+                tempTopArray.push(obj);
+              })
+            } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||
+            element.name.toUpperCase().includes('Pants'.toUpperCase())||
+            element.name.toUpperCase().includes('Jean'.toUpperCase())||
+            element.name.toUpperCase().includes('Skirt'.toUpperCase())){
+              this.createObjCall(element).forEach(obj => {
+                tempBottomArray.push(obj);
+              })
+            }
+          }
+        } else{
+          if(element.name.toUpperCase().includes('Tops'.toUpperCase())||element.name.toUpperCase().includes('Shirts'.toUpperCase())||element.name.toUpperCase().includes('Blouses'.toUpperCase())){
+            this.createObjCall(element).forEach(obj => {
+              tempTopArray.push(obj);
             })
           } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
-              element.data.image.forEach((img,ind)=>{
-                if(img['data-herosrc']){
-                  im = img['data-herosrc'];
-                } else if(img['src']){
-                  im = img['src'];
-                } 
-                element.data.priceData.forEach((redirectLink,bottomsInd)=>{
-                  if(ind === bottomsInd){
-                    link = redirectLink['href']
-                  }
-                });
-                tempBottomArray.push({'image':im, 'href':link})
-              });
+            this.createObjCall(element).forEach(obj => {
+              tempBottomArray.push(obj);
+            })
           }
-        }
+      }
+    }
     });  
       this.setState({
         topImages:tempTopArray,
@@ -108,6 +132,28 @@ setDefaultSelection = (selection) =>{
       })
     } 
   }
+
+  createObjCall = (element) =>{
+    let im;
+    let link;
+    let arr = [];
+      element.data.image.forEach((img,ind)=>{
+        if(img['data-herosrc']){
+          im = img['data-herosrc']
+       } else if(img['src']){
+          im = img['src']
+       } 
+        element.data.priceData.forEach((redirectLink,topsInd)=>{
+          if(ind === topsInd){
+            link = redirectLink['href']
+          }
+      })
+      arr.push({'image':im, 'href':link})
+      })
+    return arr;
+  }
+
+
 // <-------------------End HomePage method calls ----------------->
   //check session
   fetchUserData =  async () =>{
@@ -218,14 +264,16 @@ LogoutAction = () =>{
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser} LogoutAction = {this.LogoutAction}/>
-      <div className="container">
+      <div className="container page">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
-                                                                            defaultSelection = {this.state.defaultSelection}
+                                                                             defaultSelection = {this.state.defaultSelection}
                                                                             setDefaultSelection = {this.setDefaultSelection}
                                                                             isActive = {this.state.isActive}
+                                                                            setCatSelection = {this.setCatSelection}
+                                                                            catSelection = {this.state.catSelection}
                                                                                
             /> } />
             <Route path='/about' component={About} />
