@@ -22,7 +22,7 @@ export class App extends Component {
     bottomImages: [],
     defaultSelection:'Women',
     catSelection:'twoPiece',
-    currentlyLoggedInUser:null,
+    currentlyLoggedInUser: null,
     emailInput: "",
     passwordInput: "",
     passwordInput2:"",
@@ -39,10 +39,10 @@ export class App extends Component {
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-    if(this.state.ready){
+    // if(this.state.ready){
 
       this.fetchUserData()
-    }
+    // }
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
@@ -232,6 +232,7 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                  })        
                 }
               if(response.data.user){
+                console.log(response.data.user)
                  this.setState({
                     currentlyLoggedInUser: response.data.user,
                     ready: true,
@@ -266,7 +267,7 @@ editTheUser = (e) =>{
   }
 
   console.log('=-=-=-', this.state.currentEmail, this.state.currentPass);
-  
+
   axios.put('http://localhost:5000/api/profile/'+this.state.currentlyLoggedInUser._id, user, {
       withCredentials: true
   })
@@ -328,7 +329,7 @@ handleFileUpload = e => {
 
   render() {
     // console.log("current array index",this.state.currentPic);
-    // console.log(this.state.currentlyLoggedInUser)
+    console.log(" this is the user",this.state.currentlyLoggedInUser)
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
@@ -363,6 +364,7 @@ handleFileUpload = e => {
                                                                                   passwordInput = {this.state.passwordInput}
                                                                                   redirect = {this.state.redirect} 
                                                                                   theError = {this.state.theError}
+                                                                                  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                   /> } />
             <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                 fetchUserData = {this.fetchUserData}

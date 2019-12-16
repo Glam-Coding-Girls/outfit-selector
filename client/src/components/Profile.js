@@ -9,8 +9,10 @@ export class Profile extends Component {
     saveIcon1: "./save-icon.png",
     saveIcon2: "./save-icon.png",
     editIcon1: "./edit-icon.png",
-    editIcon2: "./edit-icon.png"
+    editIcon2: "./edit-icon.png",
   }
+
+
 
   handleEditEmailClick = () =>{
     this.setState({showEditEmail: !this.state.showEditEmail})
