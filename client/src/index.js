@@ -6,8 +6,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {HashRouter, Route} from 'react-router-dom';
-// import 'fontawesome';
-// import '@fortawesome/fontawesome-free/css/all.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import { createBrowserHistory } from 'history';
 

@@ -122,7 +122,9 @@ setDefaultSelection = (selection) =>{
             this.createObjCall(element).forEach(obj => {
               tempTopArray.push(obj);
             })
-          } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
+          } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||
+          element.name.toUpperCase().includes('Pants'.toUpperCase())||
+          element.name.toUpperCase().includes('Jean'.toUpperCase())){
             this.createObjCall(element).forEach(obj => {
               tempBottomArray.push(obj);
             })
