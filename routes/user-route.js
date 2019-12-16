@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const bcrypt  = require('bcryptjs');
 const User    = require('../models/User')
-const passport = require('passport')
+const uploader = require('../configs/cloudinary-setup');
 
 
 //SIGUNP ROUTER
@@ -40,8 +40,9 @@ if(req.body.password !=req.body.password2){
     else{
       const salt  = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);
-      const email = req.body.email;   
-      User.create({email: email, password: hash})
+      const email = req.body.email; 
+      const username = req.body.username;  
+      User.create({email: email, password: hash, username: username})
       .then((result)=>{
         res.json({message: 'success', user: result})
       })
@@ -60,7 +61,7 @@ router.post('/login', (req, res, next)=>{
   .then(user => {
       if (!user) {
           console.log('USER DOES NOT EXIST!')
-          res.json({error: 'Username not found, please check and try again'})
+          res.json({error: 'Email not found, please check and try again'})
         return;
       }
       if (bcrypt.compareSync(thePassword, user.password)) {
@@ -99,24 +100,72 @@ router.get('/get-user-info', (req, res, next)=>{
         });
       }
     });
+  
+ //-------< Update User details route >-----------------------------   
 
-router.post('/profile/update', (req, res, next)=>{
-let id = req.body.theID;
-  User.findById(id)
-  .then(()=>{
-    let update = {...req.body};
-    User.findByIdAndUpdate(id, update, {new: true})
-    .then((response)=>{
+router.put('/profile/:id', (req, res, next)=>{
+
+if(req.body.password.length < 6){
+    res.json({error: 'Passwords must be at least 6 characters long.'})
+    return;
+  }
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.email)){
+    res.json({error: 'Enter a valid email.'})
+    return;
+  }
+else if(!req.body.password || !req.body.email){
+  res.json({error: 'Field cannot be empty.'})
+  return;
+}
+
+else{
+
+User.findOne({email:req.body.email})
+.then(user =>{
+
+  if(user){
+    res.json({error: 'Email is already registered, please enter a different email.'})
+    return; 
+  }
+
+  else{ 
+    const salt  = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    const email = req.body.email; 
+
+    User.findByIdAndUpdate(req.params.id, {
+      email: email,
+      password: hash
+    }, {new: true})
+    .then((response) => {
       console.log(response)
-      res.json({message: 'user updated successfully'})
+      res.json({message:'Update complete'});
     })
     .catch((err)=>{
-      next(err)
+      res.json(err)
     })
-  })
-  .catch((err)=>{
-    next(err);
-  }) 
+  }})
+    }})
+
+//-------------Upload Profile Pic Route----------------------------    
+
+router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) => {
+      console.log('file is: ', req.file)  
+      if (!req.file) {
+        next(new Error('No file uploaded!'));
+        return;
+      }
+      User.findByIdAndUpdate(req.params.id,{
+        profilePic:req.file.secure_url},
+        {new: true})
+      .then(newPic => {
+      // get secure_url from the file object and save it in the 
+      // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
+      res.json({ secure_url: req.file.secure_url });
+
+      })
+      .catch( err => next(err))
+ 
   })
 
 module.exports = router;

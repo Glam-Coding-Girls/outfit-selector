@@ -75,9 +75,10 @@ header{
   cursor: pointer;
   transition: 0.8s all;
 }
-.fa-user-circle{
-  color:#d93010;
-  font-size: 1.4em;
+.profile-nav-icon{
+  width:4vh;
+  height:auto;
+  cursor:pointer;
 }
 .page {
   text-align: center;
@@ -110,16 +111,24 @@ header{
   height:auto;
   cursor:pointer;
 }
+#save-image{
+  width:5vh;
+}
+.save-button{
+padding: 0;
+border: none;
+background: none;
+}
 #profile-image:hover{
   filter: opacity(80%);
 }
 
-.fa-pen-square, .fa-save{
+.fa-pen-square{
   color:#a2dfc4;
   font-size: 1.8em;
   cursor:pointer;
 }
-.fa-pen-square:hover, .fa-save:hover{
+.fa-pen-square:hover{
   color:#d93010;
 }
 .mobile-menu {
@@ -197,16 +206,10 @@ header{
 .profile-main-content form .field i{
   width: 5vw;
 }
-.stores{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+.profile-pic-upload>input{
+  display: none;
 }
-.stores img{
-  height:10vh;
-  width:15vw;
-}
+
 @media all and (max-width: 700px) {
   header .container-fluid {
     padding-left: 0;
