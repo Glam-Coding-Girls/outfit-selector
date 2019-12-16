@@ -22,10 +22,11 @@ export class HomePage extends Component {
 showTops = () =>{
   if(this.props.topImages){
     let tops = [...this.props.topImages];
+    let selectOption = this.props.catSelection;
     // console.log(tops)
     if(tops.length > 0){
       return (
-        <Bottom updateIndex={this.setTopIndex} imgs={tops} />
+        <Bottom updateIndex={this.setTopIndex} imgs={tops} optionSelected={selectOption} />
         )
     }
     
@@ -47,18 +48,23 @@ showBottoms = () =>{
 }
 showDefault = () =>{
    return (
-     <div>
+     <>
       {this.showTops()}
       {this.showBottoms()}
-    </div>
+      </>
    )
  }
 
  savePics = () => {
-   let currentTopPic = this.props.topImages[this.state.currentTopIndex].image;
-   let currentBottomPic = this.props.bottomImages[this.state.currentBottomIndex].image;
-
-   console.log("******", currentTopPic, currentBottomPic);
+  let selectOption = this.props.catSelection;
+   if(selectOption === "Dress") {
+    let currentTopPic = this.props.topImages[this.state.currentTopIndex].image;
+    console.log("******", currentTopPic);
+   } else {
+    let currentTopPic = this.props.topImages[this.state.currentTopIndex].image;
+    let currentBottomPic = this.props.bottomImages[this.state.currentBottomIndex].image;
+    console.log("******", currentTopPic, currentBottomPic);
+   }
   //  so now just make an axios call here and send these 2 things
 
  }
