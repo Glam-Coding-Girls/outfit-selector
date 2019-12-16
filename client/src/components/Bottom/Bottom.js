@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './bottom.css';
 
+
 export class Bottom extends Component {
     constructor(props) {
         super(props);
@@ -40,6 +41,8 @@ export class Bottom extends Component {
         currentPic: index
       });
     }
+   
+
 
     changeCurrentImage = (e) => {
       // console.log('=-=-=-=-')
@@ -52,9 +55,21 @@ export class Bottom extends Component {
     displayCarousal = () => {
       if(this.props.imgs){
         return (
-          <div className="card-wrapper">
+        <div className="card-wrapper">
+          {/* <div className="card-prev">
+              <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
+            </div> */}
               <div className="carousel">
-                 <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
+                 <button className="leftbutton" onClick={this.clickLeft}>
+                 <div className="arrow-overlay"></div>
+                    {/* <div className="card-prev"> */}
+                      <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
+                    {/* </div> */}
+                    <div className="bkgd-overlay">
+                      {/* <i className="arrow left"></i> */}
+                      <i class="fas fa-chevron-circle-left"></i>
+                    </div>
+                  </button>
                  <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
                   <div className="content-overlay"></div>
                   <img src={this.props.imgs[this.state.currentPic].image} alt="carousel" />
@@ -62,8 +77,17 @@ export class Bottom extends Component {
                     <h3 className="content-title">Click to see details</h3>
                   </div>
                   </a>
-                 <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
+                 <button className="rightbutton" onClick={this.clickRight}>
+                    <div className="arrow-overlay"></div>
+                    <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
+                    <div className="bkgd-overlay">
+                      <i class="fas fa-chevron-circle-right"></i>
+                    </div>
+                  </button>
               </div>
+              {/* <div className="card-next">
+                <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
+              </div> */}
           </div>
         )
       } else {
@@ -78,14 +102,20 @@ export class Bottom extends Component {
       // console.log("in bottomjs clothes",this.props.imgs)
       console.log("current array index on bottomjs",this.state.currentPic);
       
+  
+   
+      // setInterval(() => {
+      //   let st = this.state.currentPic;
+      //   setTimeout(()=>{
+      //     st++;
+      //     this.setState({
+      //       currentPic:st
+      //     })
+      //   }, 1000)
+        
+        
+      // },2000);
         return (
-          // <div className="card-wrapper">
-          //     <div className="carousel">
-          //        <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
-          //        <img src={this.props.imgs[this.state.currentPic]}  alt="carousel" />
-          //        <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
-          //     </div>
-          // </div>
           <>
            {this.displayCarousal()}
           </>

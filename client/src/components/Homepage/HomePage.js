@@ -34,13 +34,15 @@ showTops = () =>{
 showBottoms = () =>{
  if(this.props.bottomImages){
   let bottoms = [...this.props.bottomImages]
-  // console.log(bottoms)
-  if(bottoms.length > 0 ){
-    return (
-      <Bottom updateIndex={this.setBottomIndex} imgs={bottoms} />
-      )
-  }
- 
+  console.log(bottoms)
+  // setTimeout(()=>{
+    if(bottoms.length > 0 ){
+      return (
+        <Bottom updateIndex={this.setBottomIndex} imgs={bottoms} />
+        )
+    } 
+  // },250)
+  
  }
 }
 showDefault = () =>{
@@ -60,9 +62,6 @@ showDefault = () =>{
   //  so now just make an axios call here and send these 2 things
 
  }
-
-
-
 
   render() {
     console.log("-=-=-=-=-=-",this.state);
@@ -86,10 +85,22 @@ showDefault = () =>{
         </div> */}
         </div>
         <div className="outfitsright">
-         <div className="outfit-title">
+         {/* <div className="outfit-title">
             <h1>Create your favorite Outfit!</h1>
-          </div>
+          </div> */}
           <div className="button-group">
+          {this.props.defaultSelection === "Women" ? 
+            <div>
+            <select value = {this.props.catSelection} onChange={this.props.setCatSelection}>
+               <option value='Dress'>One piece</option>
+               <option value='twoPiece'>Two piece</option>
+             </select>
+          </div>
+           : 
+           <div>
+           </div>
+           }
+          
           <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
           <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
           </div>
