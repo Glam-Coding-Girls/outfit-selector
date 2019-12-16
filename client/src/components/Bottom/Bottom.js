@@ -59,7 +59,7 @@ export class Bottom extends Component {
           {/* <div className="card-prev">
               <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
             </div> */}
-              <div className="carousel">
+              <div className={this.props.optionSelected === "Dress" ? "carousel dresses-option" : "carousel"}>
                  <button className="leftbutton" onClick={this.clickLeft}>
                  <div className="arrow-overlay"></div>
                     {/* <div className="card-prev"> */}
