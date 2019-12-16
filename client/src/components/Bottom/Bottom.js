@@ -6,15 +6,20 @@ export class Bottom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          currentPic: 0,
-        }
+          currentPic: 0
+        };
+        this.clickRight = this.clickRight.bind(this);
+        this.clickLeft = this.clickLeft.bind(this);
     }
+    
     clickLeft = () => {
       let moveleftArr = [...this.props.imgs]
       const lastIndex = moveleftArr.length - 1;
       const { currentPic } = this.state;
       const shouldResetIndex = currentPic === 0;
       const index =  shouldResetIndex ? lastIndex : currentPic - 1;
+
+      this.props.updateIndex(index);
     
       this.setState({
         currentPic: index
@@ -27,22 +32,33 @@ export class Bottom extends Component {
       const { currentPic } = this.state;
       const shouldResetIndex = currentPic === lastIndex;
       const index =  shouldResetIndex ? 0 : currentPic + 1;
+
+      this.props.updateIndex(index);
+    
       this.setState({
         currentPic: index
       });
     }
    
 
-
     displayCarousal = () => {
       if(this.props.imgs){
         return (
-<div className="card-wrapper">
-<div className="card-prev">
+        <div className="card-wrapper">
+          {/* <div className="card-prev">
               <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
-            </div>
-              <div className="carousel">
-                 <button className="leftbutton" onClick={this.clickLeft}><i className="arrow left"></i></button>
+            </div> */}
+              <div className={this.props.optionSelected === "Dress" ? "carousel dresses-option" : "carousel"}>
+                 <button className="leftbutton" onClick={this.clickLeft}>
+                 <div className="arrow-overlay"></div>
+                    {/* <div className="card-prev"> */}
+                      <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
+                    {/* </div> */}
+                    <div className="bkgd-overlay">
+                      {/* <i className="arrow left"></i> */}
+                      <i className="fas fa-chevron-circle-left"></i>
+                    </div>
+                  </button>
                  <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
                   <div className="content-overlay"></div>
                   <img src={this.props.imgs[this.state.currentPic].image} alt="carousel" />
@@ -50,11 +66,17 @@ export class Bottom extends Component {
                     <h3 className="content-title">Click to see details</h3>
                   </div>
                   </a>
-                 <button className="rightbutton" onClick={this.clickRight}><i className="arrow right"></i></button>
+                 <button className="rightbutton" onClick={this.clickRight}>
+                    <div className="arrow-overlay"></div>
+                    <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
+                    <div className="bkgd-overlay">
+                      <i className="fas fa-chevron-circle-right"></i>
+                    </div>
+                  </button>
               </div>
-              <div className="card-next">
+              {/* <div className="card-next">
                 <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
-              </div>
+              </div> */}
           </div>
         )
       } else {
@@ -66,6 +88,9 @@ export class Bottom extends Component {
       }
     }
     render() {
+      // console.log("in bottomjs clothes",this.props.imgs)
+      console.log("current array index on bottomjs",this.state.currentPic);
+      
   
    
       // setInterval(() => {

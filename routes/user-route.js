@@ -67,6 +67,8 @@ router.post('/login', (req, res, next)=>{
       if (bcrypt.compareSync(thePassword, user.password)) {
         // Save the login in the session!
         req.session.currentUser = user;// this is the line of code that actually logs us in
+        console.log('innhere', req.session)
+
         res.json({message: 'success', user: user});
       } else {
         console.log('incorrect password')
@@ -81,6 +83,7 @@ router.post('/login', (req, res, next)=>{
 
 router.get('/get-user-info', (req, res, next)=>{
   if(req.session.currentUser){
+    console.log(req.session.currentUser)
     res.json(req.session.currentUser);
   } else {
     res.json(null)
@@ -168,4 +171,8 @@ router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) =
  
   })
 
+
+
+  
+  
 module.exports = router;

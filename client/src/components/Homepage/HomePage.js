@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import Bottom from '../Bottom/Bottom';
 import './homepage.css';
-// import './social.scss';
 
 export class HomePage extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+  // state = {
+    
+  // }
+
+  
 
 showTops = () =>{
   if(this.props.topImages){
     let tops = [...this.props.topImages];
-    console.log(tops)
+    let selectOption = this.props.catSelection;
+    // console.log(tops)
     if(tops.length > 0){
       return (
-        <Bottom imgs={tops} />
+        <Bottom updateIndex={this.props.setTopIndex} imgs={tops} optionSelected={selectOption} />
         )
     }
     
@@ -24,7 +32,7 @@ showBottoms = () =>{
   // setTimeout(()=>{
     if(bottoms.length > 0 ){
       return (
-        <Bottom imgs={bottoms} />
+        <Bottom updateIndex={this.props.setBottomIndex} imgs={bottoms} />
         )
     } 
   // },250)
@@ -33,15 +41,35 @@ showBottoms = () =>{
 }
 showDefault = () =>{
    return (
-     <div>
+     <>
       {this.showTops()}
       {this.showBottoms()}
-    </div>
+      </>
    )
  }
 
+ savePics = () => {
+  // let selectOption = this.props.catSelection;
+  //  if(selectOption === "Dress") {
+  //   let currentTopPic = this.props.topImages[this.state.currentTopIndex].image;
+  //   console.log("******", currentTopPic);
+  //  } else {
+  //   let currentTopPic = this.props.topImages[this.state.currentTopIndex].image;
+  //   let currentBottomPic = this.props.bottomImages[this.state.currentBottomIndex].image;
+  //   console.log("******", currentTopPic, currentBottomPic);
+  //  }
+  //  so now just make an axios call here and send these 2 things
+  if(this.props.catSelection === 'Dress'){
+    console.log('entering dress')
+    this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex]]);
+  } else {
+    console.log('entering tops,pants')
+    this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex],this.props.bottomImages[this.props.currentBottomIndex]]);
+  }
+ }
 
   render() {
+    console.log("-=-=-=-=-=-",this.state);
     return (
       <div className="outfitpanel">
         <div className="outfitsleft">
@@ -84,7 +112,7 @@ showDefault = () =>{
          {this.showDefault()}
          <div className="button-group">
          <button className="btn btn-primary">Share</button>
-          <button className="btn btn-primary">Save</button>
+          <button onClick={this.savePics} className="btn btn-primary">Save</button>
           </div>
         </div>
       </div>

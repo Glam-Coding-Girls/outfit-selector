@@ -12,6 +12,10 @@ import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
 
 export class App extends Component {
+  constructor(props) {
+    super(props);
+    // this.handleChange = this.handleChange.bind(this);
+  }
   state={
     clothes:[],
     topImages: [],
@@ -31,15 +35,17 @@ export class App extends Component {
     profilePic: "",
     currentEmail: "",
     currentPass: "",
-    updated: false
+    updated: false,
+    currentTopIndex: 0,
+    currentBottomIndex: 0,
+    outfit:[]
   }
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-    if(this.state.ready){
-
+   //if(this.state.ready){
       this.fetchUserData()
-    }
+   // }
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
@@ -62,6 +68,13 @@ export class App extends Component {
 //     this.createImageArrays(); 
 //   })
 //  }
+setTopIndex = (x)=>{
+  this.setState({currentTopIndex: x})
+}
+
+setBottomIndex = (x)=>{
+  this.setState({currentBottomIndex: x})
+}
 setDefaultSelection = (selection) =>{
   this.setState({
      defaultSelection:selection,
@@ -159,12 +172,37 @@ setDefaultSelection = (selection) =>{
     return arr;
   }
 
+saveOutfit = (arr) => {
+let selectedOutfit = [...this.state.outfit]
+arr.forEach((obj)=>{
+  selectedOutfit.push(obj);
+})
+this.setState({
+  outfit:selectedOutfit
+},()=>{
+  console.log(this.state.outfit)
+  this.createOutfit();
+});
+}
+
+createOutfit = () =>{
+  axios.post('http://localhost:5000/api/add-outfit',
+  {
+    
+    selectedClothes: this.state.outfit,
+    likedBy: [],
+    share: false
+  }, {withCredentials: true})
+  .then((res)=>console.log(res.data))
+  .catch((err)=>console.log(err))
+}
 
 // <-------------------End HomePage method calls ----------------->
   //check session
   fetchUserData =  async () =>{
     try{ 
       let currentUser = await axios.get('http://localhost:5000/api/get-user-info', {withCredentials: true} )
+      console.log('fetch user' + currentUser)
       this.setState({
         currentlyLoggedInUser: currentUser.data,
         profilePic: currentUser.data.profilePic,
@@ -323,7 +361,8 @@ handleFileUpload = e => {
 
 
   render() {
-    console.log(this.state.currentlyLoggedInUser)
+    // console.log("current array index",this.state.currentPic);
+    // console.log(this.state.currentlyLoggedInUser)
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
@@ -341,6 +380,11 @@ handleFileUpload = e => {
                                                                             isActive = {this.state.isActive}
                                                                             setCatSelection = {this.setCatSelection}
                                                                             catSelection = {this.state.catSelection}
+                                                                            saveOutfit = {this.saveOutfit}
+                                                                            currentTopIndex = {this.state.currentTopIndex}
+                                                                            currentBottomIndex = {this.state.currentBottomIndex}
+                                                                            setBottomIndex = {this.setBottomIndex}
+                                                                            setTopIndex = {this.setTopIndex}
                                                                                
             /> } />
             <Route path='/about' component={About} />
