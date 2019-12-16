@@ -35,13 +35,6 @@ export class App extends Component {
     profilePic: "",
     currentEmail: "",
     currentPass: "",
-<<<<<<< HEAD
-    updated: false,
-    currentTopIndex: 0,
-    currentBottomIndex: 0,
-    outfit:[]
-=======
->>>>>>> a1fa1320fb3eb65afb3ba8401ae172435b2c27f7
   }
 
   componentDidMount() {
