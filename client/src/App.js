@@ -11,6 +11,13 @@ import SharedOutfits from './components/SharedOutfits';
 import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
 
+console.log(process.env, '////')
+var serverURL = ''
+if(process.env.NODE_ENV == 'development'){
+  serverURL = 'http://localhost:5000'
+} else {
+  serverURL = 'https://glamcloset.herokuapp.com'
+}
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +57,7 @@ export class App extends Component {
 
 //homePage method calls
   getClothes = async() =>{
-    await axios.get('http://localhost:5000/api/get-clothes')
+    await axios.get(`${serverURL}/api/get-clothes`)
     .then(response => {
       console.log(response.data)
       this.setState({clothes: response.data.allClothes})
@@ -182,7 +189,7 @@ this.setState({
 }
 
 createOutfit = () =>{
-  axios.post('http://localhost:5000/api/add-outfit',
+  axios.post(`${serverURL}/api/add-outfit`,
   {
     
     selectedClothes: this.state.outfit,
@@ -197,7 +204,7 @@ createOutfit = () =>{
   //check session
   fetchUserData =  async () =>{
     try{ 
-      let currentUser = await axios.get('http://localhost:5000/api/get-user-info', {withCredentials: true} )
+      let currentUser = await axios.get(`${serverURL}/api/get-user-info`, {withCredentials: true} )
       console.log('fetch user' + currentUser)
       this.setState({
         currentlyLoggedInUser: currentUser.data,
@@ -220,7 +227,7 @@ createOutfit = () =>{
 signup = () => {
 let randomUserNumber = Math.floor((Math.random() * 20) + 10);  
 let usernamePart1 = this.state.emailInput.slice(0,4)
-    axios.post('http://localhost:5000/api/signup', {
+    axios.post(`${serverURL}/api/signup`, {
       email: this.state.emailInput,
       password: this.state.passwordInput,
       password2: this.state.passwordInput2,
@@ -252,7 +259,7 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
 )
   }
   login = () => {
-      axios.post('http://localhost:5000/api/login', {
+      axios.post(`${serverURL}/api/login`, {
         email: this.state.emailInput,
         password: this.state.passwordInput,
         }, {
@@ -300,7 +307,7 @@ editTheUser = (e) =>{
 
   console.log('=-=-=-', this.state.currentEmail, this.state.currentPass);
   
-  axios.put('http://localhost:5000/api/profile/'+this.state.currentlyLoggedInUser._id, user, {
+  axios.put(`${serverURL}/api/profile/`+this.state.currentlyLoggedInUser._id, user, {
       withCredentials: true
   })
   .then((res)=>{
@@ -326,7 +333,7 @@ editTheUser = (e) =>{
 
 //Logout function, redirects to homepage and set currentlyLoggedInUser to null
 LogoutAction = () =>{
-    axios.get('http://localhost:5000/api/logout')
+    axios.get(`${serverURL}/api/logout`)
          .then((res)=>{
            console.log(res)
             this.setState({
@@ -349,7 +356,7 @@ handleFileUpload = e => {
   const uploadData = new FormData();
   uploadData.append("profilePic", e.target.files[0]);
   
-  return axios.put('http://localhost:5000/api//profile-pic/'+this.state.currentlyLoggedInUser._id, uploadData)
+  return axios.put(`${serverURL}/api//profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData)
   .then(response => {
       this.setState({ profilePic: response.data.secure_url });
     })
