@@ -5,6 +5,7 @@ const Clothe = require('../models/Clothe');
 const Store = require('../models/Store');
 
 
+
 router.get("/skirts", (req, res, next) => {
   axios.get("https://api.zinc.io/v1/search?query=skirt&page=1&retailer=amazon",
   {withCredentials: true,
