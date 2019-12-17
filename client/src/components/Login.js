@@ -1,22 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 
-// let errorMsg = ""
-// let theError = ""
-// let redirect = false
-// let user = ""
 export class Login extends Component {
-
-// state = {
-//         emailInput: "",
-//         passwordInput: "",
-//         currentlyLoggedInUser: null,   
-//     }
-
-
-// updateInput = (e) =>{
-// this.setState({[e.target.name]: e.target.value});
-// }
 
 passLoginInfoToAppComponent = (e) =>{
     e.preventDefault();
@@ -24,24 +9,13 @@ passLoginInfoToAppComponent = (e) =>{
     setTimeout(() => {
        if(this.props.redirect){
          console.log(this.props)
-        this.props.history.push('/profile');
+        this.props.history.push('/');
       }
      },270);
   }
 
-// renderRedirect = () => {
-//     if (redirect) {
-//     return <Redirect to='/profile' />
-//     }
-//      }
-
 displayValidation = () => {
 if(this.props.theError) {
-    // console.log(this.state)
-    // console.log(this.props.redirect)
-    // theError = errorMsg
-    //reset errorMsg variable:
-    // errorMsg=""
     return (
     <div className="alert alert-danger" role="alert"><p>{this.props.theError}</p></div>
     )

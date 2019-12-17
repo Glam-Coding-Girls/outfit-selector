@@ -45,17 +45,11 @@ export class Bottom extends Component {
       if(this.props.imgs){
         return (
         <div className="card-wrapper">
-          {/* <div className="card-prev">
-              <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
-            </div> */}
               <div className={this.props.optionSelected === "Dress" ? "carousel dresses-option" : "carousel"}>
                  <button className="leftbutton" onClick={this.clickLeft}>
                  <div className="arrow-overlay"></div>
-                    {/* <div className="card-prev"> */}
                       <img  src={this.state.currentPic > 0 ? this.props.imgs[this.state.currentPic - 1].image : this.props.imgs[this.props.imgs.length - 1].image}  alt="carousel" />
-                    {/* </div> */}
                     <div className="bkgd-overlay">
-                      {/* <i className="arrow left"></i> */}
                       <i className="fas fa-chevron-circle-left"></i>
                     </div>
                   </button>
@@ -74,9 +68,6 @@ export class Bottom extends Component {
                     </div>
                   </button>
               </div>
-              {/* <div className="card-next">
-                <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
-              </div> */}
           </div>
         )
       } else {
@@ -88,22 +79,6 @@ export class Bottom extends Component {
       }
     }
     render() {
-      // console.log("in bottomjs clothes",this.props.imgs)
-      // console.log("current array index on bottomjs",this.state.currentPic);
-      
-  
-   
-      // setInterval(() => {
-      //   let st = this.state.currentPic;
-      //   setTimeout(()=>{
-      //     st++;
-      //     this.setState({
-      //       currentPic:st
-      //     })
-      //   }, 1000)
-        
-        
-      // },2000);
         return (
           <>
            {this.displayCarousal()}
