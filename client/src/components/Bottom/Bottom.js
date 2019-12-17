@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import './bottom.css';
 
 
@@ -53,9 +54,11 @@ export class Bottom extends Component {
                       <i className="fas fa-chevron-circle-left"></i>
                     </div>
                   </button>
-                 <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
+                  <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
                   <div className="content-overlay"></div>
-                  <img src={this.props.imgs[this.state.currentPic].image} alt="carousel" />
+                              
+                          <img src={this.props.imgs[this.state.currentPic].image} alt="carousel" />
+             
                   <div className="content-details fadeIn-bottom">
                     <h3 className="content-title">Click to see details</h3>
                   </div>
