@@ -15,7 +15,11 @@ export class Navigation extends Component {
                 <div className="leftnavmenu">
                    <Link to="/about">About</Link>
                    <Link to="/shared-outfits">Shared Outfits</Link>
-                   <Link to="/my-outfits">My Outfits</Link>
+                   {!this.props.currentlyLoggedInUser ? 
+                  <Link to="/my-outfits"style={{display:'none'}}>My Outfits</Link>
+                  :
+                  <Link to="/my-outfits" >My Outfits</Link>
+                  }
                 </div>
               </div>
               {/* If there is no user logged in, we show Login and Signup links, otherwise we show Profile and Logout */}
@@ -35,7 +39,11 @@ export class Navigation extends Component {
                 <ul>
                   <Link to="/about">About</Link>
                   <Link to="/shared-outfits">Shared Outfits</Link>
-                  <Link to="/my-outfits">My Outfits</Link>
+                  {!this.props.currentlyLoggedInUser ? 
+                  <Link to="/my-outfits"style={{display:'none'}}>My Outfits</Link>
+                  :
+                  <Link to="/my-outfits" >My Outfits</Link>
+                  }
                   <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
                 </ul>
              </div>

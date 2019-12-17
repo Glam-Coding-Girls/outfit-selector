@@ -233,6 +233,8 @@ getOutfits = () => {
         currentPass: currentUser.data.password,
         username: currentUser.data.username,
         ready: true,
+      },()=>{
+        this.getOutfits();
       })
     }
     catch(err){
