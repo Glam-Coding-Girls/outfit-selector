@@ -232,38 +232,51 @@ background: none;
 .macylogo {
   background-color: white;
 }
-
+.amazonlogo {
+  background-color: black;
+}
 .outfits-wrapper{
   display: flex;
   flex-direction: row;
   flex-wrap:wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
-  height:80vh;
-  width:80vw;
+  padding: 60px 0;
+  /* height:80vh; */
+  width:100%;
 }
 .outfit-display{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height:50vh;
-  width:14vw;
+  margin-right: 20px;
+  /* height:50vh; */
+  width:25%;
+  height: auto;
   border:solid 1px rgba(109, 107, 107, 0.5);
-  border-radius:7px;
+  /* border-radius:7px; */
   padding:10px;
   background-color:white;
-  box-shadow: 10px 10px 5px #aaaaaa;
+  -webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.51);
+  -moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.51);
+  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.51);
+}
+.outfit-display:last-child {
+  margin-right: 0;
 }
 .clothe-sections{
-  height:23vh;
-  width:12vw;
-  
- 
+  /* height:23vh; */
+  width:100%;
+  height: 200px;
+  display: flex;
+  /* overflow: hidden; */
 }
 .clothe-sections img{
-  height:23vh;
-  width:12vw;
+  /* height:23vh; */
+  width:100%;
+  height: auto;
+  object-fit: cover;
 }
 @media all and (max-width: 700px) {
   header .container-fluid {
