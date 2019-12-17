@@ -31,10 +31,32 @@ router.post('/add-outfit',(req,res,next)=>{
  router.get('/get-outfits',(req,res,next)=>{
   Match.find({creator:req.session.currentUser})
             .then((allOutfits)=>{
-      
               res.json({allOutfits: allOutfits});
             })
             .catch((err)=>next(err))
+ })
+ 
+ router.post('/delete-outfit/:theID',(req,res,next)=>{
+   let id = req.params.theID;
+   Match.findByIdAndRemove(id)
+            .then((resp)=>{
+              res.json({message:'success'});
+            })
+            .catch((err)=>next(err))
+ })
+ router.post('/update-outfit/:theID',(req,res,next)=>{
+  let id = req.params.theID;
+  console.log(req.body)
+  Match.findByIdAndUpdate(id,req.body,{new:true})
+           .then((resp)=>{
+            res.json({message:'success'});
+           })
+           .catch((err)=>next(err))
+})
+ router.get('/get-shared',(req,res,next)=>{
+   Match.find({share:true})
+        .then((outfits)=> res.json({outfits}))
+        .catch((err)=>next(err))
  })
 module.exports = router;
 
