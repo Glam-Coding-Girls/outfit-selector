@@ -179,17 +179,14 @@ setDefaultSelection = (selection) =>{
   }
 
 saveOutfit = (arr) => {
-let selectedOutfit = [];
-console.log(selectedOutfit)
-arr.forEach((obj)=>{
-  selectedOutfit.push(obj);
-})
-this.setState({
-  outfit:selectedOutfit
-},()=>{
-  console.log(this.state.outfit)
-  this.createOutfit();
-});
+if(arr.length > 0){
+  this.setState({
+    outfit:arr
+  },()=>{
+    console.log(this.state.outfit)
+    this.createOutfit();
+  });
+}
 }
 
 createOutfit = () =>{
@@ -199,7 +196,12 @@ createOutfit = () =>{
     likedBy: [],
     share: false
   }, {withCredentials: true})
-  .then((res)=>console.log(res.data))
+  .then((res)=>{
+    console.log(res.data)
+    if(res.data.allOutfits){
+      this.getOutfits();
+    }
+  })
   .catch((err)=>console.log(err))
 }
 
@@ -408,6 +410,7 @@ handleFileUpload = e => {
                                                                             currentBottomIndex = {this.state.currentBottomIndex}
                                                                             setBottomIndex = {this.setBottomIndex}
                                                                             setTopIndex = {this.setTopIndex}
+                                                                            currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                
             /> } />
             <Route path='/about' component={About} />

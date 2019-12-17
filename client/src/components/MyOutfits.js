@@ -7,9 +7,9 @@ export class MyOutfits extends Component {
       return (
         <div key={index} className="clothe-sections">
           {index === 0 ? 
-           <img style={{'border-top-left-radius':'7px','border-top-right-radius':'7px'}} src={clothe.image} alt="outfit" />
+           <img style={{'borderTopLeftRadius':'7px','borderTopRightRadius':'7px'}} src={clothe.image} alt="outfit" />
            :
-           <img style={{'border-bottom-left-radius':'7px','border-bottom-right-radius':'7px'}} src={clothe.image} alt="outfit" />
+           <img style={{'borderBottomLeftRadius':'7px','borderBottomRightRadius':'7px'}} src={clothe.image} alt="outfit" />
           }
         </div>
       )
