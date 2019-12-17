@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 
 export class MyOutfits extends Component {
  displayMyClothes = (clothes) =>{
+   console.log(this.props.currentlyLoggedInUser , clothes)
     return clothes.map((clothe,index)=>{
       return (
         <div key={index} className="clothe-sections">
@@ -29,11 +30,20 @@ export class MyOutfits extends Component {
       },250);
       } else{
     return this.props.myOutfits.map((outfit,ind)=>{
-       return (
-         <div key={ind} className="outfit-display">
-            {this.displayMyClothes(outfit.selectedClothes)}
-         </div>
-       )
+      if(this.props.myOutfits.length > 0){
+        return (
+          <div key={ind} className="outfit-display">
+             {this.displayMyClothes(outfit.selectedClothes)}
+          </div>
+        )
+      } else{
+        return(
+          <div>
+
+          </div>
+        )
+      }
+       
     })
   }
   }
