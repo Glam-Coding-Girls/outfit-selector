@@ -13,12 +13,7 @@ router.get('/get-clothes',(req,res,next)=>{
            })
            .catch((err)=>next(err))
 })
-// function isLoggedIn(req, res, next){
-//   if(req.session){
-//     return next()
-//   }
-//   res.redirect('/login')
-// }
+
 router.post('/add-outfit',(req,res,next)=>{
   console.log('hitting add-outfit')
   console.log(req.session)
@@ -32,6 +27,14 @@ router.post('/add-outfit',(req,res,next)=>{
         res.json({message: 'success', outfit: result})
       })
       .catch(err => console.log(err));
+ })
+ router.get('/get-outfits',(req,res,next)=>{
+  Match.find({creator:req.session.currentUser})
+            .then((allOutfits)=>{
+      
+              res.json({allOutfits: allOutfits});
+            })
+            .catch((err)=>next(err))
  })
 module.exports = router;
 

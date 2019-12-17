@@ -13,8 +13,7 @@ password:{
 username:{
   type: String
 },
-  profilePic: {type: String, default: './profile_icon.png'},
-  outfit: [{type:Schema.Types.ObjectId, ref: 'Outfit'}]
+  profilePic: {type: String, default: './profile_icon.png'}
 })
 
 

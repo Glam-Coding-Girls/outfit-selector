@@ -42,6 +42,8 @@ export class App extends Component {
     profilePic: "",
     currentEmail: "",
     currentPass: "",
+    outfit:[],
+    myOutfits:[]
   }
 
   componentDidMount() {
@@ -52,6 +54,7 @@ export class App extends Component {
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
+    
   } 
 
 
@@ -176,7 +179,8 @@ setDefaultSelection = (selection) =>{
   }
 
 saveOutfit = (arr) => {
-let selectedOutfit = [...this.state.outfit]
+let selectedOutfit = [];
+console.log(selectedOutfit)
 arr.forEach((obj)=>{
   selectedOutfit.push(obj);
 })
@@ -191,7 +195,6 @@ this.setState({
 createOutfit = () =>{
   axios.post(`${serverURL}/api/add-outfit`,
   {
-    
     selectedClothes: this.state.outfit,
     likedBy: [],
     share: false
@@ -200,6 +203,18 @@ createOutfit = () =>{
   .catch((err)=>console.log(err))
 }
 
+getOutfits = () => {
+  axios.get(`${serverURL}/api/get-outfits`,{withCredentials:true})
+       .then(resp => {
+         console.log(resp.data)
+         this.setState({
+            myOutfits:resp.data.allOutfits
+         },()=>{
+           console.log(this.state.myOutfits)
+         })
+        })
+       .catch((err)=>console.log(err))
+}
 // <-------------------End HomePage method calls ----------------->
   //check session
   fetchUserData =  async () =>{
@@ -280,6 +295,8 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                     profilePic: response.data.user.profilePic,
                     currentEmail: response.data.user.email,
                     currentPass: response.data.user.password
+                  },()=>{
+                    this.getOutfits();
                   })
                 }
               this.setState({
@@ -421,7 +438,10 @@ handleFileUpload = e => {
                                                                                 registered = {this.state.registered}
             />}/>
             <Route exact path="/shared-outfits" component={SharedOutfits}/> 
-            <Route exact path="/my-outfits" component={MyOutfits}/>
+            <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
+                                                                                    myOutfits={this.state.myOutfits}
+
+            />}/>
           </Switch>
           </div>
         </div> 
