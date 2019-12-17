@@ -127,8 +127,8 @@ export class MyOutfits extends Component {
                        marginPagesDisplayed={4}
                        onPageChange={this.props.handlePageClick}
                        forcePage={this.props.currentPage}
-                       previousLabel={this.props.currentPage !== 0 ? "Prev" : ""}
-                       nextLabel={this.props.currentPage !== this.props.myOutfits.length-1 ? "Next" : ""}
+                       previousLabel={"Prev"}
+                       nextLabel={"Next"}
         />
       <div className="outfits-wrapper">
       {this.props.deleteClicked ? 
