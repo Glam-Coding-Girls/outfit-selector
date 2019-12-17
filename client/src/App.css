@@ -270,9 +270,33 @@ background: none;
   width:100%;
   height: 200px;
   display: flex;
+  position: relative;
   /* overflow: hidden; */
 }
-.clothe-sections.one-piece-outfit {
+.clothe-sections .tools {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+.clothe-sections .tools button {
+  width: 25px;
+  height: 25px;
+  font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+.clothe-sections .tools:hover button {
+  background-color: rgba(255, 255, 255, 1);
+}
+.clothe-sections.one-piece-outfit, .clothe-sections.one-piece-outfit .TransformComponent-module_content__TZU5O {
   height: 400px;
 }
 .clothe-sections img{
