@@ -9,7 +9,6 @@ showTops = () =>{
   if(this.props.topImages){
     let tops = [...this.props.topImages];
     let selectOption = this.props.catSelection;
-    // console.log(tops)
     if(tops.length > 0){
       return (
         <Bottom updateIndex={this.props.setTopIndex} imgs={tops} optionSelected={selectOption} />
@@ -21,15 +20,11 @@ showTops = () =>{
 showBottoms = () =>{
  if(this.props.bottomImages){
   let bottoms = [...this.props.bottomImages]
-  console.log(bottoms)
-  // setTimeout(()=>{
     if(bottoms.length > 0 ){
       return (
         <Bottom updateIndex={this.props.setBottomIndex} imgs={bottoms} />
         )
     } 
-  // },250)
-  
  }
 }
 showDefault = () =>{
@@ -46,20 +41,18 @@ showDefault = () =>{
   if(!this.props.currentlyLoggedInUser){
     this.props.history.push('/login');
   } else{
-    console.log('else: ' + this.props.currentlyLoggedInUser)
+  
     if(this.props.catSelection === 'Dress'){
-      console.log('entering dress')
+    
       this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex]]);
     } else {
-      console.log('entering tops,pants')
+     console.log(this.props.currentTopIndex,this.props.currentBottomIndex)
       this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex],this.props.bottomImages[this.props.currentBottomIndex]]);
     }
   }
  }
 
   render() {
-    console.log("-=-=-=-=-=-",this.state);
-   
       return (
         <div className="outfitpanel">
           <div className="outfitsleft">
