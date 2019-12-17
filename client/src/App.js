@@ -11,6 +11,13 @@ import SharedOutfits from './components/SharedOutfits';
 import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
 
+console.log(process.env, '////')
+var serverURL = ''
+if(process.env.NODE_ENV == 'development'){
+  serverURL = 'http://localhost:5000'
+} else {
+  serverURL = 'https://glamcloset.herokuapp.com'
+}
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -35,24 +42,25 @@ export class App extends Component {
     profilePic: "",
     currentEmail: "",
     currentPass: "",
-    updated: false
+    outfit:[],
+    myOutfits:[]
   }
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-    if(this.state.ready){
-
+   //if(this.state.ready){
       this.fetchUserData()
-    }
+   // }
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
+    
   } 
 
 
 //homePage method calls
   getClothes = async() =>{
-    await axios.get('http://localhost:5000/api/get-clothes')
+    await axios.get(`${serverURL}/api/get-clothes`)
     .then(response => {
       console.log(response.data)
       this.setState({clothes: response.data.allClothes})
@@ -66,6 +74,13 @@ export class App extends Component {
 //     this.createImageArrays(); 
 //   })
 //  }
+setTopIndex = (x)=>{
+  this.setState({currentTopIndex: x})
+}
+
+setBottomIndex = (x)=>{
+  this.setState({currentBottomIndex: x})
+}
 setDefaultSelection = (selection) =>{
   this.setState({
      defaultSelection:selection,
@@ -126,7 +141,9 @@ setDefaultSelection = (selection) =>{
             this.createObjCall(element).forEach(obj => {
               tempTopArray.push(obj);
             })
-          } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||element.name.toUpperCase().includes('Pants'.toUpperCase())){
+          } else if(element.name.toUpperCase().includes('Bottoms'.toUpperCase())||
+          element.name.toUpperCase().includes('Pants'.toUpperCase())||
+          element.name.toUpperCase().includes('Jean'.toUpperCase())){
             this.createObjCall(element).forEach(obj => {
               tempBottomArray.push(obj);
             })
@@ -161,12 +178,49 @@ setDefaultSelection = (selection) =>{
     return arr;
   }
 
+saveOutfit = (arr) => {
+let selectedOutfit = [];
+console.log(selectedOutfit)
+arr.forEach((obj)=>{
+  selectedOutfit.push(obj);
+})
+this.setState({
+  outfit:selectedOutfit
+},()=>{
+  console.log(this.state.outfit)
+  this.createOutfit();
+});
+}
 
+createOutfit = () =>{
+  axios.post(`${serverURL}/api/add-outfit`,
+  {
+    selectedClothes: this.state.outfit,
+    likedBy: [],
+    share: false
+  }, {withCredentials: true})
+  .then((res)=>console.log(res.data))
+  .catch((err)=>console.log(err))
+}
+
+getOutfits = () => {
+  axios.get(`${serverURL}/api/get-outfits`,{withCredentials:true})
+       .then(resp => {
+         console.log(resp.data)
+         this.setState({
+            myOutfits:resp.data.allOutfits
+         },()=>{
+           console.log(this.state.myOutfits)
+         })
+        })
+       .catch((err)=>console.log(err))
+}
 // <-------------------End HomePage method calls ----------------->
   //check session
   fetchUserData =  async () =>{
     try{ 
-      let currentUser = await axios.get('http://localhost:5000/api/get-user-info', {withCredentials: true} )
+      let currentUser = await axios.get(`${serverURL}/api/get-user-info`, {withCredentials: true} )
+      console.log('fetch user' + currentUser)
       this.setState({
         currentlyLoggedInUser: currentUser.data,
         profilePic: currentUser.data.profilePic,
@@ -180,15 +234,15 @@ setDefaultSelection = (selection) =>{
     }
   }
 
-  //Login and signup method calls
+//-------------------->Login and signup method calls<------------------------------------
   updateInput = (e) =>{
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({[e.target.name]: e.target.value, theError:null})
     }
 
 signup = () => {
 let randomUserNumber = Math.floor((Math.random() * 20) + 10);  
 let usernamePart1 = this.state.emailInput.slice(0,4)
-    axios.post('http://localhost:5000/api/signup', {
+    axios.post(`${serverURL}/api/signup`, {
       email: this.state.emailInput,
       password: this.state.passwordInput,
       password2: this.state.passwordInput2,
@@ -220,7 +274,7 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
 )
   }
   login = () => {
-      axios.post('http://localhost:5000/api/login', {
+      axios.post(`${serverURL}/api/login`, {
         email: this.state.emailInput,
         password: this.state.passwordInput,
         }, {
@@ -241,6 +295,8 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                     profilePic: response.data.user.profilePic,
                     currentEmail: response.data.user.email,
                     currentPass: response.data.user.password
+                  },()=>{
+                    this.getOutfits();
                   })
                 }
               this.setState({
@@ -265,7 +321,10 @@ editTheUser = (e) =>{
     email: this.state.currentEmail,
     password: this.state.currentPass
   }
-  axios.put('http://localhost:5000/api/profile/'+this.state.currentlyLoggedInUser._id, user, {
+
+  console.log('=-=-=-', this.state.currentEmail, this.state.currentPass);
+  
+  axios.put(`${serverURL}/api/profile/`+this.state.currentlyLoggedInUser._id, user, {
       withCredentials: true
   })
   .then((res)=>{
@@ -279,7 +338,7 @@ editTheUser = (e) =>{
       this.fetchUserData()
         this.setState({
           theError:null,
-          updated:true,
+          registered:true,
         })
       }
   })
@@ -291,7 +350,7 @@ editTheUser = (e) =>{
 
 //Logout function, redirects to homepage and set currentlyLoggedInUser to null
 LogoutAction = () =>{
-    axios.get('http://localhost:5000/api/logout')
+    axios.get(`${serverURL}/api/logout`)
          .then((res)=>{
            console.log(res)
             this.setState({
@@ -314,7 +373,7 @@ handleFileUpload = e => {
   const uploadData = new FormData();
   uploadData.append("profilePic", e.target.files[0]);
   
-  return axios.put('http://localhost:5000/api//profile-pic/'+this.state.currentlyLoggedInUser._id, uploadData)
+  return axios.put(`${serverURL}/api//profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData)
   .then(response => {
       this.setState({ profilePic: response.data.secure_url });
     })
@@ -344,7 +403,11 @@ handleFileUpload = e => {
                                                                             isActive = {this.state.isActive}
                                                                             setCatSelection = {this.setCatSelection}
                                                                             catSelection = {this.state.catSelection}
-                                                                            currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
+                                                                            saveOutfit = {this.saveOutfit}
+                                                                            currentTopIndex = {this.state.currentTopIndex}
+                                                                            currentBottomIndex = {this.state.currentBottomIndex}
+                                                                            setBottomIndex = {this.setBottomIndex}
+                                                                            setTopIndex = {this.setTopIndex}
                                                                                
             /> } />
             <Route path='/about' component={About} />
@@ -372,10 +435,13 @@ handleFileUpload = e => {
                                                                                 currentEmail = {this.state.currentEmail}
                                                                                 currentPass = {this.state.currentPass}
                                                                                 theError = {this.state.theError}
-                                                                                updated = {this.state.updated}
+                                                                                registered = {this.state.registered}
             />}/>
             <Route exact path="/shared-outfits" component={SharedOutfits}/> 
-            <Route exact path="/my-outfits" component={MyOutfits}/>
+            <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
+                                                                                    myOutfits={this.state.myOutfits}
+
+            />}/>
           </Switch>
           </div>
         </div> 

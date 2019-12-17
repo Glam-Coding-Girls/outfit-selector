@@ -67,6 +67,8 @@ router.post('/login', (req, res, next)=>{
       if (bcrypt.compareSync(thePassword, user.password)) {
         // Save the login in the session!
         req.session.currentUser = user;// this is the line of code that actually logs us in
+        console.log('innhere', req.session)
+
         res.json({message: 'success', user: user});
       } else {
         console.log('incorrect password')
@@ -81,6 +83,7 @@ router.post('/login', (req, res, next)=>{
 
 router.get('/get-user-info', (req, res, next)=>{
   if(req.session.currentUser){
+    console.log(req.session.currentUser)
     res.json(req.session.currentUser);
   } else {
     res.json(null)
@@ -105,6 +108,8 @@ router.get('/get-user-info', (req, res, next)=>{
 
 router.put('/profile/:id', (req, res, next)=>{
 
+console.log(req.body, '90909090909',req.session)
+
 if(req.body.password.length < 6){
     res.json({error: 'Passwords must be at least 6 characters long.'})
     return;
@@ -123,7 +128,12 @@ else{
 User.findOne({email:req.body.email})
 .then(user =>{
 
-  if(user){
+  console.log(user)
+  let edititingPass = null;
+  if(user) {
+    edititingPass = req.body.password != user.password;
+  }
+  if(user &!edititingPass){
     res.json({error: 'Email is already registered, please enter a different email.'})
     return; 
   }
@@ -133,10 +143,16 @@ User.findOne({email:req.body.email})
     const hash = bcrypt.hashSync(req.body.password, salt);
     const email = req.body.email; 
 
-    User.findByIdAndUpdate(req.params.id, {
-      email: email,
-      password: hash
-    }, {new: true})
+    User.findById(req.params.id).then((theActualUser)=>{
+
+    const theUpdate = {};
+    theUpdate.email = email;
+
+    if(req.body.password !== theActualUser.password){
+      theUpdate.password = hash;
+    }
+
+    User.findByIdAndUpdate(req.params.id, theUpdate, {new: true})
     .then((response) => {
       console.log(response)
       res.json({message:'Update complete'});
@@ -144,6 +160,11 @@ User.findOne({email:req.body.email})
     .catch((err)=>{
       res.json(err)
     })
+
+  }).catch((err)=>{
+    next(err)
+  })
+
   }})
     }})
 
@@ -157,7 +178,7 @@ router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) =
       }
       User.findByIdAndUpdate(req.params.id,{
         profilePic:req.file.secure_url},
-        {new: true})
+        )
       .then(newPic => {
       // get secure_url from the file object and save it in the 
       // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
@@ -168,4 +189,8 @@ router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) =
  
   })
 
+
+
+  
+  
 module.exports = router;

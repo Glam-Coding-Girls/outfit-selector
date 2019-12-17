@@ -68,6 +68,9 @@ app.use(cors({
   origin: ['http://localhost:3000']
 }));
 
+app.use(express.static(path.join(__dirname, './client/build'))) //Our front end folder 
+
+
 //Routes
 const index = require('./routes/index');
 app.use('/api', index);
@@ -76,4 +79,8 @@ const userRoute = require('./routes/user-route');
 app.use('/api', userRoute);
 
 
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html')) //Whenver we go to my site i send this html file 
+})
 module.exports = app;
