@@ -11,7 +11,6 @@ export class Bottom extends Component {
         };
         this.clickRight = this.clickRight.bind(this);
         this.clickLeft = this.clickLeft.bind(this);
-        this.changeCurrentImage = this.changeCurrentImage.bind(this);
     }
     
     clickLeft = () => {
@@ -42,15 +41,6 @@ export class Bottom extends Component {
       });
     }
    
-
-
-    changeCurrentImage = (e) => {
-      // console.log('=-=-=-=-')
-      // console.log(e)
-      this.setState({currentImage: this.props.imgs[e].image});
-      // so you pass in all the images through props?
-      //I was experiencing around, trying to find the right solution, either with currentindex or picture...
-    }
 
     displayCarousal = () => {
       if(this.props.imgs){
@@ -100,7 +90,7 @@ export class Bottom extends Component {
     }
     render() {
       // console.log("in bottomjs clothes",this.props.imgs)
-      console.log("current array index on bottomjs",this.state.currentPic);
+      // console.log("current array index on bottomjs",this.state.currentPic);
       
   
    

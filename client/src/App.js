@@ -344,6 +344,7 @@ handleFileUpload = e => {
                                                                             isActive = {this.state.isActive}
                                                                             setCatSelection = {this.setCatSelection}
                                                                             catSelection = {this.state.catSelection}
+                                                                            currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
                                                                                
             /> } />
             <Route path='/about' component={About} />

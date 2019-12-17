@@ -111,10 +111,15 @@ showDefault = () =>{
           <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
           </div>
          {this.showDefault()}
+         {this.props.currentlyLoggedInUser ? 
          <div className="button-group">
          <button className="btn btn-primary">Share</button>
           <button onClick={this.savePics} className="btn btn-primary">Save</button>
           </div>
+          :
+          <div>
+           </div>
+         }
         </div>
       </div>
     )
