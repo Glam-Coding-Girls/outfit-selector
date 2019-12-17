@@ -89,7 +89,7 @@ export class Bottom extends Component {
     }
     render() {
       // console.log("in bottomjs clothes",this.props.imgs)
-      console.log("current array index on bottomjs",this.state.currentPic);
+      // console.log("current array index on bottomjs",this.state.currentPic);
       
   
    
