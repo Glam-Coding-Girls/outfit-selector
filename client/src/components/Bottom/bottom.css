@@ -38,10 +38,10 @@
 .carousel a .content-overlay {
   background: rgba(0,0,0,0.7);
   position: absolute;
-  height: 100%;
+  height: 50%;
   width: 100%;
   left: 0;
-  top: 0;
+  /* top: 0; */
   bottom: 0;
   right: 0;
   opacity: 0;
@@ -58,7 +58,7 @@
   padding-left: 1em;
   padding-right: 1em;
   width: 100%;
-  top: 50%;
+  /* top: 30%; */
   left: 50%;
   opacity: 0;
   -webkit-transform: translate(-50%, -50%);
@@ -69,7 +69,7 @@
   transition: all 0.3s ease-in-out 0s;
 }
 .carousel a:hover .content-details{
-  top: 50%;
+  top: 75%;
   left: 50%;
   opacity: 1;
 }
@@ -82,7 +82,7 @@
   text-transform: uppercase;
 }
 .fadeIn-bottom{
-  top: 80%;
+  top: 100%;
 }
 .carousel button {
   display: inline-block;
