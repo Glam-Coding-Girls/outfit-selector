@@ -16,7 +16,7 @@ export default class About extends Component {
         <div className="storebox macylogo">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBXHIGYbk2eocdZEXZFvQYe4eZLmO97JC-fucmfC4qDS-KDYROpQ&s" alt="Macys" />
         </div>
-        <div className="storebox">
+        <div className="storebox amazonlogo">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM-mZxd1z0cVKElx-qHhkrzprypKGkJp3sxiAvtQpgp_1eEvga&s" alt="Amazon" />
         </div>
         </div>
