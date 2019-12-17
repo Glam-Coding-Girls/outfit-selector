@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "echo --- preinstall --- npm install && cd ./client && npm install && npm run build && cd ..",
     "start": "node ./bin/www",
     "dev": "DEBUG=server2:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www"
@@ -14,6 +16,7 @@
     "cloudinary": "^1.18.1",
     "concurrently": "^5.0.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "dotenv": "^6.0.0",

@@ -6,12 +6,10 @@ export class Bottom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          currentPic: 0,
-          currentImage: ""
+          currentPic: 0
         };
         this.clickRight = this.clickRight.bind(this);
         this.clickLeft = this.clickLeft.bind(this);
-        this.changeCurrentImage = this.changeCurrentImage.bind(this);
     }
     
     clickLeft = () => {
@@ -43,15 +41,6 @@ export class Bottom extends Component {
     }
    
 
-
-    changeCurrentImage = (e) => {
-      // console.log('=-=-=-=-')
-      // console.log(e)
-      this.setState({currentImage: this.props.imgs[e].image});
-      // so you pass in all the images through props?
-      //I was experiencing around, trying to find the right solution, either with currentindex or picture...
-    }
-
     displayCarousal = () => {
       if(this.props.imgs){
         return (
@@ -67,7 +56,7 @@ export class Bottom extends Component {
                     {/* </div> */}
                     <div className="bkgd-overlay">
                       {/* <i className="arrow left"></i> */}
-                      <i class="fas fa-chevron-circle-left"></i>
+                      <i className="fas fa-chevron-circle-left"></i>
                     </div>
                   </button>
                  <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
@@ -81,7 +70,7 @@ export class Bottom extends Component {
                     <div className="arrow-overlay"></div>
                     <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />
                     <div className="bkgd-overlay">
-                      <i class="fas fa-chevron-circle-right"></i>
+                      <i className="fas fa-chevron-circle-right"></i>
                     </div>
                   </button>
               </div>

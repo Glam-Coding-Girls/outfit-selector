@@ -67,6 +67,8 @@ router.post('/login', (req, res, next)=>{
       if (bcrypt.compareSync(thePassword, user.password)) {
         // Save the login in the session!
         req.session.currentUser = user;// this is the line of code that actually logs us in
+        console.log('innhere', req.session)
+
         res.json({message: 'success', user: user});
       } else {
         console.log('incorrect password')
@@ -81,6 +83,7 @@ router.post('/login', (req, res, next)=>{
 
 router.get('/get-user-info', (req, res, next)=>{
   if(req.session.currentUser){
+    console.log(req.session.currentUser)
     res.json(req.session.currentUser);
   } else {
     res.json(null)
@@ -104,8 +107,6 @@ router.get('/get-user-info', (req, res, next)=>{
  //-------< Update User details route >-----------------------------   
 
 router.put('/profile/:id', (req, res, next)=>{
-
-console.log(req.body, '90909090909',req.session)
 
 if(req.body.password.length < 6){
     res.json({error: 'Passwords must be at least 6 characters long.'})
@@ -152,6 +153,8 @@ User.findOne({email:req.body.email})
     User.findByIdAndUpdate(req.params.id, theUpdate, {new: true})
     .then((response) => {
       console.log(response)
+      req.session.currentUser.email = theUpdate.email;
+      req.session.currentUser.password = theUpdate.password;
       res.json({message:'Update complete'});
     })
     .catch((err)=>{
@@ -179,6 +182,7 @@ router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) =
       .then(newPic => {
       // get secure_url from the file object and save it in the 
       // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
+      req.session.currentUser.profilePic = req.file.secure_url;
       res.json({ secure_url: req.file.secure_url });
 
       })
@@ -186,4 +190,8 @@ router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) =
  
   })
 
+
+
+  
+  
 module.exports = router;
