@@ -24,7 +24,7 @@ export class MyOutfits extends Component {
       } else if(clothes.length === 1){
         return clothes.map((clothe,index)=>{
           return (
-          <div key={index} className="clothe-sections">
+          <div key={index} className="clothe-sections one-piece-outfit">
              <img style={{'borderRadius':'7px'}} src={clothe.image} alt="outfit" />
           </div>
         )

@@ -272,6 +272,9 @@ background: none;
   display: flex;
   /* overflow: hidden; */
 }
+.clothe-sections.one-piece-outfit {
+  height: 400px;
+}
 .clothe-sections img{
   /* height:23vh; */
   width:100%;
