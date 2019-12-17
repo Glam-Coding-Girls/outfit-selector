@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 
 export class MyOutfits extends Component {
+  sharePics = (outfit) =>{
+    this.props.shareOutfit(outfit);
+  }
+  deleteSelected= (outfit) =>{
+    this.props.deleteOutfit(outfit);
+  }
  displayMyClothes = (clothes) =>{
   if(clothes.length > 1){
     return clothes.map((clothe,index)=>{
@@ -43,7 +49,9 @@ export class MyOutfits extends Component {
     return this.props.myOutfits.map((outfit,ind)=>{
        return (
          <div key={ind} className="outfit-display">
+               <button className="delete" onClick={()=>this.deleteSelected(outfit)}>Del</button>
             {this.displayMyClothes(outfit.selectedClothes)}
+            <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary">Share</button>
          </div>
        )
     })

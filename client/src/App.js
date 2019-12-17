@@ -43,18 +43,19 @@ export class App extends Component {
     currentEmail: "",
     currentPass: "",
     outfit:[],
-    myOutfits:[]
+    myOutfits:[],
+    sharedOutfits:[],
   }
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-   //if(this.state.ready){
+   if(this.state.ready){
       this.fetchUserData()
-   // }
+    }
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
-    
+    this.getSharedOutfits();
   } 
 
 
@@ -218,6 +219,47 @@ getOutfits = () => {
            console.log(this.state.myOutfits)
          })
         })
+       .catch((err)=>console.log(err))
+}
+
+deleteOutfit = (obj) => {
+  console.log(obj)
+ axios.post(`${serverURL}/api/delete-outfit/${obj._id}`,{withCredentials:true})
+      .then((response) => {
+        console.log(response)
+        if(response.data.message === 'success'){
+          this.getOutfits();
+          this.getSharedOutfits();
+        }
+      })
+      .catch((err) => console.log(err))
+}
+shareOutfit = (obj) => {
+  let shareObj = {...obj};
+  shareObj.share = !shareObj.share;
+  axios.post(`${serverURL}/api/update-outfit/${shareObj._id}`,
+  shareObj,
+  {withCredentials:true})
+       .then((response) => {
+         console.log(response)
+         if(response.data.message === "success"){
+          this.getSharedOutfits();
+          this.props.history.push('/shared-outfits')
+         }
+       })
+       .catch((err) => console.log(err))
+}
+
+getSharedOutfits = () =>{
+  axios.get(`${serverURL}/api/get-shared`)
+       .then((response)=>{
+         console.log(response);
+         if(response.data){
+           this.setState({
+             sharedOutfits:response.data.outfits
+           })
+         }
+       })
        .catch((err)=>console.log(err))
 }
 // <-------------------End HomePage method calls ----------------->
@@ -446,9 +488,14 @@ handleFileUpload = e => {
                                                                                 theError = {this.state.theError}
                                                                                 registered = {this.state.registered}
             />}/>
-            <Route exact path="/shared-outfits" component={SharedOutfits}/> 
+            <Route exact path="/shared-outfits" render={(props) => <SharedOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
+                                                                                    sharedOutfits={this.state.sharedOutfits}
+
+            />}/>
             <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                     myOutfits={this.state.myOutfits}
+                                                                                    shareOutfit = {this.shareOutfit}
+                                                                                    deleteOutfit = {this.deleteOutfit}
 
             />}/>
           </Switch>

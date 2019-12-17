@@ -83,7 +83,7 @@ showDefault = () =>{
             </div>
            {this.showDefault()}
            <div className="button-group">
-  <button className="btn btn-primary">Share</button>
+  
    <button onClick={this.savePics} className="btn btn-primary">Save</button>
    </div>
           </div>
