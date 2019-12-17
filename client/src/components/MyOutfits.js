@@ -2,11 +2,24 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 
 export class MyOutfits extends Component {
+
   sharePics = (outfit) =>{
     this.props.shareOutfit(outfit);
   }
+  showPopup = () => {
+    return ( 
+      <div className="delete-pop-up">
+        <h6>Are you sure you want to delete this?</h6>
+        <div className="confirmation-controls">
+        <button  onClick={()=>this.props.setUserConfirmation(true)}>Yes</button>
+        <button  onClick={()=>this.props.setUserConfirmation(false)}>Cancel</button>
+        </div>
+        
+      </div>
+    )
+  }
   deleteSelected= (outfit) =>{
-    this.props.deleteOutfit(outfit);
+    this.props.setDeleteClickedStatus(outfit);
   }
  displayMyClothes = (clothes) =>{
   if(clothes.length > 1){
@@ -60,9 +73,26 @@ export class MyOutfits extends Component {
   render() {
     console.log(this.props.myOutfits)
     return (
+      <>
+     
       <div className="outfits-wrapper">
+      {this.props.deleteClicked ? 
+        this.showPopup()
+        :
+        <div style={{display:'none'}}></div>
+        }
         {this.displayOutfits()}
+        
       </div>
+      
+        {this.props.deleteClicked ? 
+        <div id="overlay"></div>
+        :
+        <div id="overlay" style={{display:'none'}}></div>
+        }
+
+      </>
+      
     )
   }
 }

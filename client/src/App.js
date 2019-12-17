@@ -30,6 +30,8 @@ export class App extends Component {
     defaultSelection:'Women',
     catSelection:'twoPiece',
     currentlyLoggedInUser: null,
+    currentTopIndex:0,
+    currentBottomIndex:0, 
     emailInput: "",
     passwordInput: "",
     passwordInput2:"",
@@ -45,6 +47,8 @@ export class App extends Component {
     outfit:[],
     myOutfits:[],
     sharedOutfits:[],
+    userConfirm:false,
+    deleteClicked:false
   }
 
   componentDidMount() {
@@ -68,13 +72,6 @@ export class App extends Component {
       this.createImageArrays();  
     })
   }
-//  setDefaultSelection = (e) =>{
-//     this.setState({
-//        defaultSelection: e.target.value
-//       },()=>{
-//     this.createImageArrays(); 
-//   })
-//  }
 setTopIndex = (x)=>{
   this.setState({currentTopIndex: x})
 }
@@ -116,9 +113,7 @@ setDefaultSelection = (selection) =>{
               this.createObjCall(element).forEach(obj => {
                 tempTopArray.push(obj);
               })
-              // tempBottomArray = [];
             }
-            //tempBottomArray = null;
           } else{
             if(element.name.toUpperCase().includes('Tops'.toUpperCase())||
             element.name.toUpperCase().includes('Shirts'.toUpperCase())||
@@ -221,7 +216,25 @@ getOutfits = () => {
         })
        .catch((err)=>console.log(err))
 }
-
+setUserConfirmation = (message) =>{
+  this.setState({
+    userConfirm:message,
+    deleteClicked:false
+  },()=>{
+    if(this.state.userConfirm){
+      this.deleteOutfit(this.state.outfit)
+      this.setState({
+        userConfirm:false
+      })
+    }
+  })
+ }
+ setDeleteClickedStatus = (outfit) => {
+  this.setState({
+    deleteClicked:true,
+    outfit:outfit
+  })
+ }
 deleteOutfit = (obj) => {
   console.log(obj)
  axios.post(`${serverURL}/api/delete-outfit/${obj._id}`,{withCredentials:true})
@@ -253,7 +266,6 @@ shareOutfit = (obj) => {
 getSharedOutfits = () =>{
   axios.get(`${serverURL}/api/get-shared`)
        .then((response)=>{
-         console.log(response);
          if(response.data){
            this.setState({
              sharedOutfits:response.data.outfits
@@ -433,8 +445,7 @@ handleFileUpload = e => {
 
 
   render() {
-    console.log("this is state",this.state)
-    // console.log("current array index",this.state.currentPic);
+
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
@@ -496,9 +507,13 @@ handleFileUpload = e => {
                                                                                     myOutfits={this.state.myOutfits}
                                                                                     shareOutfit = {this.shareOutfit}
                                                                                     deleteOutfit = {this.deleteOutfit}
-
+                                                                                    deleteClicked = {this.state.deleteClicked}
+                                                                                    userConfirm = {this.state.userConfirm}
+                                                                                    setUserConfirmation = {this.setUserConfirmation}
+                                                                                    setDeleteClickedStatus = {this.setDeleteClickedStatus}
             />}/>
           </Switch>
+       
           </div>
         </div> 
     )
