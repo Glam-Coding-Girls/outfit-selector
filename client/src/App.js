@@ -11,6 +11,7 @@ import SharedOutfits from './components/SharedOutfits';
 import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
 
+
 console.log(process.env, '////')
 var serverURL = ''
 if(process.env.NODE_ENV == 'development'){
