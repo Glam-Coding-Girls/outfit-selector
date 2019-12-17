@@ -36,16 +36,22 @@ export class Navigation extends Component {
              <div className="mobile-menu">
                 <input type="checkbox" id="menuToggle" />
                 <label htmlFor="menuToggle" className="menu-icon"><i className="fa fa-bars"></i></label>
-                <ul>
+                  {!this.props.currentlyLoggedInUser ? 
+                  <ul>
                   <Link to="/about">About</Link>
                   <Link to="/shared-outfits">Shared Outfits</Link>
-                  {!this.props.currentlyLoggedInUser ? 
                   <Link to="/my-outfits"style={{display:'none'}}>My Outfits</Link>
-                  :
-                  <Link to="/my-outfits" >My Outfits</Link>
-                  }
                   <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
-                </ul>
+                  </ul>
+                  
+                  :
+                  <ul>
+                  <Link to="/about">About</Link>
+                  <Link to="/shared-outfits">Shared Outfits</Link>
+                  <Link to="/my-outfits" >My Outfits</Link>
+                  <a onClick={this.props.LogoutAction}>Logout</a>
+                  </ul>
+                  }
              </div>
            </div>
           </div>

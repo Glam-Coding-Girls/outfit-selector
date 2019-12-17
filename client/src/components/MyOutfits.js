@@ -104,9 +104,9 @@ export class MyOutfits extends Component {
     return this.props.elements.map((outfit,ind)=>{
        return (
          <div key={ind} className="outfit-display">
-               <button className="delete" onClick={()=>this.deleteSelected(outfit)}>Del</button>
+               <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i class="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
-            <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary">Share</button>
+            <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</button>
          </div>
        )
     })
