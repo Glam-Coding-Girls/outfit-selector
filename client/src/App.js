@@ -198,8 +198,12 @@ createOutfit = () =>{
   }, {withCredentials: true})
   .then((res)=>{
     console.log(res.data)
-    if(res.data.allOutfits){
+    if(res.message === 'success'){
       this.getOutfits();
+      setTimeout(() =>{
+
+        this.props.history.push('/my-outfits')
+      },250)
     }
   })
   .catch((err)=>console.log(err))
