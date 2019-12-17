@@ -23,6 +23,7 @@ passLoginInfoToAppComponent = (e) =>{
     this.props.login();
     setTimeout(() => {
        if(this.props.redirect){
+         console.log(this.props)
         this.props.history.push('/profile');
       }
      },270);

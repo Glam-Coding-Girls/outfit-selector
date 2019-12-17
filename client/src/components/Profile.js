@@ -9,8 +9,10 @@ export class Profile extends Component {
     saveIcon1: "./save-icon.png",
     saveIcon2: "./save-icon.png",
     editIcon1: "./edit-icon.png",
-    editIcon2: "./edit-icon.png"
+    editIcon2: "./edit-icon.png",
   }
+
+
 
   handleEditEmailClick = () =>{
     this.setState({showEditEmail: !this.state.showEditEmail})
@@ -22,7 +24,7 @@ export class Profile extends Component {
   editValidation = () => {
     //if user passed the server validation check, a user exists, 
     //therefore registration was successful
-        if(!this.props.theError && this.props.updated){
+        if(!this.props.theError && this.props.registered){
             return(
                 <div className="alert alert-success" role="alert">
                 <strong>Updated Successfully!</strong>  
@@ -30,13 +32,13 @@ export class Profile extends Component {
             )      
         }
     //if the user didn't pass server validation check, a error message exists, so we show the error msg
-        else if(this.props.theError && !this.props.updated){
+        else if(this.props.theError && !this.props.registered){
             return (   
                 <div className="alert alert-danger" role="alert">
                     <p>{this.props.theError}</p>
                 </div>
             )
-        } else if(!this.props.theError && !this.props.updated) {
+        } else if(!this.props.theError && !this.props.registered) {
             return (
                 <div>
                 </div>
@@ -154,6 +156,7 @@ export class Profile extends Component {
     } 
  }
 render() {
+  console.log(" this is props",this.props)
   console.log(this.props.currentlyLoggedInUser)
   return(
      <>

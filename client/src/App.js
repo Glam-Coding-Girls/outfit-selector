@@ -29,7 +29,7 @@ export class App extends Component {
     bottomImages: [],
     defaultSelection:'Women',
     catSelection:'twoPiece',
-    currentlyLoggedInUser:null,
+    currentlyLoggedInUser: null,
     emailInput: "",
     passwordInput: "",
     passwordInput2:"",
@@ -226,6 +226,7 @@ getOutfits = () => {
         profilePic: currentUser.data.profilePic,
         currentEmail: currentUser.data.email,
         currentPass: currentUser.data.password,
+        username: currentUser.data.username,
         ready: true,
       })
     }
@@ -236,7 +237,7 @@ getOutfits = () => {
 
 //-------------------->Login and signup method calls<------------------------------------
   updateInput = (e) =>{
-    this.setState({[e.target.name]: e.target.value, theError:null})
+    this.setState({[e.target.name]: e.target.value, theError:null, registered:false})
     }
 
 signup = () => {
@@ -287,6 +288,7 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                  })        
                 }
               if(response.data.user){
+                console.log(response.data.user)
                  this.setState({
                     currentlyLoggedInUser: response.data.user,
                     ready: true,
@@ -321,9 +323,6 @@ editTheUser = (e) =>{
     email: this.state.currentEmail,
     password: this.state.currentPass
   }
-
-  console.log('=-=-=-', this.state.currentEmail, this.state.currentPass);
-  
   axios.put(`${serverURL}/api/profile/`+this.state.currentlyLoggedInUser._id, user, {
       withCredentials: true
   })
@@ -373,7 +372,8 @@ handleFileUpload = e => {
   const uploadData = new FormData();
   uploadData.append("profilePic", e.target.files[0]);
   
-  return axios.put(`${serverURL}/api//profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData)
+  return axios.put(`${serverURL}/api//profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData, 
+  {withCredentials: true})
   .then(response => {
       this.setState({ profilePic: response.data.secure_url });
     })
@@ -384,8 +384,8 @@ handleFileUpload = e => {
 
 
   render() {
+    console.log("this is state",this.state)
     // console.log("current array index",this.state.currentPic);
-    // console.log(this.state.currentlyLoggedInUser)
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
@@ -425,6 +425,7 @@ handleFileUpload = e => {
                                                                                   passwordInput = {this.state.passwordInput}
                                                                                   redirect = {this.state.redirect} 
                                                                                   theError = {this.state.theError}
+                                                                                  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                   /> } />
             <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                 fetchUserData = {this.fetchUserData}
