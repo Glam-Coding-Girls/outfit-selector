@@ -48,7 +48,13 @@ export class App extends Component {
     myOutfits:[],
     sharedOutfits:[],
     userConfirm:false,
-    deleteClicked:false
+    deleteClicked:false,
+    //pagination variables
+      pageCount:1,
+      offset: 0,
+      elements: [],
+      perPage: 4,
+      currentPage: 0,
   }
 
   componentDidMount() {
@@ -61,8 +67,25 @@ export class App extends Component {
     this.getClothes();
     this.getSharedOutfits();
   } 
-
-
+//pagination
+handlePageClick = (data) => {
+  const selectedPage = data.selected;
+  const offset = selectedPage * this.state.perPage;
+  this.setState({ currentPage: selectedPage, offset: offset }, () => {
+    this.setElementsForCurrentPage();
+  });
+}
+setElementsForCurrentPage() {
+  console.log(this.state.myOutfits.length)
+  let elements = this.state.myOutfits
+                .slice(this.state.offset, this.state.offset + this.state.perPage)
+  //               .map(post =>
+  //   ( <img src="{post.thumburl}" />)
+  // );
+  this.setState({ elements: elements, pageCount:this.state.myOutfits.length/this.state.perPage },()=>{
+    console.log(this.state.elements)
+  });
+}
 //homePage method calls
   getClothes = async() =>{
     await axios.get(`${serverURL}/api/get-clothes`)
@@ -212,6 +235,7 @@ getOutfits = () => {
             myOutfits:resp.data.allOutfits
          },()=>{
            console.log(this.state.myOutfits)
+           this.setElementsForCurrentPage();
          })
         })
        .catch((err)=>console.log(err))
@@ -511,6 +535,11 @@ handleFileUpload = e => {
                                                                                     userConfirm = {this.state.userConfirm}
                                                                                     setUserConfirmation = {this.setUserConfirmation}
                                                                                     setDeleteClickedStatus = {this.setDeleteClickedStatus}
+           setElementsForCurrentPage = {this.setElementsForCurrentPage}
+           handlePageClick = {this.handlePageClick}
+           currentPage = {this.state.currentPage}
+           elements = {this.state.elements}
+           pageCount = {this.state.pageCount}
             />}/>
           </Switch>
        

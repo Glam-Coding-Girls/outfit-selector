@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import {Redirect} from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 
 export class MyOutfits extends Component {
 
@@ -99,7 +100,8 @@ export class MyOutfits extends Component {
         }
       },250);
       } else{
-    return this.props.myOutfits.map((outfit,ind)=>{
+
+    return this.props.elements.map((outfit,ind)=>{
        return (
          <div key={ind} className="outfit-display">
                <button className="delete" onClick={()=>this.deleteSelected(outfit)}>Del</button>
@@ -111,16 +113,30 @@ export class MyOutfits extends Component {
   }
   }
   render() {
-    console.log(this.props.myOutfits)
+    console.log(this.props.elements)
     return (
-      <>
-     
+      <div className="my-outfit-wrapper">
+       <ReactPaginate containerClassName="pagination-container"
+                       pageClassName="page-list"
+                       activeClassName="active-page"
+                       previousLinkClassName="page-list"
+                       nextLinkClassName="page-list"
+                       breakLabel={<span >...</span>}
+                       pageCount={this.props.pageCount}
+                       pageRangeDisplayed={4}
+                       marginPagesDisplayed={4}
+                       onPageChange={this.props.handlePageClick}
+                       forcePage={this.props.currentPage}
+                       previousLabel={this.props.currentPage !== 0 ? "Prev" : ""}
+                       nextLabel={this.props.currentPage !== this.props.myOutfits.length-1 ? "Next" : ""}
+        />
       <div className="outfits-wrapper">
       {this.props.deleteClicked ? 
         this.showPopup()
         :
         <div style={{display:'none'}}></div>
         }
+      
         {this.displayOutfits()}
         
       </div>
@@ -131,7 +147,7 @@ export class MyOutfits extends Component {
         <div id="overlay" style={{display:'none'}}></div>
         }
 
-      </>
+      </div>
       
     )
   }
