@@ -198,10 +198,9 @@ createOutfit = () =>{
   }, {withCredentials: true})
   .then((res)=>{
     console.log(res.data)
-    if(res.message === 'success'){
+    if(res.data.message === 'success'){
       this.getOutfits();
       setTimeout(() =>{
-
         this.props.history.push('/my-outfits')
       },250)
     }
