@@ -160,6 +160,7 @@ export class MyOutfits extends Component {
   render() {
     return (
       <div className="my-outfit-wrapper">
+      {this.props.elements[0]!=undefined?
       <div className="pagination-wrapper">    
        <ReactPaginate containerClassName="pagination-container"
                        pageClassName="page-list"
@@ -177,7 +178,7 @@ export class MyOutfits extends Component {
                        previousLabel={"Prev"}
                        nextLabel={"Next"}
         />
-        </div>
+        </div>:<></>}
       <div className="outfits-wrapper">
       {this.props.deleteClicked ? 
         this.showPopup()
