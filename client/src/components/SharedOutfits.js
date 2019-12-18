@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 export default class SharedOutfits extends Component {
-
+ 
   displayMyClothes = (clothes) =>{
     if(clothes.length > 1){
       return clothes.map((clothe,index)=>{
@@ -30,6 +30,7 @@ export default class SharedOutfits extends Component {
   
     displayOutfits = () =>{
       console.log(this.props.sharedOutfits)
+    
       //if(this.props.sharedOutfits.length > 0) {
         return this.props.sharedOutfits.map((outfit,ind)=>{
           return (
