@@ -11,9 +11,10 @@ if(process.env.NODE_ENV == 'development'){
   serverURL = 'https://glamcloset.herokuapp.com'
 }
 
+
 export class MyOutfits extends Component {
   state = {
-    faceImg:"./face-img.png"
+    faceImg:"./face-img.png",
   }
 
   sharePics = (outfit) =>{
@@ -95,8 +96,6 @@ export class MyOutfits extends Component {
         )
       })
       }
-     
-
  }
 
  uploadFaceImage = (e) =>{
@@ -124,8 +123,20 @@ export class MyOutfits extends Component {
           )
         }
       },250);
-      } else{
-
+      } else if(this.props.elements[0]==undefined){
+   
+        return (
+          <div className="no-outfit-container">
+          <div className="no-outfit-text">         
+          <h2>Your currently don't have any saved outfits.</h2>
+          <p>Go back to the <a href="/">homepage</a>, and click "Save" under your favorite outfit to see it here.</p>
+          </div> 
+          <img src="./empty-outfit.png"/>
+          </div>
+        )
+      }    
+      else{
+      
     return this.props.elements.map((outfit,ind)=>{
        return (
          <>
@@ -147,11 +158,9 @@ export class MyOutfits extends Component {
   }
   }
   render() {
-    console.log("this is face image", this.state.faceImg)
-    console.log(this.props.elements)
     return (
       <div className="my-outfit-wrapper">
-      <div className="pagination-wrapper">
+      <div className="pagination-wrapper">    
        <ReactPaginate containerClassName="pagination-container"
                        pageClassName="page-list"
                        activeClassName="active-page"
