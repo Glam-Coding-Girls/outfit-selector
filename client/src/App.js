@@ -59,9 +59,11 @@ export class App extends Component {
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-   if(this.state.ready){
-      this.fetchUserData()
-    }
+   //if(this.state.ready){
+
+     this.fetchUserData()
+   //}
+
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
@@ -76,12 +78,8 @@ handlePageClick = (data) => {
   });
 }
 setElementsForCurrentPage() {
-  console.log(this.state.myOutfits.length)
   let elements = this.state.myOutfits
                 .slice(this.state.offset, this.state.offset + this.state.perPage)
-  //               .map(post =>
-  //   ( <img src="{post.thumburl}" />)
-  // );
   this.setState({ elements: elements, pageCount:this.state.myOutfits.length/this.state.perPage },()=>{
     console.log(this.state.elements)
   });
@@ -202,7 +200,6 @@ if(arr.length > 0){
   this.setState({
     outfit:arr
   },()=>{
-    console.log(this.state.outfit)
     this.createOutfit();
   });
 }
@@ -216,7 +213,6 @@ createOutfit = () =>{
     share: false
   }, {withCredentials: true})
   .then((res)=>{
-    console.log(res.data)
     if(res.data.message === 'success'){
       this.getOutfits();
       setTimeout(() =>{
@@ -230,11 +226,10 @@ createOutfit = () =>{
 getOutfits = () => {
   axios.get(`${serverURL}/api/get-outfits`,{withCredentials:true})
        .then(resp => {
-         console.log(resp.data)
+   
          this.setState({
             myOutfits:resp.data.allOutfits
          },()=>{
-           console.log(this.state.myOutfits)
            this.setElementsForCurrentPage();
          })
         })
@@ -263,7 +258,7 @@ deleteOutfit = (obj) => {
   console.log(obj)
  axios.post(`${serverURL}/api/delete-outfit/${obj._id}`,{withCredentials:true})
       .then((response) => {
-        console.log(response)
+       
         if(response.data.message === 'success'){
           this.getOutfits();
           this.getSharedOutfits();
@@ -278,7 +273,7 @@ shareOutfit = (obj) => {
   shareObj,
   {withCredentials:true})
        .then((response) => {
-         console.log(response)
+       
          if(response.data.message === "success"){
           this.getSharedOutfits();
           this.props.history.push('/shared-outfits')
@@ -302,18 +297,21 @@ getSharedOutfits = () =>{
   //check session
   fetchUserData =  async () =>{
     try{ 
-      let currentUser = await axios.get(`${serverURL}/api/get-user-info`, {withCredentials: true} )
-      console.log('fetch user' + currentUser)
-      this.setState({
-        currentlyLoggedInUser: currentUser.data,
-        profilePic: currentUser.data.profilePic,
-        currentEmail: currentUser.data.email,
-        currentPass: currentUser.data.password,
-        username: currentUser.data.username,
-        ready: true,
-      },()=>{
-        this.getOutfits();
-      })
+   
+        let currentUser = await axios.get(`${serverURL}/api/get-user-info`, {withCredentials: true} )
+  
+        this.setState({
+          currentlyLoggedInUser: currentUser.data,
+          profilePic: currentUser.data.profilePic,
+          currentEmail: currentUser.data.email,
+          currentPass: currentUser.data.password,
+          username: currentUser.data.username,
+          ready: true,
+        },()=>{
+          this.getOutfits();
+        })
+    
+      
     }
     catch(err){
       console.log(err);
@@ -331,7 +329,7 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
     axios.post(`${serverURL}/api/signup`, {
       email: this.state.emailInput,
       password: this.state.passwordInput,
-      password2: this.state.passwordInput2,
+      // password2: this.state.passwordInput2,
       username: usernamePart1+randomUserNumber
   }, {
       withCredentials: true
@@ -356,6 +354,13 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
   })
   .catch((err)=>{
       console.log(err);
+      if(err.response.data.err.name === "UserExistsError"){
+        this.setState({
+       
+          theError:err.response.data.err.message,
+         
+       }) 
+      }
   }
 )
   }
@@ -373,7 +378,6 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                  })        
                 }
               if(response.data.user){
-                console.log(response.data.user)
                  this.setState({
                     currentlyLoggedInUser: response.data.user,
                     ready: true,
@@ -383,7 +387,12 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                     currentEmail: response.data.user.email,
                     currentPass: response.data.user.password
                   },()=>{
-                    this.getOutfits();
+                    if(this.state.redirect){
+                      this.props.history.push('/')
+                      this.getOutfits();
+                    } else{
+                      this.props.history.push('/login')
+                    }
                   })
                 }
               this.setState({
@@ -393,10 +402,14 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
           })
             .catch((err)=>{
                 console.log(err);
-                this.setState({
-                   currentlyLoggedInUser: null,
-                   ready: false,
-                })
+                if(err.response.data === "Unauthorized"){
+                  this.setState({
+                    currentlyLoggedInUser: null,
+                    theError:'Incorrect password',
+                    ready: false,
+                 }) 
+                } 
+               
           })
       }
 // <-------------------------End Login and Signup method calls ----------------------------->
@@ -451,22 +464,19 @@ LogoutAction = () =>{
 //Logout ends here
 
 //------------------>Profile pic upload<----------------------------------
-handleFileUpload = e => {
+handleFileUpload = (e) => {
   console.log("The file to be uploaded is: ", e.target.files[0]);
-
   const uploadData = new FormData();
   uploadData.append("profilePic", e.target.files[0]);
-  
-  return axios.put(`${serverURL}/api//profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData, 
+  axios.put(`${serverURL}/api/profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData,
   {withCredentials: true})
   .then(response => {
-      this.setState({ profilePic: response.data.secure_url });
+      this.setState({ profilePic: response.data.user.profilePic });
     })
     .catch(err => {
       console.log("Error while uploading the file: ", err);
     });
 }
-
 
   render() {
 

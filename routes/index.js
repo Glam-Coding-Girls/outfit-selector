@@ -4,7 +4,7 @@ const axios = require('axios');
 const Clothe = require('../models/Clothe');
 const Store = require('../models/Store');
 const Match = require('../models/Match');
-
+const passport = require('../config/passport');
 
 router.get('/get-clothes',(req,res,next)=>{
  Clothe.find()
@@ -17,7 +17,7 @@ router.get('/get-clothes',(req,res,next)=>{
 router.post('/add-outfit',(req,res,next)=>{
   console.log('hitting add-outfit')
   console.log(req.session)
-      const creator = req.session.currentUser._id; 
+      const creator = req.session.passport.user._id; 
       console.log(creator)
       const selectedClothes = req.body.selectedClothes;  
       const likedBy = req.body.likedBy;
