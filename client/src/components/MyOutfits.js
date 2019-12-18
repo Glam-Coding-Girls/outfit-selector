@@ -137,7 +137,7 @@ export class MyOutfits extends Component {
             <input id="file-input" type="file" onChange={(e) => this.uploadFaceImage(e)}/>
          </div>   
 
-            <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i class="fas fa-times-circle"></i></button>
+            <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i className="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
             <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</button>
          </div>
