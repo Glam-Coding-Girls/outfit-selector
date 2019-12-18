@@ -29,8 +29,8 @@ export class Navigation extends Component {
                  </div>
                  : 
                  <div className="rightnav">
-                   <Link to="/profile" style={{textDecoration:"none"}}><img className="profile-nav-icon" src={this.props.profilePic}/></Link>
-                   <a onClick={this.props.LogoutAction}>Logout</a>
+                   <Link to="/profile" style={{textDecoration:"none"}}><img className="profile-nav-icon" src={this.props.profilePic} alt=""/></Link>
+                   <button className="logoutbtn" onClick={this.props.LogoutAction}>Logout</button>
                 </div>
                }
              <div className="mobile-menu">
@@ -49,7 +49,7 @@ export class Navigation extends Component {
                   <Link to="/about">About</Link>
                   <Link to="/shared-outfits">Shared Outfits</Link>
                   <Link to="/my-outfits" >My Outfits</Link>
-                  <a onClick={this.props.LogoutAction}>Logout</a>
+                  <button className="logoutbtn" onClick={this.props.LogoutAction}>Logout</button>
                   </ul>
                   }
              </div>

@@ -75,6 +75,17 @@ header{
   cursor: pointer;
   transition: 0.8s all;
 }
+.logoutbtn {
+  border: none;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.8s all;
+}
+.logoutbtn:hover {
+  color: #d93010;
+}
 .profile-nav-icon{
   width:4vh;
   height:auto;
@@ -110,6 +121,10 @@ header{
   display:flex;
   margin-top: 1em;
 }
+.like-section .likeheartbtn {
+  border: none;
+  background-color: transparent;
+}
 .fa-heart{
 cursor:pointer;
 color: #d93010;
@@ -124,6 +139,8 @@ font-size: 1.8em;
   height:auto;
   cursor:pointer;
 }
+/* Upload image hover effect */
+
 #save-image, #edit-icon{
   width:3vh;
   margin-left: 0.5rem;
@@ -155,6 +172,19 @@ background: none;
   font-size: 1.2em;
   padding: 10px 20px;
   transition: 0.5s all;
+}
+.mobile-menu .logoutbtn {
+  border: none;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  padding: 10px 20px;
+  transition: 0.5s all;
+}
+.mobile-menu .logoutbtn:hover {
+  color: white;
+  background-color: #d93010;
 }
 .mobile-menu a:hover {
   color: white;
@@ -286,10 +316,9 @@ background: none;
   height:auto;
   cursor:pointer;
   margin-left:25%;
+  margin-bottom:0px;
 }
-.face-upload:hover{
-  transform: scale(1.2);
-}
+
 
 .delete {
   border: none;
@@ -449,6 +478,25 @@ background: none;
   justify-content: space-around;
   align-items: center;
   width: 100%;
+}
+
+.no-outfit-container{
+  display:flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top:100px;
+}
+.no-outfit-text{
+  display:flex;
+  flex-direction:column;
+  width:40%;
+}
+.no-outfit-text >p{
+  margin-top:20px;
+}
+.no-outfit-container >img{
+  width:30%;
 }
 @media only screen and (max-width: 1199px) {
   .pagination-container {

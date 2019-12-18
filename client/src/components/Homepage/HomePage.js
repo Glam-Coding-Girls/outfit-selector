@@ -56,6 +56,32 @@ showDefault = () =>{
       return (
         <div className="outfitpanel">
           <div className="outfitsleft">
+          {this.props.defaultSelection === "Women" ? 
+            <div>
+            <select value = {this.props.catTopWomenSelection} onChange={this.props.setCatTopWomenSelection}>
+                 <option value='Tops'>Tops</option>
+                 <option value='Shirts'>Shirts</option>
+                 <option value='Blouses'>Blouses</option>
+                 <option value='Sweater'>Sweater</option>
+                 <option value='Tees'>Tees</option>
+            </select>
+            <select value = {this.props.catBottomWomenSelection} onChange={this.props.setCatBottomWomenSelection}>
+                 <option value='Pants'>Pants</option>
+                 <option value='Jean'>Jeans</option>
+                 <option value='Skirt'>Skirts</option>
+            </select>
+            </div>
+            : 
+             <div>
+             <select value = {this.props.catTopMenSelection} onChange={this.props.setCatTopMenSelection}>
+                 <option value='Shirts'>Shirts</option>
+            </select>
+            <select value = {this.props.catBottomMenSelection} onChange={this.props.setCatBottomMenSelection}>
+                 <option value='Pants'>Pants</option>
+                 <option value='Jean'>Jeans</option>
+            </select>
+             </div>
+             }
           </div>
           <div className="outfitsright">
             <div className="button-group">
