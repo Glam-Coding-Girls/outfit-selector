@@ -4,6 +4,7 @@ const axios = require('axios');
 const Clothe = require('../models/Clothe');
 const Store = require('../models/Store');
 const Match = require('../models/Match');
+const uploader = require('../configs/cloudinary-setup');
 const passport = require('../config/passport');
 
 router.get('/get-clothes',(req,res,next)=>{
@@ -58,6 +59,50 @@ router.post('/add-outfit',(req,res,next)=>{
         .then((outfits)=> res.json({outfits}))
         .catch((err)=>next(err))
  })
+
+
+ router.post('/like-outfit',(req,res,next)=>{
+   let userId = req.session.currentUser._id;
+   let outfit = req.body._id;
+   console.log("this is user id",userId)
+   console.log("this is outfit", outfit)
+   Match.findByIdAndUpdate(outfit,req.body, {new:true})
+      .then((response)=>{
+        console.log(response)
+        res.json({message:'Successfully liked'});
+      })
+      .catch((err)=>{
+        next(err)
+      })
+ })
+
+ router.post('/unlike-outfit',(req,res,next)=>{
+  let userId = req.session.currentUser._id;
+  let outfit = req.body._id;
+  console.log("this is user id",userId)
+  console.log("this is outfit", outfit)
+  Match.findByIdAndUpdate(outfit,{ $pull: { likedBy: { $in: userId}}})
+     .then((response)=>{
+       console.log(response)
+       res.json({message:'Successfully liked'});
+     })
+     .catch((err)=>{
+       next(err)
+     })
+})
+
+router.post('/face-img-upload', uploader.single("faceImg"), async (req, res, next) => {
+  console.log('file is: ', req.file)  
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }
+  res.json({secure_url:req.file.secure_url});
+})
+
+
+
+
 module.exports = router;
 
 
