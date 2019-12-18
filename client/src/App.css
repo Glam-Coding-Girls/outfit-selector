@@ -75,6 +75,17 @@ header{
   cursor: pointer;
   transition: 0.8s all;
 }
+.logoutbtn {
+  border: none;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.8s all;
+}
+.logoutbtn:hover {
+  color: #d93010;
+}
 .profile-nav-icon{
   width:4vh;
   height:auto;
@@ -109,6 +120,10 @@ header{
 .like-section{
   display:flex;
   margin-top: 1em;
+}
+.like-section .likeheartbtn {
+  border: none;
+  background-color: transparent;
 }
 .fa-heart{
 cursor:pointer;
@@ -155,6 +170,19 @@ background: none;
   font-size: 1.2em;
   padding: 10px 20px;
   transition: 0.5s all;
+}
+.mobile-menu .logoutbtn {
+  border: none;
+  background-color: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  padding: 10px 20px;
+  transition: 0.5s all;
+}
+.mobile-menu .logoutbtn:hover {
+  color: white;
+  background-color: #d93010;
 }
 .mobile-menu a:hover {
   color: white;
