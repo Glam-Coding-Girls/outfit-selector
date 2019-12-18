@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
 const session      = require('express-session')
-
+const passport = require('./config/passport');
 
 const app = express();
 
@@ -43,8 +43,12 @@ app.use(cookieParser());
 app.use(session({
   secret: "basic-auth-secret",
   save: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { maxAge: 1000 * 60 * 60 }
   }));
+
+  app.use(passport.initialize());
+app.use(passport.session());
 // Express View engine setup
 
 // app.use(require('node-sass-middleware')({

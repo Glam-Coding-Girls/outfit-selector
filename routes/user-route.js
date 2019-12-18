@@ -3,195 +3,69 @@ const router  = express.Router();
 const bcrypt  = require('bcryptjs');
 const User    = require('../models/User')
 const uploader = require('../configs/cloudinary-setup');
-
+const passport = require('../config/passport');
 
 //SIGUNP ROUTER
 router.post('/signup', (req,res, next) =>{
-//If passwords don't match
-if(req.body.password !=req.body.password2){
-  res.json({error: "Passwords don't match"})
-    return;
-}
-//If both password & email validation fail
-  if(req.body.password.length < 6 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.email)){
-    res.json({error: 'Enter a valid email, and a valid password - passwords must be at least 6 characters long.'})
-    return;
-  }
-//if only password validation fails 
-  else if(req.body.password.length < 6){
-    res.json({error: 'Passwords must be at least 6 characters long.'})
-    return;
-  }
-//if only email validation fails
-  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.email)){
-    res.json({error: 'Enter a valid email.'})
-    return;
-  }
-  //check if user exists in the db
-  else {
-  User.findOne({email:req.body.email})
-  .then(user =>{
-  //show error if user already exists
-    if(user){
-      res.json({error: 'Email is already registered, please enter a different email.'})
-      return; 
-    }
-  //if user passes signup validations above, we save the user in the db
-    else{
-      const salt  = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(req.body.password, salt);
-      const email = req.body.email; 
-      const username = req.body.username;  
-      User.create({email: email, password: hash, username: username})
-      .then((result)=>{
-        res.json({message: 'success', user: result})
-      })
-      .catch(err => console.log(err));
-    }
-  })}
-  })
+    User.register(req.body, req.body.password)
+    .then((user) => { 
+        req.login(user, function(err,result){
+          res.status(201).json({message: 'success', user: user})
+        })
+    })
+    .catch((err) => { 
+      console.log(err)
+      res.status(500).json({ err })
+    });
+});
+
 //SIGNUP ROUTER ENDS
+router.get('/get-user-info', (req, res, next) => {  
+  res.json(req.user)
+})
+
 
 //LOGIN ROUTER STARTS
-router.post('/login', (req, res, next)=>{
-  const theEmail = req.body.email;
-  const thePassword = req.body.password;
+router.post('/login', passport.authenticate('local'), (req, res, next) => {
+  const { user } = req;
+  res.status(200).json({message: 'success', user: user});
+});
 
-  User.findOne({ "email": theEmail })
-  .then(user => {
-      if (!user) {
-          console.log('USER DOES NOT EXIST!')
-          res.json({error: 'Email not found, please check and try again'})
-        return;
-      }
-      if (bcrypt.compareSync(thePassword, user.password)) {
-        // Save the login in the session!
-        req.session.currentUser = user;// this is the line of code that actually logs us in
-        console.log('innhere', req.session)
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.status(200).json({message: 'success'});
+});
 
-        res.json({message: 'success', user: user});
-      } else {
-        console.log('incorrect password')
-        res.json({error: "Incorrect password"});
-      }
-  })
-  .catch(error => {
-    next(error);
-  })
-})
-//LOGIN ROUTER ENDS
-
-router.get('/get-user-info', (req, res, next)=>{
-  if(req.session.currentUser){
-    console.log(req.session.currentUser)
-    res.json(req.session.currentUser);
-  } else {
-    res.json(null)
-  }
-})
-
-
-    router.get('/logout', function(req, res, next) {
-      if (req.session) {
-        req.session.destroy(function(err) {
-          if(err) {
-            return next(err);
-          } else {
-            console.log(req.session);
-            return res.json({message: 'success'})
-          }
-        });
-      }
-    });
+function isAuth(req, res, next) {
+  req.isAuthenticated() ? next() : res.status(401).json({ msg: 'Log in first' });
+}
   
  //-------< Update User details route >-----------------------------   
 
-router.put('/profile/:id', (req, res, next)=>{
-
-if(req.body.password.length < 6){
-    res.json({error: 'Passwords must be at least 6 characters long.'})
-    return;
+router.put('/profile/:id', async (req, res, next)=>{
+  let {email, password} = req.body;
+  const theUser = await User.findById(req.params.id,{new:true})
+  theUser.email = email;
+  if(password !== theUser.password){
+    console.log("hi, we're here");
+    await theUser.setPassword(password);
   }
-  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.email)){
-    res.json({error: 'Enter a valid email.'})
-    return;
-  }
-else if(!req.body.password || !req.body.email){
-  res.json({error: 'Field cannot be empty.'})
-  return;
-}
-
-else{
-
-User.findOne({email:req.body.email})
-.then(user =>{
-
-  console.log(user)
-  let edititingPass = null;
-  if(user) {
-    edititingPass = req.body.password != user.password;
-  }
-  if(user &!edititingPass){
-    res.json({error: 'Email is already registered, please enter a different email.'})
-    return; 
-  }
-
-  else{ 
-    const salt  = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
-    const email = req.body.email; 
-
-    User.findById(req.params.id).then((theActualUser)=>{
-
-    const theUpdate = {};
-    theUpdate.email = email;
-
-    if(req.body.password !== theActualUser.password){
-      theUpdate.password = hash;
-    }
-
-    User.findByIdAndUpdate(req.params.id, theUpdate, {new: true})
-    .then((response) => {
-      console.log(response)
-      req.session.currentUser.email = theUpdate.email;
-      req.session.currentUser.password = theUpdate.password;
-      res.json({message:'Update complete'});
-    })
-    .catch((err)=>{
-      res.json(err)
-    })
-
-  }).catch((err)=>{
-    next(err)
+  await theUser.save();
+      res.json({message:'Update complete',user:theUser});
   })
-
-  }})
-    }})
 
 //-------------Upload Profile Pic Route----------------------------    
 
-router.put('/profile-pic/:id', uploader.single("profilePic"), (req, res, next) => {
+router.put('/profile-pic/:id', uploader.single("profilePic"), async (req, res, next) => {
       console.log('file is: ', req.file)  
       if (!req.file) {
         next(new Error('No file uploaded!'));
         return;
       }
-      User.findByIdAndUpdate(req.params.id,{
-        profilePic:req.file.secure_url},
-        )
-      .then(newPic => {
-      // get secure_url from the file object and save it in the 
-      // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
-      req.session.currentUser.profilePic = req.file.secure_url;
-      res.json({ secure_url: req.file.secure_url });
-
-      })
-      .catch( err => next(err))
- 
+      const theUser = await User.findById(req.params.id,{new:true})
+      theUser.profilePic = req.file.secure_url;
+      await theUser.save();
+      res.json({message:'Update complete',user:theUser});
   })
-
-
-
-  
-  
+ 
 module.exports = router;

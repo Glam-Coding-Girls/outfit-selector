@@ -59,6 +59,7 @@ export class Profile extends Component {
       }
     },250);
     } else{
+      console.log(this.props.profilePic)
       return ( 
          <div className="profile">
          <div className="profile-content">
@@ -156,6 +157,9 @@ export class Profile extends Component {
     } 
  }
 render() {
+  setTimeout(()=>{
+  },250)
+  //console.log(this.props.currentlyLoggedInUser)
   return(
      <>
       {this.checkUserSession()}

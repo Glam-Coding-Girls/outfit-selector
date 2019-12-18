@@ -34,9 +34,9 @@ export default class SharedOutfits extends Component {
 
     displayOutfits = () =>{
       if(!this.props.currentlyLoggedInUser){
-        setTimeout(() => {
-          if(!this.props.currentlyLoggedInUser){
-            console.log("Hello")
+        // setTimeout(() => {
+          // if(!this.props.currentlyLoggedInUser){
+            console.log(this.props.sharedOutfits)
             return this.props.sharedOutfits.map((outfit,ind)=>{
               return (
                 <div key={ind} className="outfit-display">
@@ -45,8 +45,8 @@ export default class SharedOutfits extends Component {
               )
            })
          // }
-        }
-        },350);
+        // }
+        // });
         } else{
       //if(this.props.sharedOutfits.length > 0) {
         return this.props.sharedOutfits.map((outfit,ind)=>{
