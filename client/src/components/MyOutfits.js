@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import {Redirect} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import axios from 'axios';
+
+var serverURL = ''
+if(process.env.NODE_ENV == 'development'){
+  serverURL = 'http://localhost:5000'
+} else {
+  serverURL = 'https://glamcloset.herokuapp.com'
+}
 
 export class MyOutfits extends Component {
+  state = {
+    faceImg:"./face-img.png"
+  }
 
   sharePics = (outfit) =>{
     this.props.shareOutfit(outfit);
@@ -88,6 +99,20 @@ export class MyOutfits extends Component {
 
  }
 
+ uploadFaceImage = (e) =>{
+  const uploadData = new FormData();
+  uploadData.append("faceImg", e.target.files[0]);
+  
+  return axios.post(`${serverURL}/api/face-img-upload/`, uploadData, 
+  {withCredentials: true})
+  .then(response => {
+      this.setState({ faceImg: response.data.secure_url });
+    })
+    .catch(err => {
+      console.log("Error while uploading the file: ", err);
+    }); 
+ }
+
   displayOutfits = () =>{
     if(!this.props.currentlyLoggedInUser){
       setTimeout(() => {
@@ -103,16 +128,26 @@ export class MyOutfits extends Component {
 
     return this.props.elements.map((outfit,ind)=>{
        return (
+         <>
          <div key={ind} className="outfit-display">
-               <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i className="fas fa-times-circle"></i></button>
+
+         <div className ="profile-pic-upload">
+            <label htmlFor="file-input">
+            <img className="face-upload" src={this.state.faceImg} /></label> 
+            <input id="file-input" type="file" onChange={(e) => this.uploadFaceImage(e)}/>
+         </div>   
+
+            <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i class="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
             <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</button>
          </div>
+         </>
        )
     })
   }
   }
   render() {
+    console.log("this is face image", this.state.faceImg)
     console.log(this.props.elements)
     return (
       <div className="my-outfit-wrapper">

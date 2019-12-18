@@ -106,7 +106,19 @@ header{
 .formstyles .form-group {
   text-align: left;
 }
-
+.like-section{
+  display:flex;
+  margin-top: 1em;
+}
+.fa-heart{
+cursor:pointer;
+color: #d93010;
+font-size: 1.8em;
+}
+.fa-heart:hover{
+  filter: saturate(200%);
+  transform: scale(1.2);
+}
 #profile-image{
   width:10vh;
   height:auto;
@@ -269,6 +281,16 @@ background: none;
 .outfit-display:last-child {
   margin-right: 0;
 }
+.face-upload{
+  width:50%;
+  height:auto;
+  cursor:pointer;
+  margin-left:25%;
+}
+.face-upload:hover{
+  transform: scale(1.2);
+}
+
 .delete {
   border: none;
   position: absolute;

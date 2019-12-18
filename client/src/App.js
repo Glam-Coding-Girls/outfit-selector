@@ -11,6 +11,7 @@ import SharedOutfits from './components/SharedOutfits';
 import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
 
+
 console.log(process.env, '////')
 var serverURL = ''
 if(process.env.NODE_ENV == 'development'){
@@ -477,9 +478,38 @@ handleFileUpload = (e) => {
       console.log("Error while uploading the file: ", err);
     });
 }
+//--------------------->Like Outfit<------------------------------------
+likeOutfit = (outfit) =>{
+  let tempOutfit = {...outfit}
+  tempOutfit.likedBy.push(this.state.currentlyLoggedInUser)
+  axios.post(`${serverURL}/api/like-outfit`, outfit, {
+      withCredentials: true
+  })
+  .then((res)=>{
+    this.getSharedOutfits();
+      console.log("outfit liked")
+  })
+  .catch((err)=>{
+      console.log(err);
+  }
+)
+}
+//--------------------->Unlike Outfit<------------------------------------
+unlikeOutfit = (outfit) =>{
+  axios.post(`${serverURL}/api/unlike-outfit`, outfit, {
+      withCredentials: true
+  })
+  .then((res)=>{
+    this.getSharedOutfits();
+      console.log("outfit unliked")
+  })
+  .catch((err)=>{
+      console.log(err);
+  }
+)
+}
 
   render() {
-
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
@@ -535,6 +565,8 @@ handleFileUpload = (e) => {
             />}/>
             <Route exact path="/shared-outfits" render={(props) => <SharedOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                     sharedOutfits={this.state.sharedOutfits}
+                                                                                    likeOutfit={this.likeOutfit}
+                                                                                    unlikeOutfit={this.unlikeOutfit}
 
             />}/>
             <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}

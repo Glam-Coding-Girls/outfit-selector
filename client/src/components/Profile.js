@@ -158,8 +158,6 @@ export class Profile extends Component {
  }
 render() {
   setTimeout(()=>{
-
-    console.log(" this is props",this.profilePic)
   },250)
   //console.log(this.props.currentlyLoggedInUser)
   return(
