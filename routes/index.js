@@ -58,6 +58,24 @@ router.post('/add-outfit',(req,res,next)=>{
         .then((outfits)=> res.json({outfits}))
         .catch((err)=>next(err))
  })
+
+
+ router.post('/like-outfit',(req,res,next)=>{
+   let userId = req.session.currentUser._id;
+   let outfit = req.body._id;
+   console.log("this is user id",userId)
+   console.log("this is outfit", outfit)
+   Match.findByIdAndUpdate(outfit,req.body, {new:true})
+      .then((response)=>{
+        console.log(response)
+        res.json({message:'Successfully liked'});
+      })
+      .catch((err)=>{
+        next(err)
+      })
+ })
+
+
 module.exports = router;
 
 

@@ -422,7 +422,7 @@ handleFileUpload = e => {
   const uploadData = new FormData();
   uploadData.append("profilePic", e.target.files[0]);
   
-  return axios.put(`${serverURL}/api//profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData, 
+  return axios.put(`${serverURL}/api/profile-pic/`+this.state.currentlyLoggedInUser._id, uploadData, 
   {withCredentials: true})
   .then(response => {
       this.setState({ profilePic: response.data.secure_url });
@@ -431,10 +431,24 @@ handleFileUpload = e => {
       console.log("Error while uploading the file: ", err);
     });
 }
+//--------------------->Like Action<------------------------------------
+likeAction = (outfit) =>{
+  let tempOutfit = {...outfit}
+  tempOutfit.likedBy.push(this.state.currentlyLoggedInUser)
+  axios.post(`${serverURL}/api/like-outfit`, outfit, {
+      withCredentials: true
+  })
+  .then((res)=>{
+      console.log("outfit liked")
+  })
+  .catch((err)=>{
+      console.log(err);
+  }
+)
+}
 
 
   render() {
-    console.log("this is state",this.state)
     // console.log("current array index",this.state.currentPic);
     return (
       <div >
@@ -491,6 +505,7 @@ handleFileUpload = e => {
             />}/>
             <Route exact path="/shared-outfits" render={(props) => <SharedOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                     sharedOutfits={this.state.sharedOutfits}
+                                                                                    likeAction={this.likeAction}
 
             />}/>
             <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}

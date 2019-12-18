@@ -156,7 +156,6 @@ export class Profile extends Component {
     } 
  }
 render() {
-  console.log(" this is props",this.props)
   console.log(this.props.currentlyLoggedInUser)
   return(
      <>

@@ -106,6 +106,13 @@ header{
 .formstyles .form-group {
   text-align: left;
 }
+.like-section{
+  display:flex;
+}
+.heart-img{
+  width:5vh;
+  height:auto;
+}
 
 #profile-image{
   width:10vh;

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
+
 export default class SharedOutfits extends Component {
 
   displayMyClothes = (clothes) =>{
     if(clothes.length > 1){
       return clothes.map((clothe,index)=>{
           return (
+      
             <div key={index} className="clothe-sections">
               {index === 0 ? 
                <img style={{'borderTopLeftRadius':'7px','borderTopRightRadius':'7px'}} src={clothe.image} alt="outfit" />
@@ -13,6 +15,7 @@ export default class SharedOutfits extends Component {
                <img style={{'borderBottomLeftRadius':'7px','borderBottomRightRadius':'7px'}} src={clothe.image} alt="outfit" />
               }
             </div>
+    
           )
         })
         } else if(clothes.length === 1){
@@ -21,6 +24,7 @@ export default class SharedOutfits extends Component {
             <div key={index} className="clothe-sections" style={{height:'46vh'}}>
                <img style={{'borderRadius':'7px',height:'46vh'}} src={clothe.image} alt="outfit" />
             </div>
+           
           )
         })
         }
@@ -32,10 +36,17 @@ export default class SharedOutfits extends Component {
       console.log(this.props.sharedOutfits)
       //if(this.props.sharedOutfits.length > 0) {
         return this.props.sharedOutfits.map((outfit,ind)=>{
+          console.log(outfit)
           return (
+            <>
             <div key={ind} className="outfit-display">
                {this.displayMyClothes(outfit.selectedClothes)}
             </div>
+            <div className= "like-section">
+            <button><img src="./like-heart.png" className="heart-img" alt="like-icon" onClick={ () => this.props.likeAction(outfit)}/></button>
+            <span>{outfit.likedBy.length}</span><p>Likes</p>       
+            </div>
+            </>
           )
        })
      // }
