@@ -16,7 +16,7 @@ import validator from 'validator';
 console.log(process.env, '////')
 var serverURL = ''
 if(process.env.NODE_ENV == 'development'){
-  serverURL = 'http://localhost:5000'
+  serverURL = 'http://localhost:8080'
 } else {
   serverURL = 'https://glamcloset.herokuapp.com'
 }
@@ -63,13 +63,9 @@ export class App extends Component {
      msgPswd2:""
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     //Call fetchUserData in Component did mount:
-   //if(this.state.ready){
-
      this.fetchUserData()
-  // }
-
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
@@ -107,9 +103,6 @@ checkValidation = () => {
   })
  // console.log(this.state.msg, this.state.msgPswd, this.state.msgPswd2)
 }
-
-
-
 
 //pagination
 handlePageClick = (data) => {
@@ -349,10 +342,7 @@ getSharedOutfits = () =>{
           username: currentUser.data.username,
           ready: true,
         },()=>{
-          if(this.state.ready){
-
-            this.getOutfits();
-          }
+          this.getOutfits();
         })
     }
     catch(err){
@@ -507,7 +497,7 @@ editTheUser = (e) =>{
 
 //Logout function, redirects to homepage and set currentlyLoggedInUser to null
 LogoutAction = () =>{
-    axios.get(`${serverURL}/api/logout`)
+    axios.get(`${serverURL}/api/logout`,{withCredentials:true})
          .then((res)=>{
            console.log(res)
             this.setState({

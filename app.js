@@ -33,22 +33,39 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 
-// Middleware Setup
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}));
 // Express session middleware
-app.use(session({
-  secret: "basic-auth-secret",
-  save: true,
-  saveUninitialized: true,
-  cookie: { maxAge: 1000 * 60 * 60 }
-  }));
-
+// app.use(session({
+//   secret: "basic-auth-secret",
+//   save: true,
+//   saveUninitialized: true,
+//   resave: false,
+//   cookie: { maxAge: 1000 * 60 * 60 }
+//   }));
+  app.use(
+    session({
+      resave: false,
+      saveUninitialized: true,
+      secret: "secret",
+      cookie: { maxAge: 1000 * 60 * 60 }
+    })
+  );
   app.use(passport.initialize());
-app.use(passport.session());
+  app.use(passport.session());
+
+
+app.use(express.static(path.join(__dirname, './client/build'))) //Our front end folder 
+// Middleware Setup
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(logger('dev'));
+
+
+
 // Express View engine setup
 
 // app.use(require('node-sass-middleware')({
@@ -67,12 +84,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000']
-}));
 
-app.use(express.static(path.join(__dirname, './client/build'))) //Our front end folder 
 
 
 //Routes
