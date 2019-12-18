@@ -19,7 +19,7 @@ router.get('/get-clothes',(req,res,next)=>{
 router.post('/add-outfit',(req,res,next)=>{
   console.log('hitting add-outfit')
   console.log(req.session)
-  let userTemp = User.find({email:req.session.passport.user})
+  let userTemp = req.user;
   let userId = userTemp._id
       const creator = userId; 
       console.log(creator)
@@ -33,8 +33,9 @@ router.post('/add-outfit',(req,res,next)=>{
       .catch(err => console.log(err));
  })
  router.get('/get-outfits',(req,res,next)=>{
-  console.log(req.session)
-  let userTemp = User.find({email:req.session.passport.user})
+  console.log(req.user)
+  let userTemp = req.user
+  console.log("-------------",userTemp)
   let userId = userTemp._id
   Match.find({creator:userId})
             .then((allOutfits)=>{
@@ -69,7 +70,7 @@ router.post('/add-outfit',(req,res,next)=>{
 
  router.post('/like-outfit',(req,res,next)=>{
   console.log("this is session in like",req.session.passport.user)
-   let userTemp = User.find({email:req.session.passport.user})
+   let userTemp = req.user
    let userId = userTemp._id;
    let outfit = req.body._id;
    console.log("this is user id",userId)
@@ -86,7 +87,7 @@ router.post('/add-outfit',(req,res,next)=>{
 
  router.post('/unlike-outfit',(req,res,next)=>{
   console.log("this is session in unlike",req.session.passport.user)
-  let userTemp = User.find({email:req.session.passport.user})
+  let userTemp = req.user
   let userId = userTemp._id
   let outfit = req.body._id;
   console.log("this is user id",userId)

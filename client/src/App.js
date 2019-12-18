@@ -349,7 +349,10 @@ getSharedOutfits = () =>{
           username: currentUser.data.username,
           ready: true,
         },()=>{
-          this.getOutfits();
+          if(this.state.ready){
+
+            this.getOutfits();
+          }
         })
     }
     catch(err){
