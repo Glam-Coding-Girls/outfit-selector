@@ -13,7 +13,16 @@ passLoginInfoToAppComponent = (e) =>{
   //     }
   //    },300);
   }
-
+  displayValidationMessage = () =>{
+    return(
+        <span style={{fontSize:'10px',color:'red'}}> {this.props.msg}</span>
+    )    
+}
+displayValidationMessageForPassword = () =>{
+return(
+<span style={{fontSize:'10px',color:'red'}}> {this.props.msgPswd}</span>
+)    
+}
 displayValidation = () => {
 if(this.props.theError) {
     return (
@@ -34,12 +43,14 @@ if(this.props.theError) {
                           value={this.props.emailInput}
                           onChange={this.props.updateInput}/>
                  </div>
+                 {this.displayValidationMessage()}
                  <div className="form-group">
                    <label>Password:</label>  
                    <input type="password" className="form-control" name="passwordInput"
                           value={this.props.passwordInput}
                           onChange={this.props.updateInput}/>
                  </div>
+                 {this.displayValidationMessageForPassword()}
                  <p>If you don't have an account yet, you can create one
                  <Link to="/signup" style={{textDecoration:"none"}}> here</Link></p>
                  <button type="submit" className="btn btn-primary">Log in</button>

@@ -139,6 +139,8 @@ font-size: 1.8em;
   height:auto;
   cursor:pointer;
 }
+/* Upload image hover effect */
+
 #save-image, #edit-icon{
   width:3vh;
   margin-left: 0.5rem;
@@ -477,6 +479,25 @@ background: none;
   justify-content: space-around;
   align-items: center;
   width: 100%;
+}
+
+.no-outfit-container{
+  display:flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top:100px;
+}
+.no-outfit-text{
+  display:flex;
+  flex-direction:column;
+  width:40%;
+}
+.no-outfit-text >p{
+  margin-top:20px;
+}
+.no-outfit-container >img{
+  width:30%;
 }
 @media only screen and (max-width: 1199px) {
   .pagination-container {
