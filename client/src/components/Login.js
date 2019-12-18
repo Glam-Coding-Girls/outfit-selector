@@ -6,12 +6,12 @@ export class Login extends Component {
 passLoginInfoToAppComponent = (e) =>{
     e.preventDefault();
     this.props.login();
-    setTimeout(() => {
-       if(this.props.redirect){
-         console.log(this.props)
-        this.props.history.push('/');
-      }
-     },270);
+  //  setTimeout(() => {
+  //      if(this.props.redirect){
+  //        console.log(this.props)
+  //       this.props.history.push('/');
+  //     }
+  //    },300);
   }
 
 displayValidation = () => {
