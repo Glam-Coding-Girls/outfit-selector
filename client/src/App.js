@@ -10,6 +10,7 @@ import Profile from './components/Profile';
 import SharedOutfits from './components/SharedOutfits';
 import MyOutfits from './components/MyOutfits';
 import Navigation from './components/Navigation';
+import validator from 'validator';
 
 
 console.log(process.env, '////')
@@ -56,6 +57,10 @@ export class App extends Component {
       elements: [],
       perPage: 4,
       currentPage: 0,
+    //client-side validation variables
+     msg:"",
+     msgPswd:"",
+     msgPswd2:""
   }
 
   componentDidMount() {
@@ -63,13 +68,49 @@ export class App extends Component {
    //if(this.state.ready){
 
      this.fetchUserData()
-   //}
+  // }
 
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
     this.getSharedOutfits();
   } 
+//client-side validation
+checkValidation = () => {
+  let msg = '';
+  let msgPswd = '';
+  let msgPswd2 = '';
+  if(this.state.emailInput === ""){
+    console.log('empty email')
+   msg = '* Email is required, Please provide an email address'
+  }
+  if(!validator.isEmail(this.state.emailInput)){
+    console.log('invalid email')
+    msg = '* Email is invalid, Enter a valid email address' 
+  } 
+  if(validator.isEmpty(this.state.passwordInput)){
+    msgPswd = '* Password is required, Please provide a password'
+  }
+  if(validator.isLength(this.state.passwordInput,[{min:6}])){
+    msgPswd = '* Minimum length of password is 6'
+  } 
+  if(validator.isEmpty(this.state.passwordInput2)){
+    msgPswd2 = '* Please re-type password'
+  } 
+  if(this.state.passwordInput !== this.state.passwordInput2){
+    msgPswd2 = '* Password is not matching, Please re-type password'
+  } 
+  this.setState({
+    msg:msg,
+    msgPswd:msgPswd,
+    msgPswd2:msgPswd2
+  })
+ // console.log(this.state.msg, this.state.msgPswd, this.state.msgPswd2)
+}
+
+
+
+
 //pagination
 handlePageClick = (data) => {
   const selectedPage = data.selected;
@@ -268,6 +309,7 @@ deleteOutfit = (obj) => {
       .catch((err) => console.log(err))
 }
 shareOutfit = (obj) => {
+
   let shareObj = {...obj};
   shareObj.share = !shareObj.share;
   axios.post(`${serverURL}/api/update-outfit/${shareObj._id}`,
@@ -298,9 +340,7 @@ getSharedOutfits = () =>{
   //check session
   fetchUserData =  async () =>{
     try{ 
-   
         let currentUser = await axios.get(`${serverURL}/api/get-user-info`, {withCredentials: true} )
-  
         this.setState({
           currentlyLoggedInUser: currentUser.data,
           profilePic: currentUser.data.profilePic,
@@ -309,10 +349,11 @@ getSharedOutfits = () =>{
           username: currentUser.data.username,
           ready: true,
         },()=>{
-          this.getOutfits();
+          if(this.state.ready){
+
+            this.getOutfits();
+          }
         })
-    
-      
     }
     catch(err){
       console.log(err);
@@ -322,50 +363,66 @@ getSharedOutfits = () =>{
 //-------------------->Login and signup method calls<------------------------------------
   updateInput = (e) =>{
     this.setState({[e.target.name]: e.target.value, theError:null, registered:false})
-    }
+  }
 
 signup = () => {
-let randomUserNumber = Math.floor((Math.random() * 20) + 10);  
-let usernamePart1 = this.state.emailInput.slice(0,4)
-    axios.post(`${serverURL}/api/signup`, {
-      email: this.state.emailInput,
-      password: this.state.passwordInput,
-      // password2: this.state.passwordInput2,
-      username: usernamePart1+randomUserNumber
-  }, {
-      withCredentials: true
-  })
-  .then((response)=>{
-      if(response.data.error){         
-          this.setState({
-            theError: response.data.error,
-          })
-      }
-      if(response.data.user){
-        this.setState({
-          theError:null,
-          registered: true
-        })
-      }
+  this.checkValidation();
+    console.log(this.state.msg , this.state.msgPswd, this.state.msgPswd2)
+    if(validator.isEmail(this.state.emailInput) && validator.isLength(this.state.passwordInput,{min:6}) && validator.equals(this.state.passwordInput,this.state.passwordInput2)){
       this.setState({
-          // emailInput: "",
-          passwordInput: "",
-          passwordInput2: ""
+        msg:"",
+        msgPswd:"",
+        msgPswd2:""
       })
-  })
-  .catch((err)=>{
-      console.log(err);
-      if(err.response.data.err.name === "UserExistsError"){
-        this.setState({
-       
-          theError:err.response.data.err.message,
-         
-       }) 
-      }
-  }
-)
+      let randomUserNumber = Math.floor((Math.random() * 20) + 10);  
+      let usernamePart1 = this.state.emailInput.slice(0,4)
+          axios.post(`${serverURL}/api/signup`, {
+            email: this.state.emailInput,
+            password: this.state.passwordInput,
+            username: usernamePart1+randomUserNumber
+        }, {
+            withCredentials: true
+        })
+        .then((response)=>{
+            if(response.data.error){         
+                this.setState({
+                  theError: response.data.error,
+                })
+            }
+            if(response.data.user){
+              this.setState({
+                theError:null,
+                registered: true
+              })
+            }
+            this.setState({
+                // emailInput: "",
+                passwordInput: "",
+                passwordInput2: ""
+            })
+        })
+        .catch((err)=>{
+            console.log(err);
+            if(err.response.data.err.name === "UserExistsError"){
+              this.setState({
+             
+                theError:err.response.data.err.message,
+               
+             }) 
+            }
+        }
+      )
+    }
+
   }
   login = () => {
+    this.checkValidation();
+    if(validator.isEmail(this.state.emailInput) && validator.isLength(this.state.passwordInput,{min:6})){
+      this.setState({
+        msg:"",
+        msgPswd:"",
+        msgPswd2:""
+      })
       axios.post(`${serverURL}/api/login`, {
         email: this.state.emailInput,
         password: this.state.passwordInput,
@@ -412,6 +469,8 @@ let usernamePart1 = this.state.emailInput.slice(0,4)
                 } 
                
           })
+    }
+    
       }
 // <-------------------------End Login and Signup method calls ----------------------------->
 
@@ -543,6 +602,9 @@ unlikeOutfit = (outfit) =>{
                                                                                   passwordInput2 = {this.state.passwordInput2} 
                                                                                   theError = {this.state.theError}
                                                                                   registered = {this.state.registered}
+                                                                                  msg = {this.state.msg}
+                                                                                  msgPswd = {this.state.msgPswd}
+                                                                                  msgPswd2 = {this.state.msgPswd2}
                                                                                   /> } />
             <Route exact path="/login" render = { (props) => <Login {...props}    login = {this.login}
                                                                                   updateInput = {this.updateInput}
@@ -551,6 +613,9 @@ unlikeOutfit = (outfit) =>{
                                                                                   redirect = {this.state.redirect} 
                                                                                   theError = {this.state.theError}
                                                                                   currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
+                                                                                  msg = {this.state.msg}
+                                                                                  msgPswd = {this.state.msgPswd}
+
                                                                                   /> } />
             <Route exact path="/profile" render={(props) => <Profile {...props} currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                 fetchUserData = {this.fetchUserData}

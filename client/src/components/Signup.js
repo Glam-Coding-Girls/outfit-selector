@@ -6,6 +6,22 @@ saveUser = (e)=>{
     e.preventDefault();
     this.props.signup();
 }
+
+displayValidationMessage = () =>{
+            return(
+                <span style={{fontSize:'10px',color:'red'}}> {this.props.msg}</span>
+            )    
+}
+displayValidationMessageForPassword = () =>{
+    return(
+        <span style={{fontSize:'10px',color:'red'}}> {this.props.msgPswd}</span>
+    )    
+}
+displayValidationMessageForPassword2 = () =>{
+    return(
+        <span style={{fontSize:'10px',color:'red'}}> {this.props.msgPswd2}</span>
+    )    
+}
 signupValidation = () => {
 //if user passed the server validation check, a user exists, 
 //therefore registration was successful
@@ -40,22 +56,25 @@ signupValidation = () => {
                <form className="formstyles" onSubmit={this.saveUser}>
                  <div className="form-group">
                     <label>Email</label>
-                    <input type="text" className="form-control" name="emailInput" 
+                    <input type="email" className="form-control" name="emailInput" 
                            value={this.props.emailInput} 
                            onChange={this.props.updateInput}/>
                  </div>
+                 {this.displayValidationMessage()}
                  <div className="form-group">
                     <label>Password:</label>  
                     <input type="password" className="form-control" name="passwordInput"
                            value={this.props.passwordInput} 
                            onChange={this.props.updateInput}/>
                  </div>
+                 {this.displayValidationMessageForPassword()}
                  <div className="form-group">
                     <label>Type your password again:</label>  
                     <input type="password" className="form-control" name="passwordInput2"
                            value={this.props.passwordInput2} 
                            onChange={this.props.updateInput}/>
                  </div>
+                 {this.displayValidationMessageForPassword2()}
                  <button type="submit" className="btn btn-primary">Create the Account</button>
                 </form> 
                 {this.signupValidation()}    
