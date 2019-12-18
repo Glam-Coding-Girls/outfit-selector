@@ -31,6 +31,8 @@ export class App extends Component {
     defaultSelection:'Women',
     catSelection:'twoPiece',
     currentlyLoggedInUser: null,
+    currentTopIndex:0,
+    currentBottomIndex:0, 
     emailInput: "",
     passwordInput: "",
     passwordInput2:"",
@@ -46,20 +48,45 @@ export class App extends Component {
     outfit:[],
     myOutfits:[],
     sharedOutfits:[],
+    userConfirm:false,
+    deleteClicked:false,
+    //pagination variables
+      pageCount:1,
+      offset: 0,
+      elements: [],
+      perPage: 4,
+      currentPage: 0,
   }
 
   componentDidMount() {
     //Call fetchUserData in Component did mount:
-   if(this.state.ready){
+  //  if(this.state.ready){
       this.fetchUserData()
-    }
+    // }
    //------------------------------------------
    //Call getClothes in Component did mount:
     this.getClothes();
     this.getSharedOutfits();
   } 
-
-
+//pagination
+handlePageClick = (data) => {
+  const selectedPage = data.selected;
+  const offset = selectedPage * this.state.perPage;
+  this.setState({ currentPage: selectedPage, offset: offset }, () => {
+    this.setElementsForCurrentPage();
+  });
+}
+setElementsForCurrentPage() {
+  console.log(this.state.myOutfits.length)
+  let elements = this.state.myOutfits
+                .slice(this.state.offset, this.state.offset + this.state.perPage)
+  //               .map(post =>
+  //   ( <img src="{post.thumburl}" />)
+  // );
+  this.setState({ elements: elements, pageCount:this.state.myOutfits.length/this.state.perPage },()=>{
+    console.log(this.state.elements)
+  });
+}
 //homePage method calls
   getClothes = async() =>{
     await axios.get(`${serverURL}/api/get-clothes`)
@@ -69,13 +96,6 @@ export class App extends Component {
       this.createImageArrays();  
     })
   }
-//  setDefaultSelection = (e) =>{
-//     this.setState({
-//        defaultSelection: e.target.value
-//       },()=>{
-//     this.createImageArrays(); 
-//   })
-//  }
 setTopIndex = (x)=>{
   this.setState({currentTopIndex: x})
 }
@@ -117,9 +137,7 @@ setDefaultSelection = (selection) =>{
               this.createObjCall(element).forEach(obj => {
                 tempTopArray.push(obj);
               })
-              // tempBottomArray = [];
             }
-            //tempBottomArray = null;
           } else{
             if(element.name.toUpperCase().includes('Tops'.toUpperCase())||
             element.name.toUpperCase().includes('Shirts'.toUpperCase())||
@@ -218,11 +236,30 @@ getOutfits = () => {
             myOutfits:resp.data.allOutfits
          },()=>{
            console.log(this.state.myOutfits)
+           this.setElementsForCurrentPage();
          })
         })
        .catch((err)=>console.log(err))
 }
-
+setUserConfirmation = (message) =>{
+  this.setState({
+    userConfirm:message,
+    deleteClicked:false
+  },()=>{
+    if(this.state.userConfirm){
+      this.deleteOutfit(this.state.outfit)
+      this.setState({
+        userConfirm:false
+      })
+    }
+  })
+ }
+ setDeleteClickedStatus = (outfit) => {
+  this.setState({
+    deleteClicked:true,
+    outfit:outfit
+  })
+ }
 deleteOutfit = (obj) => {
   console.log(obj)
  axios.post(`${serverURL}/api/delete-outfit/${obj._id}`,{withCredentials:true})
@@ -254,7 +291,6 @@ shareOutfit = (obj) => {
 getSharedOutfits = () =>{
   axios.get(`${serverURL}/api/get-shared`)
        .then((response)=>{
-         console.log(response);
          if(response.data){
            this.setState({
              sharedOutfits:response.data.outfits
@@ -431,15 +467,30 @@ handleFileUpload = e => {
       console.log("Error while uploading the file: ", err);
     });
 }
-//--------------------->Like Action<------------------------------------
-likeAction = (outfit) =>{
+//--------------------->Like Outfit<------------------------------------
+likeOutfit = (outfit) =>{
   let tempOutfit = {...outfit}
   tempOutfit.likedBy.push(this.state.currentlyLoggedInUser)
   axios.post(`${serverURL}/api/like-outfit`, outfit, {
       withCredentials: true
   })
   .then((res)=>{
+    this.getSharedOutfits();
       console.log("outfit liked")
+  })
+  .catch((err)=>{
+      console.log(err);
+  }
+)
+}
+//--------------------->Unlike Outfit<------------------------------------
+unlikeOutfit = (outfit) =>{
+  axios.post(`${serverURL}/api/unlike-outfit`, outfit, {
+      withCredentials: true
+  })
+  .then((res)=>{
+    this.getSharedOutfits();
+      console.log("outfit unliked")
   })
   .catch((err)=>{
       console.log(err);
@@ -449,7 +500,6 @@ likeAction = (outfit) =>{
 
 
   render() {
-    // console.log("current array index",this.state.currentPic);
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
@@ -505,16 +555,26 @@ likeAction = (outfit) =>{
             />}/>
             <Route exact path="/shared-outfits" render={(props) => <SharedOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                     sharedOutfits={this.state.sharedOutfits}
-                                                                                    likeAction={this.likeAction}
+                                                                                    likeOutfit={this.likeOutfit}
+                                                                                    unlikeOutfit={this.unlikeOutfit}
 
             />}/>
             <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                     myOutfits={this.state.myOutfits}
                                                                                     shareOutfit = {this.shareOutfit}
                                                                                     deleteOutfit = {this.deleteOutfit}
-
+                                                                                    deleteClicked = {this.state.deleteClicked}
+                                                                                    userConfirm = {this.state.userConfirm}
+                                                                                    setUserConfirmation = {this.setUserConfirmation}
+                                                                                    setDeleteClickedStatus = {this.setDeleteClickedStatus}
+           setElementsForCurrentPage = {this.setElementsForCurrentPage}
+           handlePageClick = {this.handlePageClick}
+           currentPage = {this.state.currentPage}
+           elements = {this.state.elements}
+           pageCount = {this.state.pageCount}
             />}/>
           </Switch>
+       
           </div>
         </div> 
     )

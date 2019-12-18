@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import './bottom.css';
 
 
@@ -54,15 +54,29 @@ export class Bottom extends Component {
                       <i className="fas fa-chevron-circle-left"></i>
                     </div>
                   </button>
-                  <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
+                  <div className="carouselbox">
+                 {/* <a href={this.props.imgs[this.state.currentPic].href} target="_blank"> */}
                   <div className="content-overlay"></div>
-                              
-                          <img src={this.props.imgs[this.state.currentPic].image} alt="carousel" />
-             
+                  <TransformWrapper>
+                    {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+                      <React.Fragment>
+                      <div className="tools">
+                        <button onClick={zoomIn}>+</button>
+                        <button onClick={zoomOut}>-</button>
+                        <button onClick={resetTransform}>x</button>
+                      </div>
+                        <TransformComponent>
+                          <img src={this.props.imgs[this.state.currentPic].image} alt='carousel' />
+                        </TransformComponent>
+                        </React.Fragment>
+                    )}
+                  </TransformWrapper>
+                  <a href={this.props.imgs[this.state.currentPic].href} target="_blank">
                   <div className="content-details fadeIn-bottom">
                     <h3 className="content-title">Click to see details</h3>
                   </div>
                   </a>
+                  </div>
                  <button className="rightbutton" onClick={this.clickRight}>
                     <div className="arrow-overlay"></div>
                     <img  src={this.state.currentPic < this.props.imgs.length -1 ? this.props.imgs[this.state.currentPic + 1].image : this.props.imgs[0].image}  alt="carousel" />

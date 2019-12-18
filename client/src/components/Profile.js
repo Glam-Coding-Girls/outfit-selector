@@ -156,7 +156,6 @@ export class Profile extends Component {
     } 
  }
 render() {
-  console.log(this.props.currentlyLoggedInUser)
   return(
      <>
       {this.checkUserSession()}

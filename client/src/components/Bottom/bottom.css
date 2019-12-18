@@ -23,8 +23,9 @@
   text-align: center;
   /* background-color: white; */
 }
-.carousel a {
-  display: inline-block;
+.carousel .carouselbox {
+  display: flex;
+  justify-content: center;
   background-color: white;
   border: 1px solid black;
   width: 95%;
@@ -32,25 +33,47 @@
   position: relative;
   transition: 0.5s all;
 }
-.carousel.dresses-option a {
+/* .carousel a {
+  display: inline-block;
+  background-color: white;
+  border: 1px solid black;
+  width: 95%;
+  height: 240px;
+  position: relative;
+  transition: 0.5s all;
+} */
+.carousel.dresses-option .carouselbox, .carousel.dresses-option .carouselbox .TransformComponent-module_content__TZU5O {
   height: 350px;
 }
-.carousel a .content-overlay {
+.carousel .carouselbox .content-overlay {
   background: rgba(0,0,0,0.7);
   position: absolute;
-  height: 30%;
+  height: 20%;
   width: 100%;
   left: 0;
   /* top: 0; */
   bottom: 0;
   right: 0;
   opacity: 0;
+  z-index: 1;
   -webkit-transition: all 0.4s ease-in-out 0s;
   -moz-transition: all 0.4s ease-in-out 0s;
   transition: all 0.4s ease-in-out 0s;
 }
-.carousel a:hover .content-overlay{
+.carousel .carouselbox a {
+  z-index: 2;
+}
+.carousel .carouselbox:hover .content-overlay{
   opacity: 1;
+}
+.TransformComponent-module_container__3NwNd {
+  width: 100%;
+  height: auto;
+}
+.TransformComponent-module_content__TZU5O {
+  width: 100%;
+  height: 240px;
+  justify-content: center;
 }
 .content-details {
   position: absolute;
@@ -68,8 +91,8 @@
   -moz-transition: all 0.3s ease-in-out 0s;
   transition: all 0.3s ease-in-out 0s;
 }
-.carousel a:hover .content-details{
-  top: 88%;
+.carousel .carouselbox:hover .content-details{
+  top: 92%;
   left: 50%;
   opacity: 1;
 }
@@ -83,6 +106,32 @@
 }
 .fadeIn-bottom{
   top: 100%;
+}
+.carousel .tools {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+.carousel .tools button {
+  width: 25px;
+  height: 25px;
+  font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+.carousel .tools:hover button {
+  background-color: rgba(255, 255, 255, 1);
+}
+.carousel .tools button:last-child {
+  margin-bottom: 0;
 }
 .carousel button {
   display: inline-block;
@@ -166,6 +215,7 @@ button:hover .bkgd-overlay {
 .carousel img {
   max-width: 100%;
   max-height: 100%;
+  object-fit: contain;
   /* width: 100%;
   height: auto; */
 }
@@ -194,27 +244,24 @@ button:hover .bkgd-overlay {
   left: 114%;
 }
 button:focus {outline:0;}
-.card-prev, .card-next{
-  /* height: 50px;
- width: 40px; */
- /* padding:10px; */
- border: solid 1px rgba(153, 151, 151, 0.5);
- /* border-radius: 5px; */
- /* box-shadow: 10px 10px 5px #aaaaaa; */
- background-color:white;
-}
-.card-prev img, .card-next img{
- /* height: 30vh;
- width: 12vw; */
- max-width: 100%;
- max-height: 100%;
- /* border-radius: 5px; */
-}
+
 @media all and (max-width: 700px) {
   .card-wrapper {
-    width: 75%;
+    width: 85%;
   }
   .card-prev, .card-next{
     display:none;
+  }
+  .carousel button {
+    width: 25px;
+  }
+  .leftbutton .bkgd-overlay {
+    left: 0;
+  }
+  .rightbutton .bkgd-overlay {
+    left: 0;
+  }
+  .carousel .tools, .arrow-overlay, .carousel button img {
+    display: none;
   }
 }
