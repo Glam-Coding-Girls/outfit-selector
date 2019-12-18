@@ -316,10 +316,9 @@ background: none;
   height:auto;
   cursor:pointer;
   margin-left:25%;
+  margin-bottom:0px;
 }
-.face-upload:hover{
-  transform: scale(1.2);
-}
+
 
 .delete {
   border: none;
