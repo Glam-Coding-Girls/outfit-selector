@@ -116,20 +116,24 @@ export class MyOutfits extends Component {
     console.log(this.props.elements)
     return (
       <div className="my-outfit-wrapper">
+      <div className="pagination-wrapper">
        <ReactPaginate containerClassName="pagination-container"
                        pageClassName="page-list"
                        activeClassName="active-page"
                        previousLinkClassName="page-list"
                        nextLinkClassName="page-list"
-                       breakLabel={<span >...</span>}
+                       breakLabel={'...'}
                        pageCount={this.props.pageCount}
-                       pageRangeDisplayed={4}
-                       marginPagesDisplayed={4}
+                       breakClassName="page-ellipsis"
+                       breakLinkClassName="page-ellipsis-a"
+                       pageRangeDisplayed={1}
+                       marginPagesDisplayed={1}
                        onPageChange={this.props.handlePageClick}
                        forcePage={this.props.currentPage}
                        previousLabel={"Prev"}
                        nextLabel={"Next"}
         />
+        </div>
       <div className="outfits-wrapper">
       {this.props.deleteClicked ? 
         this.showPopup()
