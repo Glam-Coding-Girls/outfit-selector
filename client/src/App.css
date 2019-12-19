@@ -146,7 +146,7 @@ cursor:pointer;
 color: #d93010;
 font-size: 1.8em;
 }
-.fa-heart:hover{
+.heart-link:hover{
   filter: saturate(200%);
   transform: scale(1.2);
 }
@@ -347,9 +347,12 @@ background: none;
 .delete i {
   margin: 0;
 }
+.share-container{
+display:flex;
+}
 .sharebtn {
-  position: absolute;
-  bottom: -30px;
+  height:20%;
+  margin-top:10px;
 }
 .delete .fa-times-circle {
   color: red;

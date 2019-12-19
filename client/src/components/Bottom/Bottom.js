@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import './bottom.css';
+import { MDBTooltip, MDBBtn } from "mdbreact";
 
 
 export class Bottom extends Component {
@@ -60,9 +61,18 @@ export class Bottom extends Component {
                     {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
                       <React.Fragment>
                       <div className="tools">
-                        <button onClick={zoomIn}>+</button>
-                        <button onClick={zoomOut}>-</button>
-                        <button onClick={resetTransform}>x</button>
+                      <MDBTooltip placement="left">
+                      <MDBBtn onClick={zoomIn}>+</MDBBtn>
+                      <div>Zoom In</div>
+                      </MDBTooltip>
+                      <MDBTooltip placement="left">
+                      <MDBBtn onClick={zoomOut}>-</MDBBtn>
+                      <div>Zoom Out</div>
+                      </MDBTooltip>
+                      <MDBTooltip placement="left">
+                      <MDBBtn onClick={resetTransform}>X</MDBBtn>
+                      <div>Reset Zoom </div>
+                      </MDBTooltip>
                       </div>
                         <TransformComponent>
                           <img src={this.props.imgs[this.state.currentPic].image} alt='carousel' />

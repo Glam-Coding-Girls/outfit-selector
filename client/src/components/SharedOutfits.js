@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {MDBTooltip,MDBBtn } from "mdbreact";
 
 
 
@@ -43,6 +44,7 @@ export default class SharedOutfits extends Component {
         } 
    }
 
+
     displayOutfits = () =>{
       if(!this.props.currentlyLoggedInUser){
         // setTimeout(() => {
@@ -70,21 +72,34 @@ export default class SharedOutfits extends Component {
       })
         
         return sorted.map((outfit,ind)=>{
-          console.log("Number of likes", outfit.likedBy.length)
+          console.log(outfit.selectedClothes)
           return (
             <div key={ind} className="outfit-display">
                {this.displayMyClothes(outfit.selectedClothes)}
 {/* below we check if current user has already liked this outfit, and if yes, we call Unlike function */}
             {outfit.likedBy.includes(this.props.currentlyLoggedInUser._id)?  
+            <>
             <div className= "like-section">
-            <a onClick={ () => this.props.unlikeOutfit(outfit)}><i className="fas fa-heart"></i></a>
+            <a className="heart-link" onClick={ () => this.props.unlikeOutfit(outfit)}><i className="fas fa-heart"></i></a>
             <span>{outfit.likedBy.length}</span><p>Likes</p>       
             </div>
+            <MDBTooltip placement="left">
+            <MDBBtn color="primary" onClick={()=>this.props.saveOutfit(outfit.selectedClothes)}>Save</MDBBtn>
+            <div>Saves to My Outfits page</div>
+            </MDBTooltip>
+            </>
             :
+            <>
             <div className= "like-section">
-            <a onClick={ () => this.props.likeOutfit(outfit)}><i className="far fa-heart"></i></a>
+            <a className="heart-link" onClick={ () => this.props.likeOutfit(outfit)}><i className="far fa-heart"></i></a>
             <span>{outfit.likedBy.length} </span><p> Likes</p>       
-            </div>}
+            </div>
+            <MDBTooltip placement="left">
+            <MDBBtn color="primary" onClick={()=>this.props.saveOutfit(outfit.selectedClothes)}>Save</MDBBtn>
+            <div>Saves to My Outfits page</div>
+            </MDBTooltip>
+            </>
+            }
             </div>
           )
        })

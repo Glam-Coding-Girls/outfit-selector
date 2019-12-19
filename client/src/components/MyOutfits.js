@@ -3,6 +3,8 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import {Redirect} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
+import { MDBTooltip, MDBBtn } from "mdbreact";
+import ShareSection from './ShareSection';
 
 var serverURL = ''
 if(process.env.NODE_ENV == 'development'){
@@ -11,10 +13,15 @@ if(process.env.NODE_ENV == 'development'){
   serverURL = 'https://glamcloset.herokuapp.com'
 }
 
+const shareText = "I just combined a beautiful outfit using GLAM Closet"
+const shareUrl = "https://glamcloset.herokuapp.com/#/"
+const hash =  "#glamcloset"
+
 
 export class MyOutfits extends Component {
   state = {
     faceImg:"",
+    uploadFace: true
   }
 
   sharePics = (outfit) =>{
@@ -112,6 +119,8 @@ export class MyOutfits extends Component {
       }
  }
 
+
+
  uploadFaceImage = (e) =>{
   const uploadData = new FormData();
   uploadData.append("faceImg", e.target.files[0]);
@@ -119,11 +128,15 @@ export class MyOutfits extends Component {
   return axios.post(`${serverURL}/api/face-img-upload/`, uploadData, 
   {withCredentials: true})
   .then(response => {
-      this.setState({ faceImg: response.data.secure_url });
+      this.setState({ faceImg: response.data.secure_url, uploadFace: !this.state.uploadFace})
     })
     .catch(err => {
       console.log("Error while uploading the file: ", err);
     }); 
+ }
+
+ removeFaceImage = () =>{
+  this.setState({ faceImg:"", uploadFace: !this.state.uploadFace});
  }
 
   displayOutfits = () =>{
@@ -158,15 +171,27 @@ export class MyOutfits extends Component {
             <img className="face-upload" src={this.state.faceImg} />
             <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i className="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
-            <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn"
-             data-toggle="tooltip" title="Your headshot will not be shared with this outfit.">Share</button>
-           
+            <div style={{display:"flex", width:"100%", justifyContent:"center"}}>
+            <MDBTooltip placement="bottom">
+            <MDBBtn onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</MDBBtn>
+            <div>Your headshot will not be shared with this outfit.</div>
+            </MDBTooltip>
+            <ShareSection styleContainer={"share-container"}
+              fbUrl={shareUrl} 
+              fbQuote={shareText}
+              hashtag={hash}
+              ptUrl={"https://i.pinimg.com/originals/1d/7d/4c/1d7d4c8cd7581873509ad5e3cc0bd569.jpg"}
+              ptDescription= {shareText}
+        />
+            </div>
          </div>
          </>
        )
     })
   }
   }
+
+
   render() {
     return (
       <div className="my-outfit-wrapper">
@@ -174,9 +199,11 @@ export class MyOutfits extends Component {
     
       
       <div className="pagination-wrapper">  
+      {this.state.uploadFace?
       <label className="upload-headshot-btn" >
       Upload your headshot<input type="file" style={{display: "none"}} onChange={(e) => this.uploadFaceImage(e)}/>
-      </label>
+      </label>:
+      <button className="upload-headshot-btn" onClick ={() => this.removeFaceImage()}> Remove headshot</button>}
        <ReactPaginate containerClassName="pagination-container"
                        pageClassName="page-list"
                        activeClassName="active-page"
