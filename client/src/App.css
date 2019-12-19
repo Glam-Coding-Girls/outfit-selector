@@ -315,9 +315,9 @@ background: none;
   width:50%;
   height:auto;
   cursor:pointer;
-  margin-left:25%;
   margin-bottom:0px;
 }
+
 
 
 .delete {
@@ -430,9 +430,26 @@ background: none;
 .confirmation-controls button:hover,.confirmation-controls button:active{
   background-color: #a2dfc4;
 }
+.upload-headshot-btn{
+  border: 1px solid #a2dfc4;
+    color: black;
+    background-color: #a2dfc4;
+    width:10%;
+    cursor:pointer;
+    height:20%;
+    font-size: 0.8em;
+    padding:10px;
+    border-radius:4px;
+    font-weight: bold;
+}
+
 .pagination-wrapper {
   padding: 30px 0 0;
   text-align: center;
+  width:100%;
+  display:flex;
+  justify-content: space-around;
+  align-items:flex-end;
 }
 .pagination-container {
   display: inline-block;

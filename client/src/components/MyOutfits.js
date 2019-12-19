@@ -14,7 +14,7 @@ if(process.env.NODE_ENV == 'development'){
 
 export class MyOutfits extends Component {
   state = {
-    faceImg:"./face-img.png",
+    faceImg:"",
   }
 
   sharePics = (outfit) =>{
@@ -141,16 +141,12 @@ export class MyOutfits extends Component {
        return (
          <>
          <div key={ind} className="outfit-display">
-
-         <div className ="profile-pic-upload">
-            <label htmlFor="file-input">
-            <img className="face-upload" src={this.state.faceImg} /></label> 
-            <input id="file-input" type="file" onChange={(e) => this.uploadFaceImage(e)}/>
-         </div>   
-
+            <img className="face-upload" src={this.state.faceImg} />
             <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i className="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
-            <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</button>
+            <button onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn"
+             data-toggle="tooltip" title="Your headshot will not be shared with this outfit.">Share</button>
+           
          </div>
          </>
        )
@@ -161,7 +157,12 @@ export class MyOutfits extends Component {
     return (
       <div className="my-outfit-wrapper">
       {this.props.elements[0]!=undefined?
-      <div className="pagination-wrapper">    
+    
+      
+      <div className="pagination-wrapper">  
+      <label className="upload-headshot-btn" >
+      Upload your headshot<input type="file" style={{display: "none"}} onChange={(e) => this.uploadFaceImage(e)}/>
+      </label>
        <ReactPaginate containerClassName="pagination-container"
                        pageClassName="page-list"
                        activeClassName="active-page"
