@@ -5,40 +5,55 @@ const User    = require('../models/User')
 const uploader = require('../configs/cloudinary-setup');
 const passport = require('../config/passport');
 
-//SIGUNP ROUTER
-router.post('/signup', (req,res, next) =>{
-    User.register(req.body, req.body.password)
-    .then((user) => { 
-        req.login(user, function(err,result){
-          res.status(201).json({message: 'success', user: user})
-        })
-    })
-    .catch((err) => { 
-      console.log(err)
-      res.status(500).json({ err })
-    });
-});
+// //SIGUNP ROUTER
+// router.post('/signup', (req,res, next) =>{
+//     User.register(req.body, req.body.password)
+//     .then((user) => { 
+//         console.log('user',user)
+//         // req.login(user, function(err,result){
+//         //   res.status(201).json({message: 'success', user: user})
+//         // })
+//     })
 
+//     .catch((err) => { 
+//       console.log(err)
+//       res.status(500).json({ err })
+//     });
+// });
+// function isAuth(req, res, next) {
+//   console.log('hellooooooo')
+//   console.log(req.isAuthenticated())
+//   req.isAuthenticated() ? next() : res.status(401).json({ msg: 'Log in first' });
+// }
 //SIGNUP ROUTER ENDS
-router.get('/get-user-info', (req, res, next) => {  
-  res.json(req.user)
-})
 
 
 //LOGIN ROUTER STARTS
 router.post('/login', passport.authenticate('local'), (req, res, next) => {
+  console.log('i m here')
   const { user } = req;
-  res.status(200).json({message: 'success', user: user});
+  res.status(200).json({message: 'success',user});
+  //res.status(200).json({message: 'success', user: req.user});
 });
+
+// router.post('/login', passport.authenticate('local'), (req, res, next) => {
+//   const { user } = req;
+//   res.status(200).json(user);
+// });
 
 router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.status(200).json({message: 'success'});
+   req.session.destroy(function (err) {
+    console.log("++++++", req.user)
+    req.logout()
+    res.status(200).json({message: 'success'});
+   });
 });
 
-function isAuth(req, res, next) {
-  req.isAuthenticated() ? next() : res.status(401).json({ msg: 'Log in first' });
-}
+router.get('/get-user-info', (req, res, next) => {    
+  console.log(req.user);
+  res.json(req.user)
+})
+
   
  //-------< Update User details route >-----------------------------   
 

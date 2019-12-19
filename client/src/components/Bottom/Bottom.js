@@ -45,7 +45,6 @@ export class Bottom extends Component {
     displayCarousal = () => {
       if(this.props.imgs){
         return (
-        <div className="card-wrapper">
               <div className={this.props.optionSelected === "Dress" ? "carousel dresses-option" : "carousel"}>
                  <button className="leftbutton" onClick={this.clickLeft}>
                  <div className="arrow-overlay"></div>
@@ -85,7 +84,6 @@ export class Bottom extends Component {
                     </div>
                   </button>
               </div>
-          </div>
         )
       } else {
         return(
@@ -97,9 +95,9 @@ export class Bottom extends Component {
     }
     render() {
         return (
-          <>
+          <div className="card-wrapper">
            {this.displayCarousal()}
-          </>
+          </div>
       )
       }
    
