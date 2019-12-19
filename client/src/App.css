@@ -137,7 +137,7 @@ cursor:pointer;
 color: #d93010;
 font-size: 1.8em;
 }
-.fa-heart:hover{
+.heart-link:hover{
   filter: saturate(200%);
   transform: scale(1.2);
 }
@@ -322,7 +322,6 @@ background: none;
   height:auto;
   cursor:pointer;
   margin-bottom:0px;
-  margin-left:25%;
 }
 
 

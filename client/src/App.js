@@ -645,6 +645,7 @@ unlikeOutfit = (outfit) =>{
                                                                                     sharedOutfits={this.state.sharedOutfits}
                                                                                     likeOutfit={this.likeOutfit}
                                                                                     unlikeOutfit={this.unlikeOutfit}
+                                                                                    saveOutfit = {this.saveOutfit}
 
             />}/>
             <Route exact path="/my-outfits" render={(props) => <MyOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
