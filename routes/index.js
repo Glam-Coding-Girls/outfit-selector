@@ -70,7 +70,7 @@ router.post('/add-outfit',(req,res,next)=>{
 
  router.post('/like-outfit',(req,res,next)=>{
   console.log("this is session in like",req.session.passport.user)
-   let userTemp = req.user
+   let userTemp =req.user
    let userId = userTemp._id;
    let outfit = req.body._id;
    console.log("this is user id",userId)

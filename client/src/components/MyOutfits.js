@@ -128,7 +128,7 @@ export class MyOutfits extends Component {
         return (
           <div className="no-outfit-container">
           <div className="no-outfit-text">         
-          <h2>Your currently don't have any saved outfits.</h2>
+          <h2>You currently don't have any saved outfits.</h2>
           <p>Go back to the <a href="/">homepage</a>, and click "Save" under your favorite outfit to see it here.</p>
           </div> 
           <img src="./empty-outfit.png"/>
