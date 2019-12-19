@@ -51,27 +51,34 @@ showDefault = () =>{
     }
   }
  }
-
+displayTopOptions = () => {
+  return this.props.categoryTop.map((cat,ind)=>{
+    return (
+      <option value={cat}>{cat}</option>
+    )
+  })
+}
+displayBottomOptions = () => {
+  return this.props.categoryBottom.map((cat,ind)=>{
+    return (
+      <option value={cat}>{cat}</option>
+    )
+  })
+}
   render() {
       return (
         <div className="outfitpanel">
           <div className="outfitsleft">
-          {this.props.defaultSelection === "Women" ? 
+          {/* {this.props.defaultSelection === "Women" ?  */}
             <div>
-            <select value = {this.props.catTopWomenSelection} onChange={this.props.setCatTopWomenSelection}>
-                 <option value='Tops'>Tops</option>
-                 <option value='Shirts'>Shirts</option>
-                 <option value='Blouses'>Blouses</option>
-                 <option value='Sweater'>Sweater</option>
-                 <option value='Tees'>Tees</option>
+            <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
+                 {this.displayTopOptions()}
             </select>
-            <select value = {this.props.catBottomWomenSelection} onChange={this.props.setCatBottomWomenSelection}>
-                 <option value='Pants'>Pants</option>
-                 <option value='Jean'>Jeans</option>
-                 <option value='Skirt'>Skirts</option>
+            <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
+                 {this.displayBottomOptions()}
             </select>
-            </div>
-            : 
+             </div> 
+            {/* 
              <div>
              <select value = {this.props.catTopMenSelection} onChange={this.props.setCatTopMenSelection}>
                  <option value='Shirts'>Shirts</option>
@@ -80,12 +87,12 @@ showDefault = () =>{
                  <option value='Pants'>Pants</option>
                  <option value='Jean'>Jeans</option>
             </select>
-             </div>
-             }
+             </div> */}
+          
           </div>
           <div className="outfitsright">
             <div className="button-group">
-            {this.props.defaultSelection === "Women" ? 
+            {/* {this.props.defaultSelection === "Women" ? 
               <div>
               <select value = {this.props.catSelection} onChange={this.props.setCatSelection}>
                  <option value='Dress'>One piece</option>
@@ -96,7 +103,7 @@ showDefault = () =>{
              <div>
              </div>
              }
-            
+             */}
             <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
             <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             </div>

@@ -30,11 +30,10 @@ export class App extends Component {
     topImages: [],
     bottomImages: [],
     defaultSelection:'Women',
-    catSelection:'twoPiece',
-    catTopWomenSelection: "Tops",
-    catBottomWomenSelection: "Pants",
-    catTopMenSelection: "Shirts",
-    catBottomMenSelection: "Pants",
+    categoryTop:[],
+    categoryBottom:[],
+    catTopSelection:"Tops",
+    catBottomSelection:"Pants",
     currentlyLoggedInUser: null,
     currentTopIndex:0,
     currentBottomIndex:0, 
@@ -143,164 +142,97 @@ setDefaultSelection = (selection) =>{
   this.setState({
      defaultSelection:selection,
      isActive: selection,
-    //  catSelection:'twoPiece',
-    topImages: [],
-    bottomImages: [],
     },()=>{
   this.createImageArrays(); 
 })
 }
  setCatSelection = (e) =>{
   this.setState({
-    catSelection:e.target.value,
-    topImages: [],
-    bottomImages: [],
-   },()=>{
- this.createImageArrays(); 
-})
- } 
- setCatTopWomenSelection = (e) =>{
+    [e.target.name]: e.target.value,
+  })
+if(e.target.name === "catTopSelection"){
   this.setState({
-    catTopWomenSelection:e.target.value,
     topImages: [],
-    bottomImages: [],
-   },()=>{
- this.createImageArrays(); 
-})
- } 
- setCatBottomWomenSelection = (e) =>{
+  },()=>{
+    this.createTopArray();
+  })
+} else{
   this.setState({
-    catBottomWomenSelection:e.target.value,
-    topImages: [],
     bottomImages: [],
-   },()=>{
- this.createImageArrays(); 
-})
+  },()=>{
+    this.createBottomArray();
+  })
+}
  } 
- setCatTopMenSelection = (e) =>{
-  this.setState({
-    catTopMenSelection:e.target.value,
-    topImages: [],
-    bottomImages: [],
-   },()=>{
- this.createImageArrays(); 
-})
- } 
- setCatBottomMenSelection = (e) =>{
-  this.setState({
-    catBottomMenSelection:e.target.value,
-    topImages: [],
-    bottomImages: [],
-   },()=>{
- this.createImageArrays(); 
-})
- } 
-
- createImageArrays =  () =>{
+ createTopArray = () => {
   if(this.state.clothes.length > 0){
     let tempTopArray = [];
+    let tops = this.state.clothes.filter(element => element.type == this.state.isActive && element.name.toUpperCase().includes(this.state.catTopSelection.toUpperCase())) 
+    tops.forEach((top,ind)=>{
+      this.createObjCall(top).forEach(obj => {
+              tempTopArray.push(obj);
+       })
+    })
+    this.setState({
+      topImages:tempTopArray,
+    },()=>{
+      console.log(this.state.topImages)
+    })
+  }
+ }
+
+ createBottomArray = () => {
+  if(this.state.clothes.length > 0){
     let tempBottomArray = [];
-    
-    this.state.clothes.forEach(element => {
-      if(element.type === this.state.defaultSelection){
-        if(element.type === "Women"){
-          if(this.state.catSelection === "Dress"){
-            if(element.name.toUpperCase().includes('Dress'.toUpperCase())){
-              this.createObjCall(element).forEach(obj => {
-                tempTopArray.push(obj);
-              })
-            }
-          } else {
-            if (this.state.catTopWomenSelection) {
-            if (this.state.catTopWomenSelection === "Tops") {
-              if(element.name.toUpperCase().includes('Tops'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempTopArray.push(obj);
-                })
-              }
-            } else if (this.state.catTopWomenSelection === "Shirts") {
-              if(element.name.toUpperCase().includes('Shirts'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempTopArray.push(obj);
-                })
-              }
-            } else if (this.state.catTopWomenSelection === "Blouses") {
-              if(element.name.toUpperCase().includes('Blouses'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempTopArray.push(obj);
-                })
-              }
-            } else if (this.state.catTopWomenSelection === "Sweater") {
-              if(element.name.toUpperCase().includes('Sweater'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempTopArray.push(obj);
-                })
-              }
-            } else if (this.state.catTopWomenSelection === "Tees") {
-              if(element.name.toUpperCase().includes('Tees'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempTopArray.push(obj);
-                })
-              }
-            } 
-          } 
-
-          if (this.state.catBottomWomenSelection) {
-            if (this.state.catBottomWomenSelection === "Pants") {
-              if(element.name.toUpperCase().includes('Pants'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempBottomArray.push(obj);
-                })
-              }
-            } else if (this.state.catBottomWomenSelection === "Jean") {
-              if(element.name.toUpperCase().includes('Jean'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempBottomArray.push(obj);
-                })
-              }
-            } else if (this.state.catBottomWomenSelection === "Skirt") {
-              if(element.name.toUpperCase().includes('Skirt'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempBottomArray.push(obj);
-                })
-              }
-            } 
-          }
-          }
-        } else{
-          if (this.state.catTopMenSelection) {
-            if (this.state.catTopMenSelection === "Shirts") {
-              if(element.name.toUpperCase().includes('Shirts'.toUpperCase())){
-                this.createObjCall(element).forEach(obj => {
-                  tempTopArray.push(obj);
-                })
-              }
-            }
-           }
-
-          if (this.state.catBottomMenSelection) {
-            if (this.state.catBottomMenSelection === "Pants") {
-              if(element.name.toUpperCase().includes('Pants'.toUpperCase())){
-                  this.createObjCall(element).forEach(obj => {
-                  tempBottomArray.push(obj);
-              })
-            }
-            } else if (this.state.catBottomMenSelection === "Jean") {
-              if(element.name.toUpperCase().includes('Jean'.toUpperCase())){
-                  this.createObjCall(element).forEach(obj => {
-                  tempBottomArray.push(obj);
-              })
-            }
-            }
-        }
-      }
+    let bottoms = this.state.clothes.filter(element => element.type == this.state.isActive && element.name.toUpperCase().includes(this.state.catBottomSelection.toUpperCase()))  
+    if(this.state.catBottomSelection === 'NONE'){
+     tempBottomArray = [];
     }
-    });  
+    bottoms.forEach((bottom,ind)=>{
+      this.createObjCall(bottom).forEach(obj => {
+              tempBottomArray.push(obj);
+       })
+    })
+    this.setState({
+      bottomImages:tempBottomArray,
+    },()=>{
+      console.log(this.state.bottomImages)
+    })
+  }
+ }
+ createImageArrays =  () =>{
+  if(this.state.clothes.length > 0){
+    if(this.state.isActive === 'Men'){
       this.setState({
-        topImages:tempTopArray,
-        bottomImages:tempBottomArray,
+        catTopSelection:'SHIRTS'
       })
-    } 
+     } else{
+      this.setState({
+        catTopSelection:'TOPS'
+      })
+     }
+    let catTop = this.state.clothes.filter(cl => cl.type === this.state.isActive && cl.category === "Top")
+    let catBottom = this.state.clothes.filter(cl => cl.type === this.state.isActive && cl.category === "Bottom")
+    let catTopArr = [];
+    let catBottomArr = [];
+    catTop.forEach((t)=>{
+     catTopArr.push(t.name.toUpperCase().trim())
+    })
+    let uniqueCategoriesTop = [...new Set(catTopArr)]
+    catBottom.forEach((t)=>{
+      catBottomArr.push(t.name.toUpperCase().trim())
+     })
+     let uniqueCategoriesBottom = [...new Set(catBottomArr)]
+     uniqueCategoriesBottom.push("NONE")
+    
+    this.setState({
+      categoryTop:uniqueCategoriesTop,
+      categoryBottom:uniqueCategoriesBottom
+    },()=>{
+      this.createTopArray();
+      this.createBottomArray();
+    })
+  }
   }
 
   createObjCall = (element) =>{
@@ -668,15 +600,17 @@ unlikeOutfit = (outfit) =>{
                                                                             setDefaultSelection = {this.setDefaultSelection}
                                                                             isActive = {this.state.isActive}
                                                                             setCatSelection = {this.setCatSelection}
-                                                                            setCatTopWomenSelection = {this.setCatTopWomenSelection}
-                                                                            setCatBottomWomenSelection = {this.setCatBottomWomenSelection}
-                                                                            setCatTopMenSelection = {this.setCatTopMenSelection}
-                                                                            setCatBottomMenSelection = {this.setCatBottomMenSelection}
-                                                                            catSelection = {this.state.catSelection}
-                                                                            catTopWomenSelection = {this.state.catTopWomenSelection}
-                                                                            catBottomWomenSelection = {this.state.catBottomWomenSelection}
-                                                                            catTopMenSelection = {this.state.catTopMenSelection}
-                                                                            catBottomMenSelection = {this.state.catBottomMenSelection}
+                                                                            categoryTop = {this.state.categoryTop}
+                                                                            categoryBottom = {this.state.categoryBottom}
+                                                                            // setCatTopWomenSelection = {this.setCatTopWomenSelection}
+                                                                            // setCatBottomWomenSelection = {this.setCatBottomWomenSelection}
+                                                                            // setCatTopMenSelection = {this.setCatTopMenSelection}
+                                                                            // setCatBottomMenSelection = {this.setCatBottomMenSelection}
+                                                                            // catSelection = {this.state.catSelection}
+                                                                            // catTopWomenSelection = {this.state.catTopWomenSelection}
+                                                                            // catBottomWomenSelection = {this.state.catBottomWomenSelection}
+                                                                            // catTopMenSelection = {this.state.catTopMenSelection}
+                                                                            // catBottomMenSelection = {this.state.catBottomMenSelection}
                                                                             saveOutfit = {this.saveOutfit}
                                                                             currentTopIndex = {this.state.currentTopIndex}
                                                                             currentBottomIndex = {this.state.currentBottomIndex}
