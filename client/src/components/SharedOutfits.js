@@ -16,6 +16,11 @@ export default class SharedOutfits extends Component {
                :
                <img style={{'borderBottomLeftRadius':'7px','borderBottomRightRadius':'7px'}} src={clothe.image} alt="outfit" />
               }
+              <a href={clothe.href} target="_blank">
+                  <div className="content-details fadeIn-bottom">
+                    <h3 className="content-title">Click to see details</h3>
+                  </div>
+                  </a>
             </div>
     
           )
@@ -25,6 +30,11 @@ export default class SharedOutfits extends Component {
             return (
             <div key={index} className="clothe-sections" style={{height:'46vh'}}>
                <img style={{'borderRadius':'7px',height:'46vh'}} src={clothe.image} alt="outfit" />
+               <a href={clothe.href} target="_blank">
+                  <div className="content-details fadeIn-bottom">
+                    <h3 className="content-title">Click to see details</h3>
+                  </div>
+                  </a>
             </div>
            
           )
@@ -41,6 +51,10 @@ export default class SharedOutfits extends Component {
               return (
                 <div key={ind} className="outfit-display">
                    {this.displayMyClothes(outfit.selectedClothes)}
+                   <div className= "like-section">
+            <i className="fas fa-heart"></i>
+            <span>{outfit.likedBy.length}</span><p>Likes</p>       
+            </div>
                 </div>
               )
            })
