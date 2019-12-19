@@ -42,6 +42,7 @@ export class MyOutfits extends Component {
     return clothes.map((clothe,index)=>{
         return (
           <div key={index} className="clothe-sections">
+          
             {index === 0 ?
              <TransformWrapper>
                     {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
@@ -73,6 +74,12 @@ export class MyOutfits extends Component {
                     )}
                   </TransformWrapper>
             }
+            {/* <div className="content-overlay"></div> */}
+            <a href={clothe.href} target="_blank">
+                  <div className="content-details fadeIn-bottom">
+                    <h3 className="content-title">Click to see details</h3>
+                  </div>
+                  </a>
           </div>
         )
       })
@@ -80,6 +87,7 @@ export class MyOutfits extends Component {
         return clothes.map((clothe,index)=>{
           return (
           <div key={index} className="clothe-sections one-piece-outfit">
+          
              <TransformWrapper>
                     {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
                       <React.Fragment>
@@ -94,6 +102,12 @@ export class MyOutfits extends Component {
                         </React.Fragment>
                     )}
                   </TransformWrapper>
+                  {/* <div className="content-overlay"></div> */}
+                  <a href={clothe.href} target="_blank">
+                  <div className="content-details fadeIn-bottom">
+                    <h3 className="content-title">Click to see details</h3>
+                  </div>
+                  </a>
           </div>
         )
       })
