@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import { MDBTooltip, MDBBtn } from "mdbreact";
+import ShareSection from './ShareSection';
 
 var serverURL = ''
 if(process.env.NODE_ENV == 'development'){
@@ -11,6 +12,10 @@ if(process.env.NODE_ENV == 'development'){
 } else {
   serverURL = 'https://glamcloset.herokuapp.com'
 }
+
+const shareText = "I just combined a beautiful outfit using GLAM Closet"
+const shareUrl = "https://glamcloset.herokuapp.com/#/"
+const hash =  "#glamcloset"
 
 
 export class MyOutfits extends Component {
@@ -166,10 +171,19 @@ export class MyOutfits extends Component {
             <img className="face-upload" src={this.state.faceImg} />
             <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i className="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
-            <MDBTooltip placement="left">
+            <div style={{display:"flex", width:"100%", justifyContent:"center"}}>
+            <MDBTooltip placement="bottom">
             <MDBBtn onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</MDBBtn>
             <div>Your headshot will not be shared with this outfit.</div>
             </MDBTooltip>
+            <ShareSection styleContainer={"share-container"}
+              fbUrl={shareUrl} 
+              fbQuote={shareText}
+              hashtag={hash}
+              ptUrl={"https://i.pinimg.com/originals/1d/7d/4c/1d7d4c8cd7581873509ad5e3cc0bd569.jpg"}
+              ptDescription= {shareText}
+        />
+            </div>
          </div>
          </>
        )
