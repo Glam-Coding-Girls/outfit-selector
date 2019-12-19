@@ -62,7 +62,10 @@ export class App extends Component {
     //client-side validation variables
      msg:"",
      msgPswd:"",
-     msgPswd2:""
+     msgPswd2:"",
+     cannotSave:false,
+     first: false,
+     second:false
   }
 
   async componentDidMount() {
@@ -131,11 +134,25 @@ setElementsForCurrentPage() {
     })
   }
 setTopIndex = (x)=>{
-  this.setState({currentTopIndex: x})
+  this.setState({currentTopIndex: x,first:false,second:false,cannotSave:false},()=>{
+    if(this.state.currentlyLoggedInUser){
+    
+      this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+   
+  }
+  })
+ 
 }
 
 setBottomIndex = (x)=>{
-  this.setState({currentBottomIndex: x})
+  this.setState({currentBottomIndex: x,first:false,second:false,cannotSave:false},()=>{
+    if(this.state.currentlyLoggedInUser){
+      
+      this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+   
+  }
+  })
+  
 }
 setDefaultSelection = (selection) =>{
   this.setState({
@@ -153,14 +170,17 @@ if(e.target.name === "catTopSelection"){
     topImages: [],
   },()=>{
     this.createTopArray();
+   
   })
 } else{
   this.setState({
     bottomImages: [],
   },()=>{
     this.createBottomArray();
+   
   })
 }
+
  } 
  createTopArray = () => {
   if(this.state.clothes.length > 0){
@@ -175,7 +195,16 @@ if(e.target.name === "catTopSelection"){
       topImages:tempTopArray,
     },()=>{
       console.log(this.state.topImages)
+      console.log(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+      if(this.state.currentlyLoggedInUser){
+        this.setState({
+          cannotSave:false
+        })
+        this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+     
+    }
     })
+  
   }
  }
 
@@ -183,8 +212,11 @@ if(e.target.name === "catTopSelection"){
   if(this.state.clothes.length > 0){
     let tempBottomArray = [];
     let bottoms = this.state.clothes.filter(element => element.type == this.state.isActive && element.name.toUpperCase().includes(this.state.catBottomSelection.toUpperCase()))  
-    if(this.state.catBottomSelection === 'NONE'){
-     tempBottomArray = [];
+    if(this.state.catTopSelection === "DRESS" ){
+      // this.setState({
+      //   catBottomSelection:'NONE'
+      // })
+      tempBottomArray = [];
     }
     bottoms.forEach((bottom,ind)=>{
       this.createObjCall(bottom).forEach(obj => {
@@ -195,7 +227,16 @@ if(e.target.name === "catTopSelection"){
       bottomImages:tempBottomArray,
     },()=>{
       console.log(this.state.bottomImages)
+      console.log(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+      if(this.state.currentlyLoggedInUser){
+        this.setState({
+          cannotSave:false
+        })
+        this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+     
+    }
     })
+    
   }
  }
  createImageArrays =  () =>{
@@ -273,6 +314,7 @@ createOutfit = () =>{
   .then((res)=>{
     if(res.data.message === 'success'){
       this.getOutfits();
+    // this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
       setTimeout(() =>{
         this.props.history.push('/my-outfits')
       },250)
@@ -319,6 +361,7 @@ deleteOutfit = (obj) => {
        
         if(response.data.message === 'success'){
           this.getOutfits();
+         // this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
           this.getSharedOutfits();
         }
       })
@@ -352,6 +395,96 @@ getSharedOutfits = () =>{
        })
        .catch((err)=>console.log(err))
 }
+
+checkMyOutfits = (obj1,obj2) => {
+
+  if(this.state.myOutfits.length > 0){
+    let outfitsCopy = [...this.state.myOutfits];
+    let first = false;
+    let second = false;
+    let finallyCanISave = false;
+    outfitsCopy.forEach((outfit,ind)=>{
+      if(outfit.selectedClothes.length > 1 && obj2 ){
+        outfit.selectedClothes.forEach((sel,index)=>{
+          if(index === 0 && sel.image === obj1.image){
+              first = true;
+              this.setState({
+                first:first
+              },()=>{
+                console.log('in if first:' + this.state.first)
+                finallyCanISave = this.state.first && this.state.second;
+                 this.setState({
+                    cannotSave:finallyCanISave
+                 },()=>{
+                 console.log(this.state.cannotSave)
+                  })
+              })
+          } 
+          if(index === 1 && sel.image === obj2.image){
+            second = true
+           this.setState({
+             second:second
+           },()=>{
+
+             console.log('in if sec:' + this.state.second)
+             finallyCanISave = this.state.first && this.state.second;
+            this.setState({
+                cannotSave:finallyCanISave
+                 },()=>{
+                 console.log(this.state.cannotSave)
+               })
+           })
+          } 
+        })
+      } 
+      else if(outfit.selectedClothes.length > 1 && !obj2){
+        outfit.selectedClothes.forEach((sel,index)=>{
+          
+          if(sel.image === obj1.image){
+              first = true;
+              this.setState({
+                first:first
+              },()=>{
+
+                console.log('in else if first first:' + this.state.first)
+                finallyCanISave = this.state.first && this.state.second;
+                this.setState({
+                    cannotSave:finallyCanISave
+                    },()=>{
+                  console.log(this.state.cannotSave)
+                 })
+              })
+          } 
+        })
+      }
+      else if(outfit.selectedClothes.length === 1){
+        outfit.selectedClothes.forEach((sel,index)=>{
+          if(sel.image === obj1.image){
+              first = true;
+              this.setState({
+                first:first,
+              },()=>{
+
+                console.log('in else if second first:' + this.state.first, this.state.second)
+                finallyCanISave = this.state.first && this.state.second;
+    this.setState({
+      cannotSave:this.state.first
+    },()=>{
+      console.log(this.state.cannotSave)
+    })
+              })
+          } else{
+            this.setState({
+              first:false,
+              cannotSave:false})
+          }
+        })
+      } 
+    })
+    
+  }
+  
+}
 // <-------------------End HomePage method calls ----------------->
   //check session
   fetchUserData =  async () =>{
@@ -366,6 +499,8 @@ getSharedOutfits = () =>{
           ready: true,
         },()=>{
           this.getOutfits();
+         
+         this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
         })
     }
     catch(err){
@@ -461,6 +596,8 @@ signup = () => {
                     if(this.state.redirect){
                       this.props.history.push('/')
                       this.getOutfits();
+                      console.log(this.state.topImages[this.state.currentTopIndex])
+                      this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
                     } else{
                       this.props.history.push('/login')
                     }
@@ -605,7 +742,8 @@ unlikeOutfit = (outfit) =>{
                                                                             setBottomIndex = {this.setBottomIndex}
                                                                             setTopIndex = {this.setTopIndex}
                                                                             currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
-                                                                               
+                                                                            cannotSave = {this.state.cannotSave}   
+                                                                            checkMyOutfits = {this.checkMyOutfits}
             /> } />
             <Route path='/about' component={About} />
             <Route exact path="/signup" render = { (props) => <Signup {...props}  signup = {this.signup}

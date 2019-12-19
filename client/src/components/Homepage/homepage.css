@@ -1,15 +1,19 @@
 .outfitpanel {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .outfitsleft, .outfitsright {
   padding: 30px 0;
 }
 .outfitsleft {
-  width: 29%;
+  
   padding: 50px 20px;
   display: flex;
   align-items: center;
+}
+select{
+  width:15vw;
 }
 .innerfiltermenu {
   background-color: white;
@@ -58,7 +62,7 @@
 .button-group {
   display: flex;
   justify-content: space-around;
-  width: 400px;
+  /* width: 400px; */
   margin: 0 auto 20px;
 }
 .saved-button-group {

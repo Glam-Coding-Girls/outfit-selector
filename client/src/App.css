@@ -28,12 +28,11 @@ ul {
 
 header{
   display: flex;
-  position: relative;
+  position: fixed;
   width: 100%;
-  /* font-weight:bold;
-  background-color:rgba(231, 178, 80, 0.993); */
-  /* background-color:rgba(117, 184, 230, 0.616); */
   background-color: #a2dfc4;
+  z-index:4;
+  top:0;
 }
 /* .navheader {
   padding: 20px 0;
@@ -112,6 +111,16 @@ header{
   padding-bottom: 40px; */
   padding: 40px 1rem;
   /* color:white; */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.about-wrapper{
+  padding:60px 0;
+}
+.home-wrapper{
+  padding:60px 0;
 }
 .aboutcontent {
   text-align: left;

@@ -11,6 +11,7 @@ export default class SharedOutfits extends Component {
           return (
       
             <div key={index} className="clothe-sections">
+            <div className="content-overlay"></div>
               {index === 0 ? 
                <img style={{'borderTopLeftRadius':'7px','borderTopRightRadius':'7px'}} src={clothe.image} alt="outfit" />
                :

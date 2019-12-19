@@ -28,6 +28,7 @@ showBottoms = () =>{
  }
 }
 showDefault = () =>{
+  
    return (
      <>
       {this.showTops()}
@@ -66,28 +67,37 @@ displayBottomOptions = () => {
   })
 }
   render() {
+   // this.props.checkMyOutfits(this.props.topImages[this.props.currentTopIndex],this.props.bottomImages[this.props.currentBottomIndex])
       return (
         <div className="outfitpanel">
-          <div className="outfitsleft">
-            <div>
+        <div className="home-wrapper">
+          
+          <div className="outfitsright"> 
+            
+            <div className="button-group">
             <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
                  {this.displayTopOptions()}
             </select>
+            <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
+            <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
                  {this.displayBottomOptions()}
             </select>
-             </div>
-          </div>
-          <div className="outfitsright">
-            <div className="button-group">
-            <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
-            <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             </div>
            {this.showDefault()}
+           {this.props.cannotSave  ? 
+            <div className="saved-button-group">
+             <button onClick={this.savePics} className="btn btn-primary" disabled>I am Disabled Save</button>
+           </div>
+           :
            <div className="saved-button-group">
-  
-   <button onClick={this.savePics} className="btn btn-primary">Save</button>
-   </div>
+             <button onClick={this.savePics} className="btn btn-primary">Save</button>
+           </div>
+           }
+           {/* <div className="saved-button-group">
+             <button onClick={this.savePics} className="btn btn-primary">Save</button>
+           </div> */}
+          </div>
           </div>
         </div>
       )
