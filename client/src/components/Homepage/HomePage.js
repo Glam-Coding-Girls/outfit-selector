@@ -57,7 +57,7 @@ showDefault = () =>{
         <div className="outfitpanel">
           <div className="outfitsleft">
           {this.props.defaultSelection === "Women" ? 
-            <div>
+            <div className="innerfiltermenu">
             <select value = {this.props.catTopWomenSelection} onChange={this.props.setCatTopWomenSelection}>
                  <option value='Tops'>Tops</option>
                  <option value='Shirts'>Shirts</option>
@@ -72,7 +72,7 @@ showDefault = () =>{
             </select>
             </div>
             : 
-             <div>
+             <div className="innerfiltermenu">
              <select value = {this.props.catTopMenSelection} onChange={this.props.setCatTopMenSelection}>
                  <option value='Shirts'>Shirts</option>
             </select>
@@ -101,7 +101,7 @@ showDefault = () =>{
             <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             </div>
            {this.showDefault()}
-           <div className="button-group">
+           <div className="saved-button-group">
   
    <button onClick={this.savePics} className="btn btn-primary">Save</button>
    </div>
