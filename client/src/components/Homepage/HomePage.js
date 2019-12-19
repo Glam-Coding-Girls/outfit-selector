@@ -69,7 +69,6 @@ displayBottomOptions = () => {
       return (
         <div className="outfitpanel">
           <div className="outfitsleft">
-          {/* {this.props.defaultSelection === "Women" ?  */}
             <div>
             <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
                  {this.displayTopOptions()}
@@ -77,38 +76,15 @@ displayBottomOptions = () => {
             <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
                  {this.displayBottomOptions()}
             </select>
-             </div> 
-            {/* 
-             <div>
-             <select value = {this.props.catTopMenSelection} onChange={this.props.setCatTopMenSelection}>
-                 <option value='Shirts'>Shirts</option>
-            </select>
-            <select value = {this.props.catBottomMenSelection} onChange={this.props.setCatBottomMenSelection}>
-                 <option value='Pants'>Pants</option>
-                 <option value='Jean'>Jeans</option>
-            </select>
-             </div> */}
-          
+             </div>
           </div>
           <div className="outfitsright">
             <div className="button-group">
-            {/* {this.props.defaultSelection === "Women" ? 
-              <div>
-              <select value = {this.props.catSelection} onChange={this.props.setCatSelection}>
-                 <option value='Dress'>One piece</option>
-                 <option value='twoPiece'>Two piece</option>
-               </select>
-            </div>
-             : 
-             <div>
-             </div>
-             }
-             */}
             <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
             <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             </div>
            {this.showDefault()}
-           <div className="button-group">
+           <div className="saved-button-group">
   
    <button onClick={this.savePics} className="btn btn-primary">Save</button>
    </div>

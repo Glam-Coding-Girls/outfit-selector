@@ -29,7 +29,6 @@ export class App extends Component {
     clothes:[],
     topImages: [],
     bottomImages: [],
-    defaultSelection:'Women',
     categoryTop:[],
     categoryBottom:[],
     catTopSelection:"Tops",
@@ -140,7 +139,6 @@ setBottomIndex = (x)=>{
 }
 setDefaultSelection = (selection) =>{
   this.setState({
-     defaultSelection:selection,
      isActive: selection,
     },()=>{
   this.createImageArrays(); 
@@ -596,21 +594,11 @@ unlikeOutfit = (outfit) =>{
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}
                                                                              bottomImages = {this.state.bottomImages}
-                                                                             defaultSelection = {this.state.defaultSelection}
                                                                             setDefaultSelection = {this.setDefaultSelection}
                                                                             isActive = {this.state.isActive}
                                                                             setCatSelection = {this.setCatSelection}
                                                                             categoryTop = {this.state.categoryTop}
                                                                             categoryBottom = {this.state.categoryBottom}
-                                                                            // setCatTopWomenSelection = {this.setCatTopWomenSelection}
-                                                                            // setCatBottomWomenSelection = {this.setCatBottomWomenSelection}
-                                                                            // setCatTopMenSelection = {this.setCatTopMenSelection}
-                                                                            // setCatBottomMenSelection = {this.setCatBottomMenSelection}
-                                                                            // catSelection = {this.state.catSelection}
-                                                                            // catTopWomenSelection = {this.state.catTopWomenSelection}
-                                                                            // catBottomWomenSelection = {this.state.catBottomWomenSelection}
-                                                                            // catTopMenSelection = {this.state.catTopMenSelection}
-                                                                            // catBottomMenSelection = {this.state.catBottomMenSelection}
                                                                             saveOutfit = {this.saveOutfit}
                                                                             currentTopIndex = {this.state.currentTopIndex}
                                                                             currentBottomIndex = {this.state.currentBottomIndex}
