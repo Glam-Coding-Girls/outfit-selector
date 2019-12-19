@@ -49,7 +49,13 @@ export default class SharedOutfits extends Component {
         // });
         } else{
       //if(this.props.sharedOutfits.length > 0) {
-        return this.props.sharedOutfits.map((outfit,ind)=>{
+
+      let sorted = this.props.sharedOutfits.sort((a, b) => {
+        return b.likedBy.length - a.likedBy.length
+      })
+        
+        return sorted.map((outfit,ind)=>{
+          console.log("Number of likes", outfit.likedBy.length)
           return (
             <div key={ind} className="outfit-display">
                {this.displayMyClothes(outfit.selectedClothes)}

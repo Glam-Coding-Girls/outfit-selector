@@ -6,7 +6,7 @@ import axios from 'axios';
 
 var serverURL = ''
 if(process.env.NODE_ENV == 'development'){
-  serverURL = 'http://localhost:5000'
+  serverURL = 'http://localhost:8080'
 } else {
   serverURL = 'https://glamcloset.herokuapp.com'
 }
