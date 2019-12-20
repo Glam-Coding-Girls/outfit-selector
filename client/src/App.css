@@ -206,11 +206,11 @@ background: none;
 }
 .mobile-menu .logoutbtn:hover {
   color: white;
-  background-color: #d93010;
+  background-color: #494949;
 }
 .mobile-menu a:hover {
   color: white;
-  background-color: #d93010;
+  background-color: #494949;
 }
 #menuToggle {
   display: none;
