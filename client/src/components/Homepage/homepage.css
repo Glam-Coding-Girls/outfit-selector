@@ -33,6 +33,7 @@ select{
 
 .topmenu {
   height: 200px;
+  margin-top:63%;
 }
 .outfitsright {
   width: 100%;
@@ -144,7 +145,7 @@ select{
 
 #menu {
   position: absolute;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 40px);
   width: 210px;
   left: 0;
   background-color: white;

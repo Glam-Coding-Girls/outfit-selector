@@ -164,17 +164,14 @@ setDefaultSelection = (selection) =>{
  setCatSelection = (e) =>{
   this.setState({
     [e.target.name]: e.target.value,
-  },()=>{
-    this.fetchUserData()
-    if(this.state.catTopSelection === "DRESS" ){
-      this.setState({
-        catBottomSelection:"NONE"
-      })
-    }
+    
+    // first:false,second:false,cannotSave:false
   })
+ 
 if(e.target.name === "catTopSelection"){
   this.setState({
     topImages: [],
+    currentTopIndex:0,
     first:false,second:false,cannotSave:false
   },()=>{
     this.createTopArray();
@@ -182,6 +179,7 @@ if(e.target.name === "catTopSelection"){
 } else{
   this.setState({
     bottomImages: [],
+    currentBottomIndex:0,
     first:false,second:false,cannotSave:false
   },()=>{
     this.createBottomArray();
@@ -205,10 +203,12 @@ if(e.target.name === "catTopSelection"){
       
       if(this.state.currentlyLoggedInUser){
         this.setState({
-          cannotSave:false
+          cannotSave:false,
+         
         })
+       
+       // console.log(this.state.topImages[this.state.currentTopIndex], this.state.currentTopIndex)
         this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
-     
     }
     })
   
@@ -417,12 +417,12 @@ checkMyOutfits = (obj1,obj2) => {
               this.setState({
                 first:first
               },()=>{
-                console.log('in if first:' + this.state.first)
+              //  console.log('in if first:' + this.state.first)
                 finallyCanISave = this.state.first && this.state.second;
                  this.setState({
                     cannotSave:finallyCanISave
                  },()=>{
-                 console.log(this.state.cannotSave)
+                // console.log(this.state.cannotSave)
                   })
               })
           } 
@@ -432,12 +432,12 @@ checkMyOutfits = (obj1,obj2) => {
              second:second
            },()=>{
 
-             console.log('in if sec:' + this.state.second)
+           //  console.log('in if sec:' + this.state.second)
              finallyCanISave = this.state.first && this.state.second;
             this.setState({
                 cannotSave:finallyCanISave
                  },()=>{
-                 console.log(this.state.cannotSave)
+             //    console.log(this.state.cannotSave)
                })
            })
           } 
@@ -452,12 +452,12 @@ checkMyOutfits = (obj1,obj2) => {
                 first:first
               },()=>{
 
-                console.log('in else if first first:' + this.state.first)
+             //   console.log('in else if first first:' + this.state.first)
                 finallyCanISave = this.state.first && this.state.second;
                 this.setState({
                     cannotSave:finallyCanISave
                     },()=>{
-                  console.log(this.state.cannotSave)
+               //   console.log(this.state.cannotSave)
                  })
               })
           } 
@@ -465,19 +465,20 @@ checkMyOutfits = (obj1,obj2) => {
       }
       else if(outfit.selectedClothes.length === 1){
         outfit.selectedClothes.forEach((sel,index)=>{
-          console.log(sel.image)
+        //  console.log(sel.image)
+         // console.log(obj1)
           if(sel.image === obj1.image){
               first = true;
               this.setState({
                 first:first,
               },()=>{
 
-                console.log('in else if second first:' + this.state.first, this.state.second)
+              //  console.log('in else if second first:' + this.state.first, this.state.second)
                 finallyCanISave = this.state.first && this.state.second;
     this.setState({
       cannotSave:this.state.first
     },()=>{
-      console.log(this.state.cannotSave)
+    //  console.log(this.state.cannotSave)
     })
               })
           } else{
@@ -522,7 +523,7 @@ checkMyOutfits = (obj1,obj2) => {
 
 signup = () => {
   this.checkValidation();
-    console.log(this.state.msg , this.state.msgPswd, this.state.msgPswd2)
+  //  console.log(this.state.msg , this.state.msgPswd, this.state.msgPswd2)
     if(validator.isEmail(this.state.emailInput) && validator.isLength(this.state.passwordInput,{min:6}) && validator.equals(this.state.passwordInput,this.state.passwordInput2)){
       this.setState({
         msg:"",
@@ -603,7 +604,7 @@ signup = () => {
                     if(this.state.redirect){
                       this.props.history.push('/')
                       this.getOutfits();
-                      console.log(this.state.topImages[this.state.currentTopIndex])
+                    //  console.log(this.state.topImages[this.state.currentTopIndex])
                       this.checkMyOutfits(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
                     } else{
                       this.props.history.push('/login')

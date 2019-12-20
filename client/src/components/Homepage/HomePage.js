@@ -79,7 +79,7 @@ showDefault = () =>{
   }
  }
  _handleDocumentClick(e) {
-   console.log(e.target.closest('#menu'), e.target)
+  // console.log(e.target.closest('#menu'), e.target)
   // if (!this.refs.rootmenu.contains(e.target) && this.state.isOpen === true && !e.target.classList.contains("showLeft")) {
   // //   this.setState({
   // //   isOpen: false
@@ -142,9 +142,9 @@ displayBottomOptions = () => {
           </div>
 
           <SlideMenu menuStatus={ menuStatus }>
-          {this.props.defaultSelection === "Women" ? 
-            <div className="innerfiltermenu">
-            <div className="piecesoptionbtn showLeft">
+          {/* {this.props.defaultSelection === "Women" ? 
+            <div className="innerfiltermenu"> */}
+            {/* <div className="piecesoptionbtn showLeft">
             <label>{selectedOption.label}</label>
             <Select
                 value={this.props.catSelection}
@@ -157,31 +157,37 @@ displayBottomOptions = () => {
                 onClick={this.clickedSelect}
                 onChange={this.handleChange}
                 options={options}
-              />
+              /> */}
 
               {/* <select className="showLeft" value = {this.props.catSelection} onChange={this.props.setCatSelection}>
                 <option value='Dress'>One piece</option>
                 <option value='twoPiece'>Two piece</option>
               </select> */}
-            </div>
+            {/* </div> */}
             <div className="topmenu">
-            <select className="showLeft" value = {this.props.catTopWomenSelection} onChange={this.props.setCatTopWomenSelection}>
+            <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
+                 {this.displayTopOptions()}
+            </select>
+            {/* <select className="showLeft" value = {this.props.catTopWomenSelection} onChange={this.props.setCatTopWomenSelection}>
                 <option value='Tops'>Tops</option>
                 <option value='Shirts'>Shirts</option>
                 <option value='Blouses'>Blouses</option>
                 <option value='Sweater'>Sweater</option>
                 <option value='Tees'>Tees</option>
-            </select>
+            </select> */}
             </div>
             <div className="bottom-menu">
-            <select className="showLeft" value = {this.props.catBottomWomenSelection} onChange={this.props.setCatBottomWomenSelection}>
+            <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
+                 {this.displayBottomOptions()}
+            </select>
+            {/* <select className="showLeft" value = {this.props.catBottomWomenSelection} onChange={this.props.setCatBottomWomenSelection}>
                 <option value='Pants'>Pants</option>
                 <option value='Jean'>Jeans</option>
                 <option value='Skirt'>Skirts</option>
-            </select>
+            </select> */}
             </div>
-            </div>
-            : 
+            {/* </div> */}
+            {/* 
             <div className="innerfiltermenu">
             <div className="piecesoptionbtn">
             </div>
@@ -197,7 +203,7 @@ displayBottomOptions = () => {
             </select>
             </div>
             </div>
-            }
+            } */}
             </SlideMenu>
           <div className="outfitsright">
         <div className="home-wrapper">
@@ -216,7 +222,7 @@ displayBottomOptions = () => {
            {this.showDefault()}
            {this.props.cannotSave  ? 
             <div className="saved-button-group">
-             <button onClick={this.savePics} className="btn btn-primary" disabled>I am Disabled Save</button>
+             <button onClick={this.savePics} className="btn btn-primary" disabled>Save</button>
            </div>
            :
            <div className="saved-button-group">
