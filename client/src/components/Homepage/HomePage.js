@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Bottom from '../Bottom/Bottom';
-import SlideMenu from '../SlideMenu';
-import Select from 'react-select';
-
 import './homepage.css';
 
+import SlideMenu from '../SlideMenu';
+import Select from 'react-select';
 
 
 const options = [
@@ -64,7 +63,6 @@ showDefault = () =>{
       </>
    )
  }
-
  savePics = () => {
   //  so now just make an axios call here and send these 2 things
   if(!this.props.currentlyLoggedInUser){
@@ -88,27 +86,22 @@ showDefault = () =>{
   // // });
   // };
   // Detect all clicks on the document
-
-	// If the click happened inside the modal, do nothing
-	if (e.target.classList[0] && !e.target.closest('#menu') &&  !e.target.classList[0].includes('css'))  {
+    // If the click happened inside the modal, do nothing
+    if (e.target.classList[0] && !e.target.closest('#menu') &&  !e.target.classList[0].includes('css'))  {
     this.setState({
       isOpen: false
     });
   }
-
-	// Otherwise, close any open modal windows
-	// You would add the code for that here...
-
+    // Otherwise, close any open modal windows
+    // You would add the code for that here...
   
 }
-
 clickedSelect = (e) => {
   console.log(e)
   this.setState({
     //isOpen: !this.state.isOpen
   });
 }
-
 _menuToggle(e) {
   console.log(e)
   e.stopPropagation();
@@ -123,7 +116,6 @@ handleChange = selectedOption => {
   );
   this.props.setCatSelection(selectedOption)
 };
-
 displayTopOptions = () => {
   return this.props.categoryTop.map((cat,ind)=>{
     return (
@@ -138,9 +130,11 @@ displayBottomOptions = () => {
     )
   })
 }
+
   render() {
     const { selectedOption } = this.state;
     let menuStatus = this.state.isOpen ? 'isopen' : '';
+   // this.props.checkMyOutfits(this.props.topImages[this.props.currentTopIndex],this.props.bottomImages[this.props.currentBottomIndex])
       return (
         <div className="outfitpanel">
           <div ref="rootmenu" className="sidebtn-options">
@@ -206,40 +200,35 @@ displayBottomOptions = () => {
             }
             </SlideMenu>
           <div className="outfitsright">
+        <div className="home-wrapper">
+        
+          <div className="outfitsright"> 
             <div className="button-group">
-            {/* {this.props.defaultSelection === "Women" ? 
-              <div>
-              <select value = {this.props.catSelection} onChange={this.props.setCatSelection}>
-                 <option value='Dress'>One piece</option>
-                 <option value='twoPiece'>Two piece</option>
-               </select>
-            </div>
-             : 
-             <div>
-             </div>
-             } */}
-             </div>
-          {/* <div className="outfitsleft">
-            <div>
             <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
                  {this.displayTopOptions()}
             </select>
+            <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
+            <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
                  {this.displayBottomOptions()}
             </select>
-             </div>
-          </div> */}
-          <div className="outfitsright">
-            <div className="button-group">
-            <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
-            <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             </div>
            {this.showDefault()}
-           <div className="saved-button-group"> 
+           {this.props.cannotSave  ? 
+            <div className="saved-button-group">
+             <button onClick={this.savePics} className="btn btn-primary" disabled>I am Disabled Save</button>
+           </div>
+           :
+           <div className="saved-button-group">
              <button onClick={this.savePics} className="btn btn-primary">Save</button>
-            </div>
+           </div>
+           }
+           {/* <div className="saved-button-group">
+             <button onClick={this.savePics} className="btn btn-primary">Save</button>
+           </div> */}
           </div>
           </div>
+        </div>
         </div>
       )
 

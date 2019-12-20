@@ -35,6 +35,7 @@ if(this.props.theError) {
 
         return (
             <div className="container innerpage">
+            <div className="form-wrapper">
                <h1>Log in</h1>  
                <form className="formstyles" onSubmit={this.passLoginInfoToAppComponent}>
                  <div className="form-group">
@@ -56,6 +57,7 @@ if(this.props.theError) {
                  <button type="submit" className="btn btn-primary">Log in</button>
                </form>
                 {this.displayValidation()}   
+                </div>
             </div>
         )
     }
