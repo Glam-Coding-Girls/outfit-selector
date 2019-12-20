@@ -6,20 +6,20 @@ const uploader = require('../configs/cloudinary-setup');
 const passport = require('../config/passport');
 
 // //SIGUNP ROUTER
-// router.post('/signup', (req,res, next) =>{
-//     User.register(req.body, req.body.password)
-//     .then((user) => { 
-//         console.log('user',user)
-//         // req.login(user, function(err,result){
-//         //   res.status(201).json({message: 'success', user: user})
-//         // })
-//     })
+router.post('/signup', (req,res, next) =>{
+    User.register(req.body, req.body.password)
+    .then((user) => { 
+        console.log('user',user)
+        req.login(user, function(err,result){
+          res.status(201).json({message: 'success', user: user})
+        })
+    })
 
-//     .catch((err) => { 
-//       console.log(err)
-//       res.status(500).json({ err })
-//     });
-// });
+    .catch((err) => { 
+      console.log(err)
+      res.status(500).json({ err })
+    });
+});
 // function isAuth(req, res, next) {
 //   console.log('hellooooooo')
 //   console.log(req.isAuthenticated())

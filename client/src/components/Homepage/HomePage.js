@@ -127,6 +127,20 @@ handleChange = selectedOption => {
   this.props.setCatSelection(selectedOption)
 };
 
+displayTopOptions = () => {
+  return this.props.categoryTop.map((cat,ind)=>{
+    return (
+      <option value={cat}>{cat}</option>
+    )
+  })
+}
+displayBottomOptions = () => {
+  return this.props.categoryBottom.map((cat,ind)=>{
+    return (
+      <option value={cat}>{cat}</option>
+    )
+  })
+}
   render() {
     const { selectedOption } = this.state;
     let menuStatus = this.state.isOpen ? 'isopen' : '';
@@ -207,14 +221,27 @@ handleChange = selectedOption => {
              <div>
              </div>
              } */}
+             </div>
+          {/* <div className="outfitsleft">
+            <div>
+            <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
+                 {this.displayTopOptions()}
+            </select>
+            <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
+                 {this.displayBottomOptions()}
+            </select>
+             </div>
+          </div> */}
+          <div className="outfitsright">
+            <div className="button-group">
             <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
             <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
             </div>
            {this.showDefault()}
-           <div className="saved-button-group">
-  
-   <button onClick={this.savePics} className="btn btn-primary">Save</button>
-   </div>
+           <div className="saved-button-group"> 
+             <button onClick={this.savePics} className="btn btn-primary">Save</button>
+            </div>
+          </div>
           </div>
         </div>
       )
