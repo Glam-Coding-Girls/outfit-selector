@@ -33,7 +33,7 @@ ul {
 
 header{
   display: flex;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   background-color: #28A59A;
   z-index:4;
