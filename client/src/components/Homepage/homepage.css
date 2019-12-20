@@ -33,7 +33,16 @@ select{
 
 .topmenu {
   height: 200px;
-  margin-top:63%;
+  /* margin-top:63%; */
+  
+}
+.topmenu , .bottom-menu {
+  padding:15px;
+  position:fixed;
+  bottom:250px;
+}
+.topmenu select , .bottom-menu select{
+width: 20vw;
 }
 .outfitsright {
   width: 100%;
@@ -146,6 +155,7 @@ select{
   }
 
 #menu {
+  
   position: absolute;
   height: calc(100vh - 40px);
   width: 210px;
@@ -163,6 +173,7 @@ select{
   transform: translateX(-200%); */
   -webkit-transform: none;
   transform: none;
+  background-color:#28A59A;
 }
 /* .sidebtn-options {
   position: relative;
@@ -175,7 +186,8 @@ select{
   width: 50px;
   height: 50px;
   left: 0;
-  background-color: white;
+  /* background-color: white; */
+  background-color: #f9f5f0;
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
   /* transition: -webkit-transform 300ms;
@@ -183,6 +195,7 @@ select{
   transition: transform 300ms, -webkit-transform 300ms, background-color 300ms;
   padding: 13px;
   /* transition: 0.8s all; */
+  display:none;
 }
 .hambclicker:after, 
 .hambclicker:before, 
@@ -202,6 +215,7 @@ select{
   -webkit-transform: translateX(320%);
   transform: translateX(320%);
   z-index: 3;
+  background-color:#28A59A;
 }
 .hambclicker.isopen:before {
   transform: translateY(9px) rotate(135deg);
@@ -231,4 +245,11 @@ select{
   .saved-button-group {
     width: 70%;
   }
+  
+  .topmenu select , .bottom-menu select{
+    width: 55vw;
+    }
+    .hambclicker {
+      display:block;
+    }
 }

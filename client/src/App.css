@@ -700,6 +700,7 @@ justify-content: space-between;
   transition: max-height 0.3s;
   margin: 0;
   padding: 0;
+  font-size: 14px;
 }
 #menuToggle:checked ~ ul {
     max-height: 350px;
@@ -718,5 +719,22 @@ justify-content: space-between;
 }
 .clothe-sections .tools {
   display: none;
+}
+.profile-main-content{
+  width:100vw;
+
+}
+.profile-main-content form{
+  width:85vw;
+}
+.profile-main-content form div.field{
+  width:80vw;
+  font-size:12px;
+}
+.profile-main-content form div.field label{
+  width:30vw;
+}
+.profile-main-content form div.field span{
+  width:35vw;
 }
 }

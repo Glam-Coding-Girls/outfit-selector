@@ -132,7 +132,7 @@ displayBottomOptions = () => {
 }
 
   render() {
-    const { selectedOption } = this.state;
+    //const { selectedOption } = this.state;
     let menuStatus = this.state.isOpen ? 'isopen' : '';
    // this.props.checkMyOutfits(this.props.topImages[this.props.currentTopIndex],this.props.bottomImages[this.props.currentBottomIndex])
       return (

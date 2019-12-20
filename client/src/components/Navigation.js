@@ -49,7 +49,8 @@ export class Navigation extends Component {
                   <Link to="/about">About</Link>
                   <Link to="/shared-outfits">Shared Outfits</Link>
                   <Link to="/my-outfits" >My Outfits</Link>
-                 
+                  <Link to="/profile" >My Account</Link>
+                  <a ><button style={{'backgroundColor':'transparent','border':'transparent'}} onClick={this.props.LogoutAction}>Logout</button></a>
                   </ul>
                   }
              </div>
