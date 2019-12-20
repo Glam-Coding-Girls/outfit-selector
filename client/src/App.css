@@ -36,7 +36,7 @@ header{
   position: fixed;
   width: 100%;
   background-color: #28A59A;
-  z-index:4;
+  z-index:6;
   top:0;
 }
 /* .headerheightfixed {

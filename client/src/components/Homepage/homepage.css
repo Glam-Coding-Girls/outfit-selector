@@ -174,7 +174,7 @@ width: 20vw;
   -webkit-transform: none;
   transform: none;
   background-color:#28A59A;
-  z-index:1;
+  z-index:4;
 }
 /* .sidebtn-options {
   position: relative;
@@ -218,7 +218,7 @@ width: 20vw;
 .hambclicker.isopen {
   -webkit-transform: translateX(320%);
   transform: translateX(320%);
-  z-index: 3;
+  z-index: 5;
   background-color:#28A59A;
 }
 /* .hambclicker.isopen:before {
@@ -280,7 +280,7 @@ width: 20vw;
     margin-top: 12%;
   }
   .slide{
-  
+  margin-top:130px;
     width: 45vw;
   }
   .topmenu select , .bottom-menu select{
