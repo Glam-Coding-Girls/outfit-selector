@@ -147,7 +147,13 @@ displayBottomOptions = () => {
           </div>
 
           <SlideMenu menuStatus={ menuStatus }>
+          <div className="button-group slide">
+          <button className={this.props.isActive === "Women" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Women')}>Women</button>
+                     
+          <button className={this.props.isActive === "Men" ? "active btn btn-primary" : "btn btn-primary" } onClick={()=>this.props.setDefaultSelection('Men')}>Men</button>
+           </div>
             <div className="topmenu">
+   
             <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
                  {this.displayTopOptions()}
             </select>

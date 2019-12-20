@@ -168,11 +168,13 @@ width: 20vw;
   transition: transform 300ms;
   transition: transform 300ms, -webkit-transform 300ms;
   z-index: 1;
+
 }
 #menu.isopen {
   -webkit-transform: none;
   transform: none;
   background-color:#28A59A;
+  z-index:1;
 }
 /* .sidebtn-options {
   position: relative;
@@ -193,6 +195,7 @@ width: 20vw;
   padding: 13px;
   /* transition: 0.8s all; */
   display:none;
+  cursor:pointer;
 }
 .hambclicker:after, 
 .hambclicker:before, 
@@ -248,15 +251,21 @@ width: 20vw;
   .button-group {
     width: 70%;
   }
-  .home-wrapper .button-group select{
+  .home-wrapper .button-group {
     display:none;
   }
   .saved-button-group {
     width: 70%;
   }
-  
-  .topmenu select , .bottom-menu select{
+  .topmenu{
+    top:185px;
+  }
+  .slide{
+    margin-top: 120px;
     width: 35vw;
+  }
+  .topmenu select , .bottom-menu select{
+    width: 30vw;
     }
     .hambclicker {
       display:block;
@@ -266,4 +275,11 @@ width: 20vw;
   .outfitpanel {
     margin-top: 12%;
   }
+  .slide{
+  
+    width: 45vw;
+  }
+  .topmenu select , .bottom-menu select{
+    width: 45vw;
+    }
 }
