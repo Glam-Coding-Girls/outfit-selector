@@ -12,6 +12,7 @@ export default class SharedOutfits extends Component {
           return (
       
             <div key={index} className="clothe-sections">
+              <div className="content-overlay"></div>
               {index === 0 ? 
                <img style={{'borderTopLeftRadius':'7px','borderTopRightRadius':'7px'}} src={clothe.image} alt="outfit" />
                :
@@ -29,8 +30,9 @@ export default class SharedOutfits extends Component {
         } else if(clothes.length === 1){
           return clothes.map((clothe,index)=>{
             return (
-            <div key={index} className="clothe-sections" style={{height:'46vh'}}>
-               <img style={{'borderRadius':'7px',height:'46vh'}} src={clothe.image} alt="outfit" />
+            <div key={index} className="clothe-sections" style={{height:'400px'}}>
+              <div className="content-overlay"></div>
+               <img style={{'borderRadius':'7px'}} src={clothe.image} alt="outfit" />
                <a href={clothe.href} target="_blank">
                   <div className="content-details fadeIn-bottom">
                     <h3 className="content-title">Click to see details</h3>

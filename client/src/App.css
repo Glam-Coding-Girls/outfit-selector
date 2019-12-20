@@ -343,10 +343,19 @@ background: none;
 }
 .share-container{
 display:flex;
+width: 65px;
+justify-content: space-between;
+}
+.sharedcontainerbox {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
 }
 .sharebtn {
   height:20%;
-  margin-top:10px;
+  /* margin-top:10px; */
 }
 .delete .fa-times-circle {
   color: red;
@@ -387,6 +396,24 @@ display:flex;
 }
 .clothe-sections.one-piece-outfit, .clothe-sections.one-piece-outfit .TransformComponent-module_content__TZU5O {
   height: 400px;
+}
+.clothe-sections .content-overlay {
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 20%;
+  width: 100%;
+  left: 0;
+  /* top: 0; */
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 1;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+.clothe-sections:hover .content-overlay{
+  opacity: 1;
 }
 .clothe-sections img{
   /* height:23vh; */
@@ -562,6 +589,7 @@ display:flex;
   top: 92%;
   left: 50%;
   opacity: 1;
+  z-index: 3;
 }
 .content-details h3{
   color: #fff;

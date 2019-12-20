@@ -4,9 +4,6 @@ import SlideMenu from '../SlideMenu';
 import Select from 'react-select';
 
 import './homepage.css';
-// let React = require('react');
-// React.Bootstrap = require('react-bootstrap');
-// React.Bootstrap.Select = require('react-bootstrap-select');
 
 
 
@@ -159,10 +156,10 @@ displayBottomOptions = () => {
                 value={this.props.catSelection}
                 defaultValue={options[0]}
                 isDisabled={this.state.isDisabled}
-          isLoading={this.state.isLoading}
-          isClearable={this.state.isClearable}
-          isRtl={this.state.isRtl}
-          isSearchable={this.state.isSearchable}
+                isLoading={this.state.isLoading}
+                isClearable={this.state.isClearable}
+                isRtl={this.state.isRtl}
+                isSearchable={this.state.isSearchable}
                 onClick={this.clickedSelect}
                 onChange={this.handleChange}
                 options={options}
