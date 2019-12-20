@@ -456,6 +456,11 @@ justify-content: space-between;
   height: auto;
   object-fit: cover;
 }
+.clothe-sections .TransformComponent-module_container__3NwNd {
+  height: 200px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
 #overlay {
   position: fixed;
   /* display: none; */
