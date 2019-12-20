@@ -149,13 +149,13 @@ header{
   background-color: transparent;
 }
 .fa-heart{
-cursor:pointer;
 color: #d93010;
 font-size: 1.8em;
 }
 .heart-link:hover{
   filter: saturate(200%);
   transform: scale(1.2);
+  cursor:pointer;
 }
 #profile-image{
   width:10vh;
@@ -499,9 +499,9 @@ justify-content: space-between;
   background-color: #a2dfc4;
 }
 .upload-headshot-btn{
+  color: black;
   border: 1px solid black;
-    color: white;
-    background-color: #494949;
+  background-color: white;
     /* width:10%; */
     cursor:pointer;
     /* height:20%; */
@@ -509,6 +509,11 @@ justify-content: space-between;
     padding:10px;
     border-radius:4px;
     font-weight: bold;
+}
+.upload-headshot-btn:hover{
+  color: white;
+  border: 1px solid white;
+  background-color: #494949;
 }
 .form-wrapper{
   display: flex;

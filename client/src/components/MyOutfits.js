@@ -13,7 +13,7 @@ if(process.env.NODE_ENV == 'development'){
   serverURL = 'https://glamcloset.herokuapp.com'
 }
 
-const shareText = "I just combined a beautiful outfit using GLAM Closet"
+const shareText = "I just combined a beautiful outfit using GLAM Closet! Try it out."
 const shareUrl = "https://glamcloset.herokuapp.com/#/"
 const hash =  "#glamcloset"
 
@@ -180,7 +180,8 @@ export class MyOutfits extends Component {
               fbUrl={shareUrl} 
               fbQuote={shareText}
               hashtag={hash}
-              ptUrl={"https://i.pinimg.com/originals/1d/7d/4c/1d7d4c8cd7581873509ad5e3cc0bd569.jpg"}
+              ptUrl={shareUrl}
+              media={'https://i.pinimg.com/564x/70/c5/3e/70c53e213beef3b194c80a03ed8b1d5d.jpg'}
               ptDescription= {shareText}
         />
             </div>
