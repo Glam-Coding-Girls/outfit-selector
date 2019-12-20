@@ -164,17 +164,25 @@ setDefaultSelection = (selection) =>{
  setCatSelection = (e) =>{
   this.setState({
     [e.target.name]: e.target.value,
+  },()=>{
+    this.fetchUserData()
+    if(this.state.catTopSelection === "DRESS" ){
+      this.setState({
+        catBottomSelection:"NONE"
+      })
+    }
   })
 if(e.target.name === "catTopSelection"){
   this.setState({
     topImages: [],
+    first:false,second:false,cannotSave:false
   },()=>{
     this.createTopArray();
-   
   })
 } else{
   this.setState({
     bottomImages: [],
+    first:false,second:false,cannotSave:false
   },()=>{
     this.createBottomArray();
    
@@ -194,8 +202,7 @@ if(e.target.name === "catTopSelection"){
     this.setState({
       topImages:tempTopArray,
     },()=>{
-      console.log(this.state.topImages)
-      console.log(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+      
       if(this.state.currentlyLoggedInUser){
         this.setState({
           cannotSave:false
@@ -226,8 +233,7 @@ if(e.target.name === "catTopSelection"){
     this.setState({
       bottomImages:tempBottomArray,
     },()=>{
-      console.log(this.state.bottomImages)
-      console.log(this.state.topImages[this.state.currentTopIndex],this.state.bottomImages[this.state.currentBottomIndex])
+      
       if(this.state.currentlyLoggedInUser){
         this.setState({
           cannotSave:false
@@ -459,6 +465,7 @@ checkMyOutfits = (obj1,obj2) => {
       }
       else if(outfit.selectedClothes.length === 1){
         outfit.selectedClothes.forEach((sel,index)=>{
+          console.log(sel.image)
           if(sel.image === obj1.image){
               first = true;
               this.setState({

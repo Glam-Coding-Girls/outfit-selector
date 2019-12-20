@@ -44,7 +44,7 @@ export class Bottom extends Component {
    
 
     displayCarousal = () => {
-      if(this.props.imgs){
+      if(this.props.imgs.length > 0){
         return (
               <div className={this.props.optionSelected === "Dress" ? "carousel dresses-option" : "carousel"}>
                  <button className="leftbutton" onClick={this.clickLeft}>
