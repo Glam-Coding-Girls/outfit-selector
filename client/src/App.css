@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Alatsi|Roboto:300,400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap');
 html, body {
   width: 100%;
   height: 100%;
@@ -33,7 +34,7 @@ header{
   /* font-weight:bold;
   background-color:rgba(231, 178, 80, 0.993); */
   /* background-color:rgba(117, 184, 230, 0.616); */
-  background-color: #a2dfc4;
+  background-color: #316b51;
 }
 /* .navheader {
   padding: 20px 0;
@@ -43,13 +44,14 @@ header{
   justify-content: space-between;
   align-items: baseline;
 }
+
 .navbar a{
-  color:black;
+  color:white;
   /* color:white; */
 }
 .navbar a:hover {
   text-decoration: none;
-  color: #d93010;
+  color: #b3b3b3;
 
 }
 .leftnav {
@@ -64,8 +66,8 @@ header{
   transition: 0.5s all;
 }
 .homelogo a {
-  font-family: 'Alatsi', sans-serif;
-  color: #d93010;
+  font-family: 'Abril Fatface', cursive;
+  color: white;
   font-size: 2em;
   transition: 0.5s all;
   
@@ -338,12 +340,21 @@ background: none;
 .delete i {
   margin: 0;
 }
-.share-container{
+.share-area{
+  display:flex;
+  width:100%;
+  justify-content:center;
+}
+.facebook-container, .pinterest-container{
+  cursor:pointer;
+}
+.social-container{
 display:flex;
 }
 .sharebtn {
   height:20%;
-  margin-top:10px;
+  margin-top:5px;
+  margin-right:5px;
 }
 .delete .fa-times-circle {
   color: red;

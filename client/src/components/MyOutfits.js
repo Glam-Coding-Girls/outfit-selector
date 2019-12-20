@@ -171,12 +171,12 @@ export class MyOutfits extends Component {
             <img className="face-upload" src={this.state.faceImg} />
             <button className="delete" onClick={()=>this.deleteSelected(outfit)}><i className="fas fa-times-circle"></i></button>
             {this.displayMyClothes(outfit.selectedClothes)}
-            <div style={{display:"flex", width:"100%", justifyContent:"center"}}>
+            <div className="share-area">
             <MDBTooltip placement="bottom">
             <MDBBtn onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</MDBBtn>
             <div>Your headshot will not be shared with this outfit.</div>
             </MDBTooltip>
-            <ShareSection styleContainer={"share-container"}
+            <ShareSection styleContainer={"social-container"}
               fbUrl={shareUrl} 
               fbQuote={shareText}
               hashtag={hash}
