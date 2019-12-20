@@ -175,7 +175,11 @@
   transition: transform 300ms, -webkit-transform 300ms, background-color 300ms;
   padding: 13px;
 }
-.hambclicker:after, 
+.hambclicker i {
+  font-size: 1.5em;
+  margin: 0;
+}
+/* .hambclicker:after, 
 .hambclicker:before, 
 .hambclicker span {
   background-color: #000;
@@ -185,7 +189,7 @@
   height: 4px;
   margin: 0 0 5px;
   transition: all .2s ease-in-out;
-}
+} */
 .hambclicker:hover {
   background-color: #494949;
 }
@@ -194,7 +198,7 @@
   transform: translateX(320%);
   z-index: 3;
 }
-.hambclicker.isopen:before {
+/* .hambclicker.isopen:before {
   transform: translateY(9px) rotate(135deg);
 }
 
@@ -204,7 +208,7 @@
 
 .hambclicker.isopen span {
   transform: scale(0);
-}
+} */
 
 
 

@@ -137,7 +137,7 @@ displayBottomOptions = () => {
       return (
         <div className="outfitpanel">
           <div ref="rootmenu" className="sidebtn-options">
-            <button id="button" className={menuStatus + " hambclicker"} onClick={ this._menuToggle }><span></span></button>
+            <button id="button" className={menuStatus + " hambclicker"} onClick={ this._menuToggle }><i class="far fa-arrow-alt-circle-left"></i></button>
           </div>
 
           <SlideMenu menuStatus={ menuStatus }>
