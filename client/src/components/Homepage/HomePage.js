@@ -208,7 +208,7 @@ displayBottomOptions = () => {
           <div className="outfitsright">
         <div className="home-wrapper">
         
-          <div className="outfitsright"> 
+          {/* <div className="outfitsright">  */}
             <div className="button-group">
             <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
                  {this.displayTopOptions()}
@@ -234,7 +234,7 @@ displayBottomOptions = () => {
              <button onClick={this.savePics} className="btn btn-primary">Save</button>
            </div> */}
          
-          </div>
+          {/* </div> */}
         </div>
         </div>
       )

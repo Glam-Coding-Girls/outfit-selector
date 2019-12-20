@@ -1,6 +1,6 @@
 .card-wrapper {
   /* width: 400px; */
-  width: 95vw;
+  width: 88vw;
   position: relative;
   margin: 0 auto;
   display:flex;
@@ -244,7 +244,8 @@ button:focus {outline:0;}
 
 @media all and (max-width: 700px) {
   .card-wrapper {
-    width: 85%;
+    /* width: 85%; */
+    width:100%;
   }
   .card-prev, .card-next{
     display:none;
@@ -257,6 +258,9 @@ button:focus {outline:0;}
   }
   .rightbutton .bkgd-overlay {
     left: 0;
+  }
+  .carousel .carouselbox{
+    width:75%;
   }
   .carousel .tools, .arrow-overlay, .carousel button img {
     display: none;
