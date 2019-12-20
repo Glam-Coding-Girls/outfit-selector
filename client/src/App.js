@@ -734,7 +734,7 @@ unlikeOutfit = (outfit) =>{
                   fetchUserData = {this.fetchUserData}
                   profilePic = {this.state.profilePic}
                   />
-      <div className="container">
+      <div className="container headerheightfixed">
           <Switch>
             <Route exact path='/' render = { (props) => <HomePage {...props} clothes = {this.state.clothes}
                                                                              topImages = {this.state.topImages}

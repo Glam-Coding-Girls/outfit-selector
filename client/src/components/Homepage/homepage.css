@@ -1,19 +1,17 @@
 .outfitpanel {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-top: 3%;
 }
 .outfitsleft, .outfitsright {
   padding: 30px 0;
 }
 .outfitsleft {
-  
+  width: 29%;
   padding: 50px 20px;
   display: flex;
   align-items: center;
-}
-select{
-  width:15vw;
 }
 .innerfiltermenu {
   background-color: white;
@@ -29,6 +27,9 @@ select{
   width: 100%;
   height: 40px;
   position: relative;
+}
+.innerfiltermenu select {
+  width: 100%;
 }
 
 .topmenu {
@@ -82,7 +83,7 @@ width: 20vw;
 .button-group {
   display: flex;
   justify-content: space-around;
-  /* width: 400px; */
+  width: 400px;
   margin: 0 auto 20px;
  
 }
@@ -169,8 +170,6 @@ width: 20vw;
   z-index: 1;
 }
 #menu.isopen {
-  /* -webkit-transform: translateX(-200%);
-  transform: translateX(-200%); */
   -webkit-transform: none;
   transform: none;
   background-color:#28A59A;
@@ -190,8 +189,6 @@ width: 20vw;
   background-color: #f9f5f0;
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
-  /* transition: -webkit-transform 300ms;
-  transition: transform 300ms; */
   transition: transform 300ms, -webkit-transform 300ms, background-color 300ms;
   padding: 13px;
   /* transition: 0.8s all; */
@@ -229,12 +226,24 @@ width: 20vw;
   transform: scale(0);
 }
 
-
-
+.top{
+  width: 60vw;
+}
+.top select{
+  width: 20vw;
+}
+@media all and (max-width: 900px) {
+  .outfitpanel {
+    margin-top: 8%;
+  }
+}
 
 @media all and (max-width: 700px) {
   .home-wrapper{
     margin-top:6%;
+  }
+  .outfitpanel {
+    margin-top: 6%;
   }
   .button-group {
     width: 70%;
@@ -247,9 +256,14 @@ width: 20vw;
   }
   
   .topmenu select , .bottom-menu select{
-    width: 55vw;
+    width: 35vw;
     }
     .hambclicker {
       display:block;
     }
+}
+@media all and (max-width: 500px) {
+  .outfitpanel {
+    margin-top: 12%;
+  }
 }

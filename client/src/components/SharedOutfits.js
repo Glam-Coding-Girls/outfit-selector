@@ -50,8 +50,10 @@ export default class SharedOutfits extends Component {
       if(!this.props.currentlyLoggedInUser){
         // setTimeout(() => {
           if(!this.props.currentlyLoggedInUser){
-            console.log(this.props.sharedOutfits)
-            return this.props.sharedOutfits.map((outfit,ind)=>{
+            let sorted = this.props.sharedOutfits.sort((a, b) => {
+              return b.likedBy.length - a.likedBy.length
+            })
+            return sorted.map((outfit,ind)=>{
               return (
                 <div key={ind} className="outfit-display">
                    {this.displayMyClothes(outfit.selectedClothes)}

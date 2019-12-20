@@ -21,8 +21,10 @@ export class ShareSection extends Component {
 
                   <div className="pinterest-container">
                   <PinterestShareButton
-                    media={this.props.ptUrl}
-                    description={this.props.ptDescription}>
+                    url={this.props.ptUrl}
+                    description={this.props.ptDescription}
+                    media={this.props.media}
+                    className="share-button">
                     <PinterestIcon size={30} round />
                   </PinterestShareButton>
                 </div>
