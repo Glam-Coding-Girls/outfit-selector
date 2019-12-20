@@ -150,6 +150,7 @@ export class Profile extends Component {
                 </div>
                 {this.editValidation()}
                 </form>
+                <button className="btn btn-primary logoutbtn" onClick={this.props.LogoutAction}>Logout</button>
                 </div>
             </div>
           </div>

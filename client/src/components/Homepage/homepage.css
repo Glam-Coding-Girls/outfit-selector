@@ -75,20 +75,22 @@ select{
   justify-content: space-around;
   /* width: 400px; */
   margin: 0 auto 20px;
+ 
 }
 .saved-button-group {
   display: flex;
   justify-content: space-around;
-  width: 400px;
-  margin: 20px auto; 
+  /* width: 400px; */
+  /* margin: 20px auto;  */
+  width:95vw;
 }
-.saved-button-group button, .button-group button {
+.saved-button-group button, .button-group button, .logoutbtn {
   width: 100px;
 }
 .btn {
   border: none;
 }
-.button-group .btn-primary, .saved-button-group .btn-primary {
+.button-group .btn-primary, .saved-button-group .btn-primary , .logoutbtn{
   color: black;
   border: 1px solid black;
   background-color: white;
@@ -96,7 +98,7 @@ select{
 .btn-primary:hover, .saved-button-group .btn-primary:hover {
   border: none;
 }
-.button-group button:hover, .saved-button-group button:hover {
+.button-group button:hover, .saved-button-group button:hover, .logoutbtn:hover {
   color: white;
   border: 1px solid white;
   background-color: #494949;

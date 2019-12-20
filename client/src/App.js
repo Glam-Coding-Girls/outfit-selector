@@ -730,7 +730,7 @@ unlikeOutfit = (outfit) =>{
     return (
       <div >
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
-                  LogoutAction = {this.LogoutAction} 
+                   
                   fetchUserData = {this.fetchUserData}
                   profilePic = {this.state.profilePic}
                   />
@@ -786,6 +786,7 @@ unlikeOutfit = (outfit) =>{
                                                                                 currentPass = {this.state.currentPass}
                                                                                 theError = {this.state.theError}
                                                                                 registered = {this.state.registered}
+                                                                                LogoutAction = {this.LogoutAction}
             />}/>
             <Route exact path="/shared-outfits" render={(props) => <SharedOutfits {...props}  currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                                     sharedOutfits={this.state.sharedOutfits}

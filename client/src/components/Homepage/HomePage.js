@@ -220,7 +220,8 @@ displayBottomOptions = () => {
             </select>
             </div>
            {this.showDefault()}
-           {this.props.cannotSave  ? 
+           </div>
+          {this.props.cannotSave  ? 
             <div className="saved-button-group">
              <button onClick={this.savePics} className="btn btn-primary" disabled>Save</button>
            </div>
@@ -232,7 +233,7 @@ displayBottomOptions = () => {
            {/* <div className="saved-button-group">
              <button onClick={this.savePics} className="btn btn-primary">Save</button>
            </div> */}
-          </div>
+         
           </div>
         </div>
         </div>
