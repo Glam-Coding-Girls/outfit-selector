@@ -150,9 +150,10 @@ setDefaultSelection = (selection) =>{
   this.createImageArrays(); 
 })
 }
- setCatSelection = (e) =>{
+ setCatSelection = (selectedOption) =>{
+   console.log(selectedOption)
   this.setState({
-    catSelection:e.target.value,
+    catSelection:selectedOption.value,
     topImages: [],
     bottomImages: [],
    },()=>{
@@ -651,9 +652,10 @@ unlikeOutfit = (outfit) =>{
 )
 }
 
+
   render() {
     return (
-      <div >
+      <div className="page-wrapper">
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
                   LogoutAction = {this.LogoutAction} 
                   fetchUserData = {this.fetchUserData}
