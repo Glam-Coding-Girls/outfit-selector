@@ -194,10 +194,9 @@ export class MyOutfits extends Component {
 
   render() {
     return (
+      <div className="container innerpage">
       <div className="my-outfit-wrapper">
       {this.props.elements[0]!=undefined?
-    
-      
       <div className="pagination-wrapper">  
       {this.state.uploadFace?
       <label className="upload-headshot-btn" >
@@ -239,7 +238,7 @@ export class MyOutfits extends Component {
         }
 
       </div>
-      
+      </div>
     )
   }
 }
