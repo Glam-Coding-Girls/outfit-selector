@@ -92,9 +92,10 @@ header{
   font-size: 1em;
   font-weight: 500;
   transition: 0.8s all;
+  color:white;
 }
 .logoutbtn:hover {
-  color: #d93010;
+  color: #494949;
 }
 .profile-nav-icon{
   width:4vh;
@@ -369,7 +370,7 @@ display:flex;
   margin-right:5px;
 }
 .delete .fa-times-circle {
-  color: red;
+  color:#494949;
   background-color: white;
   font-size: 1em;
   border-radius: 50%;
@@ -463,9 +464,9 @@ display:flex;
   background-color: #a2dfc4;
 }
 .upload-headshot-btn{
-  border: 1px solid #a2dfc4;
-    color: black;
-    background-color: #a2dfc4;
+  border: 1px solid black;
+    color: white;
+    background-color: #494949;
     /* width:10%; */
     cursor:pointer;
     /* height:20%; */
@@ -516,7 +517,7 @@ display:flex;
 }
 .pagination-container li.previous a:hover, .pagination-container li.next a:hover {
   background-color: transparent;
-  color:  #d93010;
+  color:  #494949;
 }
 .page-list{
  /* border:solid 1px rgba(109, 107, 107, 0.5);
@@ -525,7 +526,7 @@ display:flex;
  cursor: pointer;
 }
 .pagination-container li.active-page, .page-list:hover {
- background-color:  #d93010;
+ background-color:#494949;
  color: white;
 }
 .page-list:focus {outline:0;}
