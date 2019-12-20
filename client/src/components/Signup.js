@@ -51,7 +51,8 @@ signupValidation = () => {
 }
     render() {
         return (
-            <div className="container innerpage">        
+            <div className="container innerpage">  
+              <div className="form-wrapper">   
                <h1>Sign up</h1>  
                <form className="formstyles" onSubmit={this.saveUser}>
                  <div className="form-group">
@@ -77,7 +78,8 @@ signupValidation = () => {
                  {this.displayValidationMessageForPassword2()}
                  <button type="submit" className="btn btn-primary">Create the Account</button>
                 </form> 
-                {this.signupValidation()}    
+                {this.signupValidation()} 
+                </div>      
             </div>
         )
     }
