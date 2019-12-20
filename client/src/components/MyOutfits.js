@@ -176,7 +176,7 @@ export class MyOutfits extends Component {
             <MDBBtn onClick={()=>this.sharePics(outfit)} className="btn btn-primary sharebtn">Share</MDBBtn>
             <div>Your headshot will not be shared with this outfit.</div>
             </MDBTooltip>
-            <ShareSection styleContainer={"share-container"}
+            <ShareSection styleContainer={"social-container"}
               fbUrl={shareUrl} 
               fbQuote={shareText}
               hashtag={hash}

@@ -5,7 +5,7 @@ export class Navigation extends Component {
   render() {
     return (
 
-        <header className="navheader">
+        <header className="navheader bg-custom-2">
           <div className="container">
             <div className="navbar">
               <div className="leftnav">
