@@ -174,7 +174,7 @@ width: 20vw;
   -webkit-transform: none;
   transform: none;
   background-color:#28A59A;
-  z-index:4;
+  /* display:none; */
 }
 /* .sidebtn-options {
   position: relative;
@@ -218,7 +218,7 @@ width: 20vw;
 .hambclicker.isopen {
   -webkit-transform: translateX(320%);
   transform: translateX(320%);
-  z-index: 5;
+  /* z-index: 4; */
   background-color:#28A59A;
 }
 /* .hambclicker.isopen:before {
@@ -273,6 +273,13 @@ width: 20vw;
     }
     .hambclicker {
       display:block;
+    }
+    #menu.isopen {
+      z-index:4;
+      
+    }
+    .hambclicker.isopen {
+      z-index:5;
     }
 }
 @media all and (max-width: 500px) {
