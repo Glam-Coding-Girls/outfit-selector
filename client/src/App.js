@@ -144,10 +144,38 @@ setDefaultSelection = (selection) =>{
   this.createImageArrays(); 
 })
 }
- setCatSelection = (e) =>{
-  this.setState({
-    [e.target.name]: e.target.value,
-  })
+  
+//    console.log(selectedOption)
+//   this.setState({
+//     catSelection:selectedOption.value,
+//     topImages: [],
+//     bottomImages: [],
+//    },()=>{
+//  this.createImageArrays(); 
+// })
+//  } 
+//  setCatTopWomenSelection = (e) =>{
+//   this.setState({
+//     catTopWomenSelection:e.target.value,
+//     topImages: [],
+//     bottomImages: [],
+//    },()=>{
+//  this.createImageArrays(); 
+// })
+//  } 
+//  setCatBottomWomenSelection = (e) =>{
+//   this.setState({
+//     catBottomWomenSelection:e.target.value,
+//     topImages: [],
+//     bottomImages: [],
+//    },()=>{
+//  this.createImageArrays(); 
+// })
+//  } 
+//  setCatTopMenSelection = (e) =>{
+//     [e.target.name]: e.target.value,
+//   })
+setCatSelection = (e) =>{
 if(e.target.name === "catTopSelection"){
   this.setState({
     topImages: [],
@@ -581,9 +609,10 @@ unlikeOutfit = (outfit) =>{
 )
 }
 
+
   render() {
     return (
-      <div >
+      <div className="page-wrapper">
       <Navigation currentlyLoggedInUser = {this.state.currentlyLoggedInUser}
                   LogoutAction = {this.LogoutAction} 
                   fetchUserData = {this.fetchUserData}
