@@ -71,9 +71,8 @@ displayBottomOptions = () => {
       return (
         <div className="outfitpanel">
         <div className="home-wrapper">
-          
+        
           <div className="outfitsright"> 
-            
             <div className="button-group">
             <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
                  {this.displayTopOptions()}

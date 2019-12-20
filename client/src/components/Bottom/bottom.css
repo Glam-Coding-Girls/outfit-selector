@@ -173,16 +173,6 @@
   -moz-transition: all 0.4s ease-in-out 0s;
   transition: all 0.4s ease-in-out 0s;
 }
-.left {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0.5;
-  transition: .3s ease;
-  background-color: black;
-}
 button:hover .arrow-overlay {
   /* border-bottom-width: 4px;
   border-right-width: 4px; */
