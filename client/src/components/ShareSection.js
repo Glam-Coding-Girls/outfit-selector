@@ -14,7 +14,7 @@ export class ShareSection extends Component {
                   hashtag={this.props.hashtag}
                   className="share-button">
                   <FacebookIcon
-                    size={52}
+                    size={30}
                     round />
                   </FacebookShareButton>
                   </div>
@@ -23,7 +23,7 @@ export class ShareSection extends Component {
                   <PinterestShareButton
                     media={this.props.ptUrl}
                     description={this.props.ptDescription}>
-                    <PinterestIcon size={52} round />
+                    <PinterestIcon size={30} round />
                   </PinterestShareButton>
                 </div>
 

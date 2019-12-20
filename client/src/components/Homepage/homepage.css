@@ -89,26 +89,26 @@ select{
 }
 .button-group .btn-primary, .saved-button-group .btn-primary {
   color: black;
-  border: 1px solid gray;
+  border: 1px solid black;
   background-color: white;
 }
 .btn-primary:hover, .saved-button-group .btn-primary:hover {
   border: none;
 }
 .button-group button:hover, .saved-button-group button:hover {
-  color: black;
-  border: 1px solid #a2dfc4;
-  background-color: #a2dfc4;
+  color: white;
+  border: 1px solid white;
+  background-color: #494949;
 }
 .button-group .btn-primary:not(:disabled):not(.disabled):active, .button-group  .btn-primary:not(:disabled):not(.disabled).active, .button-group .show > .btn-primary.dropdown-toggle {
-  border: 1px solid #a2dfc4;
-  color: black;
-  background-color: #a2dfc4;
+  border: 1px solid white;
+  color: white;
+  background-color: #494949;
 }
 .saved-button-group .btn-primary:not(:disabled):not(.disabled):active, .saved-button-group  .btn-primary:not(:disabled):not(.disabled).active, .saved-button-group .show > .btn-primary.dropdown-toggle {
-  border: 1px solid #a2dfc4;
+  border: 1px solid white;
   color: black;
-  background-color: #a2dfc4;
+  background-color: #494949;
 }
 .btn-primary:focus, .btn-primary.focus {
   border: none;
@@ -193,7 +193,7 @@ select{
   transition: all .2s ease-in-out;
 }
 .hambclicker:hover {
-  background-color: #a2dfc4;
+  background-color: #494949;
 }
 .hambclicker.isopen {
   -webkit-transform: translateX(320%);
