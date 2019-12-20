@@ -1,6 +1,8 @@
 .outfitpanel {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  margin-top: 3%;
 }
 .outfitsleft, .outfitsright {
   padding: 30px 0;
@@ -32,6 +34,16 @@
 
 .topmenu {
   height: 200px;
+  /* margin-top:63%; */
+  
+}
+.topmenu , .bottom-menu {
+  padding:15px;
+  position:fixed;
+  bottom:250px;
+}
+.topmenu select , .bottom-menu select{
+width: 20vw;
 }
 .outfitsright {
   width: 100%;
@@ -73,20 +85,22 @@
   justify-content: space-around;
   width: 400px;
   margin: 0 auto 20px;
+ 
 }
 .saved-button-group {
   display: flex;
   justify-content: space-around;
   /* width: 400px; */
-  margin: 20px auto; 
+  /* margin: 20px auto;  */
+  width:95vw;
 }
-.saved-button-group button, .button-group button {
+.saved-button-group button, .button-group button, .logoutbtn {
   width: 100px;
 }
 .btn {
   border: none;
 }
-.button-group .btn-primary, .saved-button-group .btn-primary {
+.button-group .btn-primary, .saved-button-group .btn-primary , .logoutbtn{
   color: black;
   border: 1px solid black;
   background-color: white;
@@ -94,7 +108,7 @@
 .btn-primary:hover, .saved-button-group .btn-primary:hover {
   border: none;
 }
-.button-group button:hover, .saved-button-group button:hover {
+.button-group button:hover, .saved-button-group button:hover, .logoutbtn:hover {
   color: white;
   border: 1px solid white;
   background-color: #494949;
@@ -142,8 +156,9 @@
   }
 
 #menu {
+  
   position: absolute;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 40px);
   width: 210px;
   left: 0;
   background-color: white;
@@ -153,10 +168,13 @@
   transition: transform 300ms;
   transition: transform 300ms, -webkit-transform 300ms;
   z-index: 1;
+
 }
 #menu.isopen {
   -webkit-transform: none;
   transform: none;
+  background-color:#28A59A;
+  z-index:1;
 }
 /* .sidebtn-options {
   position: relative;
@@ -169,11 +187,15 @@
   width: 50px;
   height: 50px;
   left: 0;
-  background-color: white;
+  /* background-color: white; */
+  background-color: #f9f5f0;
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
   transition: transform 300ms, -webkit-transform 300ms, background-color 300ms;
   padding: 13px;
+  /* transition: 0.8s all; */
+  display:none;
+  cursor:pointer;
 }
 .hambclicker i {
   font-size: 1.5em;
@@ -197,6 +219,7 @@
   -webkit-transform: translateX(320%);
   transform: translateX(320%);
   z-index: 3;
+  background-color:#28A59A;
 }
 /* .hambclicker.isopen:before {
   transform: translateY(9px) rotate(135deg);
@@ -210,14 +233,57 @@
   transform: scale(0);
 } */
 
-
-
+.top{
+  width: 60vw;
+}
+.top select{
+  width: 20vw;
+}
+@media all and (max-width: 900px) {
+  .outfitpanel {
+    margin-top: 8%;
+  }
+}
 
 @media all and (max-width: 700px) {
+  .home-wrapper{
+    margin-top:6%;
+  }
+  .outfitpanel {
+    margin-top: 6%;
+  }
   .button-group {
     width: 70%;
+  }
+  .home-wrapper .button-group {
+    display:none;
   }
   .saved-button-group {
     width: 70%;
   }
+  .topmenu{
+    top:185px;
+  }
+  .slide{
+    margin-top: 120px;
+    width: 35vw;
+  }
+  .topmenu select , .bottom-menu select{
+    width: 30vw;
+    }
+    .hambclicker {
+      display:block;
+    }
+}
+@media all and (max-width: 500px) {
+  .outfitpanel {
+    margin-top: 12%;
+  }
+  .slide{
+  
+    width: 45vw;
+  }
+  .topmenu select , .bottom-menu select{
+    width: 45vw;
+    }
 }

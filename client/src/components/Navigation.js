@@ -30,7 +30,7 @@ export class Navigation extends Component {
                  : 
                  <div className="rightnav">
                    <Link to="/profile" style={{textDecoration:"none"}}><img className="profile-nav-icon" src={this.props.profilePic} alt=""/></Link>
-                   <button className="logoutbtn" onClick={this.props.LogoutAction}>Logout</button>
+                   {/* <button className="logoutbtn" onClick={this.props.LogoutAction}>Logout</button> */}
                 </div>
                }
              <div className="mobile-menu">
@@ -49,7 +49,8 @@ export class Navigation extends Component {
                   <Link to="/about">About</Link>
                   <Link to="/shared-outfits">Shared Outfits</Link>
                   <Link to="/my-outfits" >My Outfits</Link>
-                  <button className="logoutbtn" onClick={this.props.LogoutAction}>Logout</button>
+                  <Link to="/profile" >My Account</Link>
+                  <a ><button style={{'backgroundColor':'transparent','border':'transparent'}} onClick={this.props.LogoutAction}>Logout</button></a>
                   </ul>
                   }
              </div>

@@ -33,7 +33,7 @@ ul {
 
 header{
   display: flex;
-  /* position: fixed; */
+  position: fixed;
   width: 100%;
   background-color: #28A59A;
   z-index:4;
@@ -127,10 +127,11 @@ header{
   width:90vw;
 }
 .about-wrapper{
-  padding:60px 0;
+  padding:40px 0;
 }
 .home-wrapper{
-  padding:60px 0;
+  margin-top:3%;
+  padding:20px 0;
 }
 .aboutcontent {
   text-align: left;
@@ -247,6 +248,8 @@ background: none;
   border: solid 1px rgba(78, 77, 77, 0.5);
   border-radius: 7px;
   background-color: white;
+  margin-top:15%;
+  padding:10px;
 }
 .profile-main-content form{
   height: 60vh;
@@ -523,6 +526,12 @@ justify-content: space-between;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  height: 80vh;
+  margin-top: 3%;
+}
+.form-wrapper form{
+  height: 70vh;
+  width: 50vw;
 }
 .pagination-wrapper {
   padding: 30px 0 0;
@@ -699,6 +708,7 @@ justify-content: space-between;
   transition: max-height 0.3s;
   margin: 0;
   padding: 0;
+  font-size: 14px;
 }
 #menuToggle:checked ~ ul {
     max-height: 350px;
@@ -717,5 +727,22 @@ justify-content: space-between;
 }
 .clothe-sections .tools {
   display: none;
+}
+.profile-main-content{
+  width:100vw;
+
+}
+.profile-main-content form{
+  width:85vw;
+}
+.profile-main-content form div.field{
+  width:80vw;
+  font-size:12px;
+}
+.profile-main-content form div.field label{
+  width:30vw;
+}
+.profile-main-content form div.field span{
+  width:35vw;
 }
 }
