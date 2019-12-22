@@ -3,7 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items:center;
-  margin-top: 3%;
+  /* margin-top: 8%; */
+  border:solid 1px rgba(0,0,0,0.3);
+  padding:0 0 30px 0;
+  border-radius:13px;
+  background-color:white;
 }
 .outfitsleft, .outfitsright {
   padding: 30px 0;
@@ -33,19 +37,19 @@
   width: 100%;
 }
 
-.topmenu {
+/* .topmenu {
   height: 200px;
   /* margin-top:63%; */
   
-}
-.topmenu , .bottom-menu {
+
+/* .topmenu , .bottom-menu {
   padding:15px;
   position:fixed;
   bottom:250px;
-}
-.topmenu select , .bottom-menu select{
+} */
+/* .topmenu select , .bottom-menu select{
 width: 20vw;
-}
+} */
 .outfitsright {
   width: 100%;
 }
@@ -105,6 +109,11 @@ width: 20vw;
   color: black;
   border: 1px solid black;
   background-color: white;
+}
+.saved-button-group .btn-primary:disabled{
+  color: white;
+  border: 1px solid white;
+  background-color: #494949;
 }
 .btn-primary:hover, .saved-button-group .btn-primary:hover {
   border: none;
@@ -235,7 +244,7 @@ width: 20vw;
 } */
 
 .top{
-  width: 60vw;
+  width: 80vw;
 }
 .top select{
   width: 20vw;
@@ -251,7 +260,8 @@ width: 20vw;
     margin-top:6%;
   }
   .outfitpanel {
-    margin-top: 6%;
+    margin-top: 20%;
+    border:none;
   }
   .button-group {
     width: 70%;
@@ -262,36 +272,98 @@ width: 20vw;
   .saved-button-group {
     width: 95%;
   }
-  .topmenu{
+  /* .topmenu{
     top:185px;
+  } */
+  .topmenu li, .bottom-menu li{
+list-style-type: none;
   }
   .slide{
-    margin-top: 120px;
+    margin-top: 80px;
     width: 35vw;
   }
-  .topmenu select , .bottom-menu select{
+  /* .topmenu select , .bottom-menu select{
     width: 30vw;
-    }
+    } */
     .hambclicker {
       display:block;
+      background-color:white;
     }
     #menu.isopen {
       z-index:4;
-      
+      background-color:rgb(68, 17, 66);
+      position:fixed;
+    }
+    #menu.isopen .slide{
+      position:fixed;
+    }
+    #menu.isopen .topmenu,  #menu.isopen .bottom-menu{
+      position:fixed;
+    }
+    #menu.isopen .topmenu{
+      top:220px;
+    }
+    #menu.isopen .bottom-menu{
+      top:420px;
+    }
+    #menu.isopen .topmenu ul li{
+      width:40vw;
+      background-color:white;
+      border-bottom:solid 1px rgba(0,0,0,0.3);
+    }
+    #menu.isopen .bottom-menu ul li{
+      width:40vw;
+      background-color:white;
+      border-bottom:solid 1px rgba(0,0,0,0.3);
+    }
+    #menu.isopen .topmenu ul li button,#menu.isopen .bottom-menu ul li button{
+      border:transparent;
+      width:40vw;
+    }
+
+    #menu.isopen .topmenu ul li button:hover,#menu.isopen .bottom-menu ul li button:hover,#menu.isopen .topmenu ul li button:active,#menu.isopen .bottom-menu ul li button:active{
+      color: white;
+      border: 1px solid white;
+      background-color: #494949;
     }
     .hambclicker.isopen {
       z-index:5;
+      background-color:rgb(68, 17, 66);
+    }
+    .stores .storebox{
+      height:90px;
     }
 }
 @media all and (max-width: 500px) {
   .outfitpanel {
-    margin-top: 12%;
+    margin-top: 22%;
   }
   .slide{
   margin-top:130px;
-    width: 45vw;
+    width: 60vw;
   }
-  .topmenu select , .bottom-menu select{
+  /* .topmenu select , .bottom-menu select{
     width: 45vw;
+    } */
+    #menu.isopen .topmenu ul li{
+      width:60vw;
+     
+    }
+    #menu.isopen .bottom-menu ul li{
+      width:60vw;
+     
+    }
+    #menu.isopen .topmenu ul li button,#menu.isopen .bottom-menu ul li button{
+      
+      width:60vw;
+    }
+    #menu.isopen .topmenu{
+      top:200px;
+    }
+    #menu.isopen .bottom-menu{
+      top:400px;
+    }
+    .slide{
+      margin-top: 120px;
     }
 }

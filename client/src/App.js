@@ -188,6 +188,32 @@ if(e.target.name === "catTopSelection"){
 }
 
  } 
+ setClickSelection = (name, val) =>{
+   console.log(name, val)
+  this.setState({
+    [name]: val, 
+  },()=>{
+    console.log(this.state.catTopSelection, this.state.catBottomSelection)
+  })
+  if(name === "catTopSelection"){
+    this.setState({
+      topImages: [],
+      currentTopIndex:0,
+      first:false,second:false,cannotSave:false
+    },()=>{
+      this.createTopArray();
+    })
+  } else{
+    this.setState({
+      bottomImages: [],
+      currentBottomIndex:0,
+      first:false,second:false,cannotSave:false
+    },()=>{
+      this.createBottomArray();
+     
+    })
+  }
+ }
  createTopArray = () => {
   if(this.state.clothes.length > 0){
     let tempTopArray = [];
@@ -752,6 +778,7 @@ unlikeOutfit = (outfit) =>{
                                                                             currentlyLoggedInUser ={this.state.currentlyLoggedInUser}
                                                                             cannotSave = {this.state.cannotSave}   
                                                                             checkMyOutfits = {this.checkMyOutfits}
+                                                                            setClickSelection = {this.setClickSelection}
             /> } />
             <Route path='/about' component={About} />
             <Route exact path="/signup" render = { (props) => <Signup {...props}  signup = {this.signup}

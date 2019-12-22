@@ -135,7 +135,20 @@ displayBottomOptions = () => {
     )
   })
 }
-
+displayTopList = () => {
+  return this.props.categoryTop.map((cat,ind)=>{
+    return (
+      <li key ={ind}><button onClick={()=>this.props.setClickSelection('catTopSelection',cat)}>{cat}</button></li>
+    )
+  })
+}
+displayBottomList = () => {
+  return this.props.categoryBottom.map((cat,ind)=>{
+    return (
+      <li key ={ind}><button onClick={()=>this.props.setClickSelection('catBottomSelection',cat)}>{cat}</button></li>
+    )
+  })
+}
   render() {
     //const { selectedOption } = this.state;
     let menuStatus = this.state.isOpen ? 'isopen' : '';
@@ -154,15 +167,21 @@ displayBottomOptions = () => {
            </div>
             <div className="topmenu">
    
-            <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}>
-                 {this.displayTopOptions()}
-            </select>
+            {/* <select name = "catTopSelection" value = {this.props.catTopSelection} onChange={this.props.setCatSelection}> */}
+                <ul>
+
+                 {this.displayTopList()}
+                </ul>
+            {/* </select> */}
            
             </div>
             <div className="bottom-menu">
-            <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}>
-                 {this.displayBottomOptions()}
-            </select>
+            {/* <select name = "catBottomSelection" value = {this.props.catBottomSelection} onChange={this.props.setCatSelection}> */}
+               <ul>
+
+                 {this.displayBottomList()}
+               </ul>
+            {/* </select> */}
             </div>
             </SlideMenu>
             <div className="home-wrapper">
