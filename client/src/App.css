@@ -8,7 +8,7 @@ html, body {
   background-color: #f9f5f0;
 }
 #root {
-  /* background-color:black; */
+  background-color: #f9f5f0;
   
   min-height: 100%;
 }
@@ -43,7 +43,6 @@ header{
 }
 .headerheightfixed {
   margin-top: 10%;
-  
 }
 /* .navheader {
   padding: 20px 0;
@@ -128,9 +127,6 @@ header{
   justify-content: center;
   align-items: center;
   width:90vw;
-  border:solid 1px rgba(0,0,0,0.3);
-  border-radius:13px;
-  background-color:white;
 }
 .about-wrapper{
   padding:40px 0;
@@ -802,9 +798,9 @@ button.Ripple-parent:hover{
 border:none;
 margin-top:15%;
 }
-.headerheightfixed{
+/* .headerheightfixed{
   background-color: white;
-}
+} */
 .profile{
   margin-top:12%;
 }
