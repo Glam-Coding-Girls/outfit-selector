@@ -169,7 +169,7 @@ width: 20vw;
   
   position: absolute;
   height: calc(100vh - 40px);
-  width: 210px;
+  width: 250px;
   left: 0;
   background-color: white;
   -webkit-transform: translateX(-210%);
@@ -183,7 +183,7 @@ width: 20vw;
 #menu.isopen {
   -webkit-transform: none;
   transform: none;
-  background-color:#28A59A;
+  /* background-color:#28A59A; */
   /* display:none; */
 }
 /* .sidebtn-options {
@@ -279,7 +279,7 @@ width: 20vw;
 list-style-type: none;
   }
   .slide{
-    margin-top: 80px;
+    top: 143px;
     width: 35vw;
   }
   /* .topmenu select , .bottom-menu select{
@@ -329,6 +329,7 @@ list-style-type: none;
     .hambclicker.isopen {
       z-index:5;
       background-color:rgb(68, 17, 66);
+      left:40px;
     }
     .stores .storebox{
       height:90px;
@@ -336,10 +337,10 @@ list-style-type: none;
 }
 @media all and (max-width: 500px) {
   .outfitpanel {
-    margin-top: 22%;
+    margin-top: 18%;
   }
   .slide{
-  margin-top:130px;
+  /* margin-top:130px; */
     width: 60vw;
   }
   /* .topmenu select , .bottom-menu select{
@@ -364,6 +365,6 @@ list-style-type: none;
       top:400px;
     }
     .slide{
-      margin-top: 120px;
+      top: 155px;
     }
 }
