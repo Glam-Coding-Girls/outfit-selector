@@ -4,7 +4,7 @@
   justify-content: center;
   align-items:center;
   /* margin-top: 8%; */
-  padding:0 0 30px 0;
+  /* padding:0 0 30px 0; */
 }
 .outfitsleft, .outfitsright {
   padding: 30px 0;
@@ -92,7 +92,7 @@ width: 20vw;
   display: flex;
   justify-content: space-around;
   width: 400px;
-  margin: 0 auto 20px;
+  margin: 0 auto 30px;
 }
 .saved-button-group {
   display: flex;
@@ -100,6 +100,7 @@ width: 20vw;
   /* width: 400px; */
   /* margin: 20px auto;  */
   width:85vw;
+  padding: 20px 0;
 }
 .saved-button-group button, .button-group button, .logoutbtn {
   width: 100px;
@@ -173,19 +174,21 @@ width: 20vw;
 .top select{
   width: 20vw;
 }
-@media all and (max-width: 900px) {
+/* @media all and (max-width: 900px) {
   .outfitpanel {
     margin-top: 8%;
   }
-}
+} */
 
 @media all and (max-width: 700px) {
   #menu {
     display: block;
-    position: absolute;
+    position: fixed;
     height: calc(100vh - 10px);
     width: 250px;
+    top: 70px;
     left: 0;
+    bottom: 0;
     background-color: white;
     -webkit-transform: translateX(-210%);
     transform: translateX(-210%);
@@ -205,7 +208,7 @@ width: 20vw;
     display: block;
   }
   .hambclicker {
-    position: absolute;
+    position: fixed;
     top: 75px;
     border: none;
     /* border-radius: 5px; */
@@ -235,11 +238,11 @@ width: 20vw;
     transform: translateX(400%);
     background-color:rgb(68, 17, 66);
   }
-  .home-wrapper{
-    margin-top:6%;
-  }
+.home-wrapper {
+  width: 100%;
+}
   .outfitpanel {
-    margin-top: 20%;
+    /* margin-top: 20%; */
     border:none;
   }
   .button-group {
@@ -251,33 +254,17 @@ width: 20vw;
   .saved-button-group {
     width: 95%;
   }
-  /* .topmenu{
-    top:185px;
-  } */
   .topmenu li, .bottom-menu li{
 list-style-type: none;
   }
   .slide{
-    margin-top: 80px;
+    margin-top: 70px;
   }
-  /* .topmenu select , .bottom-menu select{
-    width: 30vw;
-    } */
+  
     .hambclicker {
       display:block;
       background-color:white;
     }
-    /* #menu.isopen {
-      z-index:4;
-      background-color:rgb(68, 17, 66);
-      position:fixed;
-    } */
-    /* #menu.isopen .slide{
-      position:fixed;
-    }
-    #menu.isopen .topmenu,  #menu.isopen .bottom-menu{
-      position:fixed;
-    } */
     #menu.isopen .topmenu{
       top:220px;
     }
@@ -307,11 +294,4 @@ list-style-type: none;
       height:90px;
     }
 }
-@media all and (max-width: 500px) {
-  .outfitpanel {
-    margin-top: 22%;
-  }
-  .slide{
-  margin-top:120px;
-  }
-}
+

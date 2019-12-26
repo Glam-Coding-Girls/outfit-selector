@@ -6,22 +6,11 @@ import SlideMenu from '../SlideMenu';
 // import Select from 'react-select';
 
 
-// const options = [
-//   { value: 'Dress', label: 'One piece' },
-//   { value: 'twoPiece', label: 'Two piece' },
-// ];
-
 export class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
-      // selectedOption: {},
-      // isClearable: true,
-      // isDisabled: false,
-      // isLoading: false,
-      // isRtl: false,
-      // isSearchable: false,
+      isOpen: false
     }
     this._menuToggle = this._menuToggle.bind(this);
     this._handleDocumentClick = this._handleDocumentClick.bind(this);

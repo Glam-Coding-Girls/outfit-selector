@@ -8,8 +8,7 @@ html, body {
   background-color: #f9f5f0;
 }
 #root {
-  background-color: #f9f5f0;
-  
+  /* background-color: #f9f5f0; */
   min-height: 100%;
 }
 .page-wrapper {
@@ -38,11 +37,18 @@ header{
   width: 100%;
   /* background-color: #28A59A; */
   background-color:rgb(68, 17, 66);
-  z-index:6;
   top:0;
+  right: 0;
+  left: 0;
+  z-index:6;
+}
+.navheader {
+  height: 70px;
 }
 .headerheightfixed {
-  margin-top: 10%;
+  padding-top: 70px;
+  margin: 60px auto;
+  ;
 }
 /* .navheader {
   padding: 20px 0;
@@ -131,10 +137,10 @@ header{
 .about-wrapper{
   padding:40px 0;
 }
-.home-wrapper{
+/* .home-wrapper{
   margin-top:3%;
-  /* padding:20px 0; */
-}
+  padding:20px 0;
+} */
 .aboutcontent {
   text-align: left;
 }
@@ -701,9 +707,6 @@ button.Ripple-parent:hover{
 }
 }
 @media all and (max-width: 700px) {
-  body{
-    background-color: white;
-  }
   .mobile-menu a{
     color:white;
   }
