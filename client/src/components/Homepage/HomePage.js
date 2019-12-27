@@ -3,7 +3,6 @@ import Bottom from '../Bottom/Bottom';
 import './homepage.css';
 
 import SlideMenu from '../SlideMenu';
-// import Select from 'react-select';
 
 
 export class HomePage extends Component {
@@ -59,11 +58,23 @@ showDefault = () =>{
   } else{
   
     if(this.props.catSelection === 'Dress'){
-    
-      this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex]]);
+      if(this.props.topImages[this.props.currentTopIndex]){
+
+        this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex]]);
+      }
     } else {
     //  console.log(this.props.currentTopIndex,this.props.currentBottomIndex)
+    if(this.props.topImages[this.props.currentTopIndex]){
+      if(this.props.bottomImages[this.props.currentBottomIndex]){
       this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex],this.props.bottomImages[this.props.currentBottomIndex]]);
+      } else{
+        this.props.saveOutfit([this.props.topImages[this.props.currentTopIndex]])
+      }
+    } else {
+      if(this.props.bottomImages[this.props.currentBottomIndex]){
+        this.props.saveOutfit([this.props.bottomImages[this.props.currentBottomIndex]]);
+        }
+    }
     }
   }
  }

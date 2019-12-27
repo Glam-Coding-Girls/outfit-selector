@@ -43,7 +43,6 @@ export class Navigation extends Component {
                   <Link to="/my-outfits"style={{display:'none'}}>My Outfits</Link>
                   <Link to="/login" style={{textDecoration:"none"}}>Log in</Link>
                   </ul>
-                  
                   :
                   <ul>
                   <Link to="/about">About</Link>
