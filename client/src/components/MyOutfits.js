@@ -92,7 +92,7 @@ export class MyOutfits extends Component {
         return clothes.map((clothe,index)=>{
           return (
           <div key={index} className="clothe-sections one-piece-outfit">
-          
+            <div className="content-overlay"></div>
              <TransformWrapper>
                     {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
                       <React.Fragment>

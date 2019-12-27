@@ -105,6 +105,7 @@ header{
   font-weight: 500;
   transition: 0.8s all;
   color:white;
+  margin-bottom: 30px;
 }
 .logoutbtn:hover {
   color: #494949;
@@ -346,7 +347,7 @@ background: none;
   margin-bottom: 20px;
   /* height:50vh; */
   position: relative;
-  width:23.3%;
+  width:24%;
   height: auto;
   border:solid 1px rgba(109, 107, 107, 0.5);
   /* border-radius:7px; */
@@ -441,13 +442,16 @@ justify-content: space-between;
 .clothe-sections .tools:hover button {
   background-color: rgba(255, 255, 255, 1);
 }
+.clothe-sections .TransformComponent-module_content__TZU5O {
+  height: 200px;
+}
 .clothe-sections.one-piece-outfit, .clothe-sections.one-piece-outfit .TransformComponent-module_content__TZU5O {
   height: 400px;
 }
 .clothe-sections .content-overlay {
   background: rgba(0,0,0,0.7);
   position: absolute;
-  height: 20%;
+  height: 25%;
   width: 100%;
   left: 0;
   /* top: 0; */
@@ -663,7 +667,7 @@ justify-content: space-between;
   transition: all 0.3s ease-in-out 0s;
 }
 .clothe-sections:hover .content-details{
-  top: 92%;
+  top: 90%;
   left: 50%;
   opacity: 1;
   z-index: 3;
@@ -813,6 +817,20 @@ border:none;
 
 }
 }
+@media (min-width: 576px) and (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 0;
+  }
+  .leftnav a {
+    padding-right: 10px;
+  }
+  .homelogo a {
+    font-size: 1.9em;
+  }
+  .rightnav a {
+    padding-left: 0px;
+  }
+}
 @media all and (max-width: 700px) {
   .profile{
     margin-top:13%;
@@ -821,5 +839,10 @@ border:none;
 @media all and (max-width: 500px) {
   .profile{
     margin-top:20%;
+  }
+}
+@media all and (min-width: 701px) and (max-width: 991px) {
+  .outfit-display {
+    width: 47%;
   }
 }
