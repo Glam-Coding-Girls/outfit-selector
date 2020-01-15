@@ -16,8 +16,10 @@ If you don't want to create an account, you can Login using:
 - Made use of “Cloudinary” to store the uploaded pictures and “Heroku” for deployment.
 
 ## Clone or Download
+```
 $ git clone https://github.com/Glam-Coding-Girls/outfit-selector.git
 $ npm i
+```
 
 ## Usage (run fullstack app on your machine)
 - MongoDB
@@ -26,15 +28,18 @@ $ npm i
 notice, you need client and server runs concurrently in different terminal session, in order to make them talk to each other.
 
 ## Server-side usage(PORT: 8080)
+```
 $ cd server   // make sure you're in the server folder
 $ npm i       // npm install pacakges
 $ npm run dev // run it locally
+```
 
 ## Client-side usage(PORT: 3000)
+```
 $ cd client   // go to client folder
 $ npm i       // npm install pacakges
 $ npm start // run it locally
-
+```
 
 
 
