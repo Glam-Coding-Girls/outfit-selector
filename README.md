@@ -1,7 +1,6 @@
 ## Description
-Glam Closet is an outfit selector web app that allows users to combine different pieces of clothes, view and like outfits shared by others, and save outfits to their Glam Closet account.
-The clothes being displayed come from Amazon, Kohl's, Macy*s, Loft, Berrylook, and American Eagle. 
-Our motivation for building this app is to help us and others to better combine clothes from different stores and decide what outfit to wear and buy.
+- Glam Closet is an outfit selector web app that allows users to combine different pieces of clothes, view and like outfits shared by others, and save outfits to their Glam Closet account.
+- The clothes being displayed come from Amazon, Kohl's, Macy*s, Loft, Berrylook, and American Eagle. 
 
 [Live DEMO](https://glamcloset.herokuapp.com/#/)
 If you don't want to signup to create an account, you can Login using:
