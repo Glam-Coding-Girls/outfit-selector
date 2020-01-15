@@ -3,9 +3,11 @@
 - The clothes being displayed come from Amazon, Kohl's, Macy*s, Loft, Berrylook, and American Eagle. 
 
 [Live DEMO](https://glamcloset.herokuapp.com/#/)
-If you don't want to signup to create an account, you can Login using:
-email: test@test.com
-password: 123456
+
+- In order to view all available features, you should signup. 
+If you don't want to create an account, you can Login using:
+- email: test@test.com
+- password: 123456
  
 ## Technologies Used
 - This app was built using the MERN stack: MongoDB, Express.js, React.js, and Node.js.
